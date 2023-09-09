@@ -11,15 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('presensi', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->nullable();
             $table->integer('nip');
-            $table->string('email')->unique();
-            $table->string('jabatan');
-            $table->enum('role', ['pegawai', 'admin'])->default('pegawai');
-            $table->string('password');
-            $table->rememberToken();
+            $table->date('tgl_presensi');
+            $table->time('jam_in');
+            $table->time('jam_out');
+            $table->string('foto_in');
+            $table->string('foto_out');
+            $table->text('location_in');
+            $table->text('location_out');
             $table->timestamps();
         });
     }
@@ -29,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('presensi');
     }
 };

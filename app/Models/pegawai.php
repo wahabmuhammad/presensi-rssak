@@ -3,25 +3,29 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-
-use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
-{
-    use HasApiTokens, HasFactory, Notifiable, CanResetPassword;
 
-    protected $table = 'users';
-    
+class pegawai extends Authenticatable
+{
+    use HasApiTokens, HasFactory, Notifiable;
+
+    /**
+     * Protected var for acronym
+     *
+     * @var string
+     */
+    protected $table ="pegawai";
+    public $primaryKey ="nip";
     protected $fillable = [
-        'name',
         'nip',
-        'email',
+        'nama_lengkap',
+        'jabatan',
+        'no_hp',
         'password',
-        'jabatan'
     ];
 
     
@@ -35,6 +39,4 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
-
-    
 }

@@ -40,6 +40,16 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        
+        'pegawai' => [
+            'driver' => 'session',
+            'provider' => 'pegawais',
+        ],
+
+        'user' => [
+            'driver' => 'session',
+            'provider' => 'users',
+        ],
     ],
 
     /*
@@ -65,9 +75,18 @@ return [
             'model' => App\Models\User::class,
         ],
 
+        'pegawais' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\pegawai::class,
+        ],
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
+        // ],
+
+        // 'pegawais' => [
+        //     'driver' => 'database',
+        //     'table' => 'pegawai',
         // ],
     ],
 
