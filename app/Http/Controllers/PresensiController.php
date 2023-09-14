@@ -15,7 +15,7 @@ class PresensiController extends Controller
         
         $nip = Auth::user()->nip;
         $cek = DB::table('presensi')->where('tgl_presensi', $today)->where('nip',$nip)->count();
-        return view('absensi.create', compact('cek'));
+        return view('absensi.masuk', compact('cek'));
     }
 
     public function store(Request $request){
@@ -25,8 +25,8 @@ class PresensiController extends Controller
         $jam = date("H:i:s");
         $lokasi = $request->lokasi;
         $image = $request->image;
-        $folderPath = "public/upload/presensi/";
-        $formatName = $name . "-" . $tgl_presensi;
+        $folderPath = "public/upload/presensi-masuk/";
+        $formatName = $name . "-" . $tgl_presensi . " masuk";
         $image_parts = explode(";base64", $image);
         $image_base64 = base64_decode($image_parts[1]);
         $fileName = $formatName . ".png";
@@ -50,20 +50,7 @@ class PresensiController extends Controller
                 echo "error|Silahkan Hubungi TIM IT";
             }
         }elseif ($cek == 1) {
-            $dataPulang = [
-                'jam_out' => $jam,
-                'foto_out' => $fileName,
-                'location_out' => $lokasi
-            ];
-            $update = DB::table('presensi')->where('tgl_presensi', $tgl_presensi)->where('name', $name)->update($dataPulang);
-            if($update){
-                echo "success|Hati-hati di Jalan|out";
-                Storage::put($file, $image_base64);
-            }else{
-                echo "error|Silahkan Hubungi TIM IT";
-            }
-        }else{
-            echo "Maaf Anda Sudah melakukan Presensi Hari ini";
+            echo "error|Maaf Anda Sudah melakukan Presensi Masuk Hari ini";
         }
     }
 }

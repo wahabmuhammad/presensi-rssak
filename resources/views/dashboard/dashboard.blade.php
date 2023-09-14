@@ -66,7 +66,7 @@
             <div class="todaypresence">
                 <div class="row">
                     <div class="col-6">
-                        <a href="{{route('presensi')}}">
+                        <a href="{{route('masuk')}}">
                         <div class="card gradasigreen">
                             <div class="card-body">
                                 <div class="presencecontent">
@@ -75,7 +75,8 @@
                                     </div>
                                     <div class="presencedetail">
                                         <h4 class="presencetitle">Masuk</h4>
-                                        <span>{{$todayPresensi != null ? $todayPresensi->jam_in: 'Belum Absen'}}</span>
+                                        <h4 class="presencetitle">{{$PresensiMasuk != null ? $PresensiMasuk->tgl_presensi: ''}}</h4>
+                                        <span>{{$PresensiMasuk != null ? $PresensiMasuk->jam_in: 'Belum Absen'}}</span>
                                     </div>
                                 </div>
                             </div>
@@ -83,7 +84,7 @@
                         </a>
                     </div>
                     <div class="col-6">
-                        <a href="{{route('presensi')}}">
+                        <a href="{{route('pulang')}}">
                             <div class="card gradasired">
                                 <div class="card-body">
                                     <div class="presencecontent">
@@ -92,7 +93,8 @@
                                         </div>
                                         <div class="presencedetail">
                                             <h4 class="presencetitle">Pulang</h4>
-                                            <span>{{$todayPresensi != null && $todayPresensi->jam_out != null ? $todayPresensi->jam_out: 'Belum Absen'}}</span>
+                                            <h4 class="presencetitle">{{$PresensiPulang != null && $PresensiPulang->tgl_presensi_out != null ? $PresensiPulang->tgl_presensi_out: ''}}</h4>
+                                            <span>{{$PresensiPulang != null && $PresensiPulang->jam_out != null ? $PresensiPulang->jam_out: 'Belum Absen'}}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -120,20 +122,22 @@
                 <div class="tab-content mt-2" style="margin-bottom:100px;">
                     <div class="tab-pane fade show active" id="home" role="tabpanel">
                         <ul class="listview image-listview">
-                            {{-- @foreach ($collection as $item) --}}
+                            @foreach ($presensimasukBulanini as $d)
+                            @php
+                                $path = Storage::url('upload/presensi-masuk/'.$d->foto_in);
+                            @endphp
                                 <li>
                                     <div class="item">
                                         <div class="icon-box bg-primary">
-                                            <ion-icon name="image-outline" role="img" class="md hydrated"
-                                                aria-label="image outline"></ion-icon>
+                                            <img src="{{url($path)}}" alt="" class="imaged w64">
                                         </div>
                                         <div class="in">
-                                            <div>Photos</div>
-                                            <span class="badge badge-danger">10</span>
+                                            <div>{{date("d-m-Y", strtotime($d->tgl_presensi))}}</div>
+                                            <span class="badge badge-success">{{$d->jam_in}}</span>
                                         </div>
                                     </div>
                                 </li>
-                            {{-- @endforeach --}}
+                            @endforeach
                         </ul>
                     </div>
                     <div class="tab-pane fade" id="profile" role="tabpanel">

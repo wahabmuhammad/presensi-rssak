@@ -1,13 +1,15 @@
 @extends('layouts.presensi')
 @section('header')
 <!-- App Header -->
+<meta name="csrf-token" content="{{ csrf_token() }}">
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 <div class="appHeader bg-primary text-light">
     <div class="left">
         <a href="{{route('dashboard')}}" class="headerButton goBack">
             <ion-icon name="chevron-back-outline"></ion-icon>
         </a>
     </div>
-    <div class="pageTitle">Presensi</div>
+    <div class="pageTitle">Presensi Pulang</div>
     <div class="right"></div>
 </div>
 <!-- * App Header -->
@@ -37,19 +39,13 @@
             <div class="webcam-capture" style="-webkit-transform: scaleX(1);"></div>
         </div>
     </div>
-    @if ($cek > 0)
-        <div class="row">
-            <button id="takepresensi" class="btn btn-danger btn-block">
-                <ion-icon name="camera-outline"></ion-icon>
+
+    <div class="row">
+        <button id="takepresensi" class="btn btn-danger btn-block">
+            <ion-icon name="camera-outline"></ion-icon>
             Presensi Pulang</button>
-        </div>
-    @else
-        <div class="row">
-            <button id="takepresensi" class="btn btn-success btn-block">
-                <ion-icon name="camera-outline"></ion-icon>
-            Presensi Masuk</button>
-        </div>
-    @endif
+    </div>
+
 
     <div class="row mt-2">
         <div class="col">
@@ -131,17 +127,25 @@
     function errorCallback(){
 
     }
+    
+    // $.ajaxSetup({
+    //     headers: {
+    //         ‘X-CSRF-TOKEN’: $(‘meta[name=”csrf-token”]’).attr(‘content’)
+    //     }
+    // });
+
 
     $("#camera").click(function(e){
         Webcam.snap(function(uri){
             image = uri;
         });
         var lokasi = $("#lokasi").val();
+
         $.ajax({
             type:'POST',
-            url:'presensi_rssak/public/store',
+            url:'presensi/public/pulang',
             data:{
-                _token:"{{csrf_token()}}",
+                _token:"{{ csrf_token() }}",
                 image:image,
                 lokasi:lokasi,
             },
