@@ -125,8 +125,10 @@
                             @foreach ($presensimasukBulanini as $d)
                             @php
                                 $path = Storage::url('upload/presensi-masuk/'.$d->foto_in);
+                                $pathIn = Storage::url('upload/presensi-pulang/'.$d->foto_in);
                             @endphp
                                 <li>
+                                    <h4 style="color: green">History Presensi Masuk</h4>
                                     <div class="item">
                                         <div class="icon-box bg-primary">
                                             <img src="{{url($path)}}" alt="" class="imaged w64">
@@ -139,51 +141,47 @@
                                 </li>
                             @endforeach
                         </ul>
+
+                        <ul class="listview image-listview">
+                            @foreach ($presensipulangBulanini as $c)
+                            @php
+                                $pathOut = Storage::url('upload/presensi-pulang/'.$c->foto_out);
+                            @endphp
+                                <li>
+                                    <h4 style="color: red">History Presensi Pulang</h4>
+                                    <div class="item">
+                                        <div class="icon-box bg-primary">
+                                            <img src="{{url($pathOut)}}" alt="" class="imaged w64">
+                                        </div>
+                                        <div class="in">
+                                            <div>{{date("d-m-Y", strtotime($c->tgl_presensi_out))}}</div>
+                                            <span class="badge badge-danger">{{$c->jam_out}}</span>
+                                        </div>
+                                    </div>
+                                </li>
+                            @endforeach
+                        </ul>
                     </div>
                     <div class="tab-pane fade" id="profile" role="tabpanel">
                         <ul class="listview image-listview">
+                            @foreach ($leaderboard as $l )
                             <li>
                                 <div class="item">
                                     <img src="assets/img/sample/avatar/avatar1.jpg" alt="image" class="image">
                                     <div class="in">
-                                        <div>Edward Lindgren</div>
-                                        <span class="text-muted">Designer</span>
+                                        <div>
+                                            <b>{{$l->name}}</b> <br>
+                                            <small>
+                                                {{$l->jabatan}}
+                                            </small>
+                                        </div>
+                                        <span class="badge badge-primary">
+                                            {{$l->jam_in}}
+                                        </span>
                                     </div>
                                 </div>
                             </li>
-                            <li>
-                                <div class="item">
-                                    <img src="assets/img/sample/avatar/avatar1.jpg" alt="image" class="image">
-                                    <div class="in">
-                                        <div>Emelda Scandroot</div>
-                                        <span class="badge badge-primary">3</span>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="item">
-                                    <img src="assets/img/sample/avatar/avatar1.jpg" alt="image" class="image">
-                                    <div class="in">
-                                        <div>Henry Bove</div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="item">
-                                    <img src="assets/img/sample/avatar/avatar1.jpg" alt="image" class="image">
-                                    <div class="in">
-                                        <div>Henry Bove</div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="item">
-                                    <img src="assets/img/sample/avatar/avatar1.jpg" alt="image" class="image">
-                                    <div class="in">
-                                        <div>Henry Bove</div>
-                                    </div>
-                                </div>
-                            </li>
+                            @endforeach
                         </ul>
                     </div>
 
