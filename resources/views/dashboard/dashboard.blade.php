@@ -165,9 +165,14 @@
                     <div class="tab-pane fade" id="profile" role="tabpanel">
                         <ul class="listview image-listview">
                             @foreach ($leaderboard as $l )
+                            @php
+                                $pathIn = Storage::url('upload/presensi-masuk/'.$l->foto_in);
+                            @endphp
                             <li>
                                 <div class="item">
-                                    <img src="assets/img/sample/avatar/avatar1.jpg" alt="image" class="image">
+                                    <div class="icon-box bg-primary">
+                                        <img src="{{url($pathIn)}}" alt="" class="imaged w64">
+                                    </div>
                                     <div class="in">
                                         <div>
                                             <b>{{$l->name}}</b> <br>
