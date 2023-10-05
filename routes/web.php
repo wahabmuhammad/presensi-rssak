@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\adminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PresensiController;
@@ -24,19 +25,25 @@ Route::get('/', function () {
     return view('auth.login');
 })->name('login');
 
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::get('/masuk', [PresensiController::class, 'index'])->name('masuk');
+    Route::get('/pulang', [presensiOut_Controller::class, 'index'])->name('pulang');
+    Route::post('/presensi/public/masuk', [PresensiController::class, 'store'])->name('store');
+    Route::post('/presensi/public/pulang', [presensiOut_Controller::class, 'store'])->name('pulangStore');
+    Route::get('/user', [adminController::class, 'user'])->name('kepegawaianUser');
+    Route::get('/admin', [adminController::class, 'index'])->name('adminDashboard')->name('admin');
+});
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
-Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
-Route::get('/masuk', [PresensiController::class, 'index'])->name('masuk')->middleware('auth');
-Route::get('/pulang', [presensiOut_Controller::class, 'index'])->name('pulang')->middleware('auth');
+
+
 Route::post('/proseslogin', [AuthController::class, 'proseslogin'])->name('proseslogin');
-Route::post('/presensi/public/masuk', [PresensiController::class, 'store'])->name('store')->middleware('auth');
-Route::post('/presensi/public/pulang', [presensiOut_Controller::class, 'store'])->name('pulangStore')->middleware('auth');
 
-Route::get('/register', [registerController::class, 'register'])->name('register');
-Route::post('/register/store', [registerController::class, 'store'])->name('storedata');
 
-Route::controller(registerController::class)->group(function(){
+Route::controller(registerController::class)->group(function () {
+    Route::get('/register', [registerController::class, 'register'])->name('register');
+    Route::post('/register/store', [registerController::class, 'store'])->name('storedata');
     Route::get('/ResetPassword', 'update')->name('resetPassword');
     Route::post('/ResetPassword/reset', 'resetPassword')->name('reset');
     Route::get('/reset-password/{token}', function (string $token) {
@@ -44,4 +51,3 @@ Route::controller(registerController::class)->group(function(){
     })->name('password.reset');
     Route::post('/reset-passsword', [registerController::class, 'reset'])->name('reset-password');
 });
-

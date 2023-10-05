@@ -1,4 +1,6 @@
 @extends('layouts.presensi')
+
+
 @section('content')
     <!-- App Capsule -->
     <div id="appCapsule">
@@ -36,6 +38,16 @@
                             </div>
                             <div class="menu-name">
                                 <span class="text-center">Cuti</span>
+                            </div>
+                        </div>
+                        <div class="item-menu text-center">
+                            <div class="menu-icon">
+                                <a href="" class="primary" style="font-size: 40px;">
+                                    <ion-icon name="time"></ion-icon>
+                                </a>
+                            </div>
+                            <div class="menu-name">
+                                <span class="text-center">Lembur</span>
                             </div>
                         </div>
                         <div class="item-menu text-center">
@@ -125,7 +137,6 @@
                             @foreach ($presensimasukBulanini as $d)
                             @php
                                 $path = Storage::url('upload/presensi-masuk/'.$d->foto_in);
-                                $pathIn = Storage::url('upload/presensi-pulang/'.$d->foto_in);
                             @endphp
                                 <li>
                                     <h4 style="color: green">History Presensi Masuk</h4>
@@ -166,7 +177,7 @@
                         <ul class="listview image-listview">
                             @foreach ($leaderboard as $l )
                             @php
-                                $pathIn = Storage::url('upload/presensi-masuk/'.$l->foto_in);
+                                $pathIn = Storage::url('public/upload/presensi-masuk/'.$l->foto_in);
                             @endphp
                             <li>
                                 <div class="item">
@@ -180,9 +191,13 @@
                                                 {{$l->jabatan}}
                                             </small>
                                         </div>
-                                        <span class="badge badge-primary">
-                                            {{$l->jam_in}}
-                                        </span>
+                                        <div>
+                                            <h5>Masuk</h5>
+                                            <span class="badge badge-primary">
+                                                {{$l->jam_in}}
+                                            </span>
+                                        </div>
+
                                     </div>
                                 </div>
                             </li>

@@ -34,7 +34,11 @@ class AuthController extends Controller
         ];
 
         if(Auth::attempt($infologin)){
-            return redirect('/dashboard');
+            if(Auth::user()->role == 'admin'){
+                return redirect('/admin');
+            }else{
+                return redirect('/dashboard');
+            }
         }else{
             return redirect('/')->withErrors('NIP atau Password tidak sesuai')->withInput();
         }
