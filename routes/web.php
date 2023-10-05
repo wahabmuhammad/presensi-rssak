@@ -34,6 +34,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/presensi/public/pulang', [presensiOut_Controller::class, 'store'])->name('pulangStore');
     Route::get('/user', [adminController::class, 'user'])->name('kepegawaianUser');
     Route::get('/admin', [adminController::class, 'index'])->name('adminDashboard')->name('admin');
+    Route::get('/rekap_Presensi', [adminController::class, 'rekap'])->name('rekapPresensi_In');
 });
 
 

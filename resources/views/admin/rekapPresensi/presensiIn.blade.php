@@ -10,7 +10,7 @@
                         Administrator
                     </div>
                     <h2 class="page-title">
-                        Data Akun Pegawai
+                        Dashboard
                     </h2>
                 </div>
                 <!-- Page title actions -->
