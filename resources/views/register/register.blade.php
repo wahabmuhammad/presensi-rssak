@@ -75,7 +75,7 @@
                                 </div>
 
                                 <div class="mt-4 pt-2">
-                                    <input id="register" name="register" class="btn btn-primary btn-lg" type="submit" value="Submit" />
+                                    <input id="register" name="register" class="btn btn-primary btn-lg" type="submit" value="Daftar" />
                                 </div>
                                 </form>
                             </div>

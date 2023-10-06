@@ -16,11 +16,6 @@
                 <!-- Page title actions -->
                 <div class="col-auto ms-auto d-print-none">
                     <div class="btn-list">
-                        <span class="d-none d-sm-inline">
-                            <a href="#" class="btn">
-                                New view
-                            </a>
-                        </span>
                         <a href="#" class="btn btn-primary d-none d-sm-inline-block"
                             data-bs-toggle="modal" data-bs-target="#modal-report">
                             <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
@@ -31,9 +26,9 @@
                                 <path d="M12 5l0 14" />
                                 <path d="M5 12l14 0" />
                             </svg>
-                            Create new report
+                            Buat User Baru
                         </a>
-                        <a href="#" class="btn btn-primary d-sm-none btn-icon" data-bs-toggle="modal"
+                        {{-- <a href="#" class="btn btn-primary d-sm-none btn-icon" data-bs-toggle="modal"
                             data-bs-target="#modal-report" aria-label="Create new report">
                             <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24"
@@ -43,7 +38,7 @@
                                 <path d="M12 5l0 14" />
                                 <path d="M5 12l14 0" />
                             </svg>
-                        </a>
+                        </a> --}}
                     </div>
                 </div>
             </div>
@@ -89,22 +84,12 @@
                             </td>
                             <td>
                                 <div class="btn-list flex-nowrap">
-                                    <a href="#" class="btn">
+                                    <a href="#" class="btn btn-orange">
                                         Edit
                                     </a>
-                                    <div class="dropdown">
-                                        <button class="btn dropdown-toggle align-text-top" data-bs-toggle="dropdown">
-                                            Actions
-                                        </button>
-                                        <div class="dropdown-menu dropdown-menu-end">
-                                            <a class="dropdown-item" href="#">
-                                                Action
-                                            </a>
-                                            <a class="dropdown-item" href="#">
-                                                Another action
-                                            </a>
-                                        </div>
-                                    </div>
+                                    <a href="#" class="btn btn-danger">
+                                        Delete
+                                    </a>
                                 </div>
                             </td>
                         </tr>

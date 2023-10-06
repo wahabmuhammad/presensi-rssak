@@ -26,6 +26,7 @@ class adminController extends Controller
     }
 
     public function rekap(){
-        return view('admin.rekapPresensi.presensiIn');
+        $userTable = User::orderBy('id', 'asc')->paginate(10);
+        return view('admin.rekapPresensi.presensiIn', compact('userTable'));
     }
 }
