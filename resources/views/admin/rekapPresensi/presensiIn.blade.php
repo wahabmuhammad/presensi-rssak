@@ -24,20 +24,29 @@
                     <thead>
                         <tr>
                             <th>No</th>
+                            <th>Foto Masuk</th>
                             <th>NIP</th>
                             <th>Name</th>
-                            <th>Title</th>
+                            <th>Tanggal Masuk</th>
                             <th class="w-1"></th>
                         </tr>
                     </thead>
                     <tbody>
                         @php
-                            $i = $userTable->firstItem()
+                            $i = $rekapMasuk->firstItem()
                         @endphp
-                        @foreach ($userTable as $u)
+                        @foreach ($rekapMasuk as $u)
+                        @php
+                            $pathIn = Storage::url('public/upload/presensi-masuk/'.$u->foto_in);
+                        @endphp
                         <tr>
                             <td class="text-secondary strong" data-label="NO">
                                 {{$i}}
+                            </td>
+                            <td class="text-secondary strong" data-label="Foto Masuk">
+                                <div class="icon-box">
+                                    <img src="{{url($pathIn)}}" alt="image" height="42" width="50" class="imaged rounded center">
+                                </div>
                             </td>
                             <td class="text-secondary strong" data-label="NIP">
                                 {{$u->nip}}
@@ -47,19 +56,16 @@
                                     <div class="flex-fill">
                                         <div class="font-weight-medium strong">{{$u->name}}</div>
                                         <div class="text-secondary"><a href="#"
-                                                class="text-reset">{{$u->email}}</a></div>
+                                                class="text-reset">{{$u->location_in}}</a></div>
                                     </div>
                                 </div>
                             </td>
-                            <td data-label="Title">
-                                <div class="strong">{{$u->jabatan}}</div>
-                                <div class="text-secondary">{{$u->role}}</div>
+                            <td data-label="Tanggal Masuk">
+                                <div class="strong">{{$u->tgl_presensi}}</div>
+                                <div class="text-secondary">{{$u->jam_in}}</div>
                             </td>
                             <td>
                                 <div class="btn-list flex-nowrap">
-                                    <a href="#" class="btn">
-                                        Edit
-                                    </a>
                                     <div class="dropdown">
                                         <button class="btn dropdown-toggle align-text-top" data-bs-toggle="dropdown">
                                             Actions
@@ -82,7 +88,7 @@
                         @endforeach
                     </tbody>
                 </table>
-                {{$userTable->links()}}
+                {{$rekapMasuk->links()}}
             </div>
         </div>
     </div>

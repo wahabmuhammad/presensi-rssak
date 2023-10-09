@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Http\Controllers\Controller;
+use App\Models\Preseni_In;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -25,8 +27,27 @@ class adminController extends Controller
         return view('admin.kepegawaian.user', compact('userTable'));
     }
 
+    public function create_user(Request $request){
+        $validasi = $request->validate([
+            'name' => 'required|string|max:255',
+            'nip' => 'required|unique:users,nip',
+            'password' => 'required|min:8',
+            'email' => 'required|email|max:255|unique:users',
+            'jabatan' => 'required|string|max:255'
+        ]);
+        //create to database
+        $simpan = User::create($validasi);
+        if($simpan){
+            echo "0";
+        }else{
+            echo "1";
+        }
+    }
+
     public function rekap(){
-        $userTable = User::orderBy('id', 'asc')->paginate(10);
-        return view('admin.rekapPresensi.presensiIn', compact('userTable'));
+        $today = date("Y-m-d");
+        $bulanIni = date("m", strtotime($today));
+        $rekapMasuk = DB::table('presensi')->whereMonth('tgl_presensi', $bulanIni)->orderBy('tgl_presensi')->paginate('15');
+        return view('admin.rekapPresensi.presensiIn', compact('rekapMasuk'));
     }
 }
