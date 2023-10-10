@@ -54,10 +54,17 @@ class adminController extends Controller
         }
     }
 
-    public function rekap(){
+    public function rekap(Request $request){
         $today = date("Y-m-d");
         $bulanIni = date("m", strtotime($today));
-        $rekapMasuk = DB::table('presensi')->whereMonth('tgl_presensi', $bulanIni)->orderBy('tgl_presensi')->paginate('15');
+        $keyword = $request->search;
+
+        if(strlen($keyword)){
+            $rekapMasuk = DB::table('presensi')->where('nip', 'like', "%$keyword%")
+            ->orWhere('name', 'like', "%$keyword%")->paginate(10);
+        }else{
+            $rekapMasuk = DB::table('presensi')->whereMonth('tgl_presensi', $bulanIni)->orderBy('tgl_presensi')->paginate('15');
+        }
         return view('admin.rekapPresensi.presensiIn', compact('rekapMasuk'));
     }
 }
