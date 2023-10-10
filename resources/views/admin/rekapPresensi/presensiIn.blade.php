@@ -45,7 +45,7 @@
                             </td>
                             <td class="text-secondary strong" data-label="Foto Masuk">
                                 <div class="icon-box">
-                                    <img src="{{url($pathIn)}}" alt="image" height="42" width="50" class="imaged rounded center">
+                                    <img src="{{url($pathIn)}}" alt="image" height="42" width="62" class="imaged rounded center">
                                 </div>
                             </td>
                             <td class="text-secondary strong" data-label="NIP">

@@ -72,73 +72,7 @@
             </footer>
         </div>
     </div>
-    {{-- modal list --}}
-    <div class="modal modal-blur fade" id="modal-report" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <form action="{{ route('storedata') }}" method="POST">
-                @csrf
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Membuat User Baru</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <label class="form-label strong">Nama</label>
-                            <input type="text" class="form-control" name="example-text-input"
-                                placeholder="Nama Lengkap dan Gelar">
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label strong">Password</label>
-                            <input type="password" class="form-control" name="example-text-input"
-                                placeholder="Password">
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label strong">NIP</label>
-                            <input type="text" class="form-control" name="example-text-input"
-                                placeholder="Nomor Induk Pegawai">
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-8">
-                                <div class="mb-3">
-                                    <label class="form-label strong">Jabatan</label>
-                                    <div class="input-group input-group-flat">
-                                        <input type="text" class="form-control" autocomplete="off"
-                                            placeholder="Jabatan">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="mb-3">
-                                    <label class="form-label strong">Jenis Akun</label>
-                                    <select class="form-select">
-                                        <option value="1" selected>Pegawai</option>
-                                        <option value="2">Admin</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <a href="#" class="btn btn-link link-secondary" data-bs-dismiss="modal">
-                            Batal
-                        </a>
-                        <a href="" class="btn btn-primary ms-auto" data-bs-dismiss="modal" type="summit">
-                            <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
-                                viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                <path d="M12 5l0 14" />
-                                <path d="M5 12l14 0" />
-                            </svg>
-                            Buat Akun
-                        </a>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
+
 
 
     <!-- Libs JS -->

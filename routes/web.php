@@ -33,6 +33,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/presensi/public/masuk', [PresensiController::class, 'store'])->name('store');
     Route::post('/presensi/public/pulang', [presensiOut_Controller::class, 'store'])->name('pulangStore');
     Route::get('/user', [adminController::class, 'user'])->name('kepegawaianUser');
+    Route::post('/user/create-user', [adminController::class, 'create_user'])->name('createUser');
     Route::get('/admin', [adminController::class, 'index'])->name('adminDashboard')->name('admin');
     Route::get('/rekap_Presensi', [adminController::class, 'rekap'])->name('rekapPresensi_In');
 });
