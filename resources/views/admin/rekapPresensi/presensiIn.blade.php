@@ -108,7 +108,7 @@
                             @endforeach
                         </tbody>
                     </table>
-                    {{ $rekapMasuk->links() }}
+                    {{ $rekapMasuk->withQueryString()->links() }}
                 </div>
             </div>
         </div>

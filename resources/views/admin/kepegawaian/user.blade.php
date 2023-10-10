@@ -126,7 +126,7 @@
                             @endforeach
                         </tbody>
                     </table>
-                    {{ $userTable->links() }}
+                    {{ $userTable->withQueryString()->links() }}
                 </div>
             </div>
         </div>
