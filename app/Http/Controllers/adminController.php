@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 
 use App\Http\Controllers\Controller;
-use App\Models\Preseni_In;
+use App\Models\Presensi;
+use App\Models\presensiIn;
+use App\Models\presensiOut;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -48,9 +50,9 @@ class adminController extends Controller
         //create to database
         $simpan = User::create($validasi);
         if($simpan){
-            return redirect(route('kepegawaianUser'))->with('Berhasil Membuat User');
+            return back()->with('Berhasil Membuat User');
         }else{
-            return redirect(route('kepegawaianUser'))->with('Gagal Membuat User');
+            return back()->with('Gagal Membuat User');
         }
     }
 
@@ -60,11 +62,25 @@ class adminController extends Controller
         $keyword = $request->search;
 
         if(strlen($keyword)){
-            $rekapMasuk = DB::table('presensi')->where('nip', 'like', "%$keyword%")
+            $rekapMasuk = presensiIn::where('nip', 'like', "%$keyword%")
             ->orWhere('name', 'like', "%$keyword%")->paginate(10);
         }else{
-            $rekapMasuk = DB::table('presensi')->whereMonth('tgl_presensi', $bulanIni)->orderBy('tgl_presensi')->paginate('15');
+            $rekapMasuk = presensiIn::whereMonth('tgl_presensi', $bulanIni)->orderBy('tgl_presensi')->paginate('15');
         }
         return view('admin.rekapPresensi.presensiIn', compact('rekapMasuk'));
+    }
+
+    public function rekapOut(Request $request){
+        $today = date("Y-m-d");
+        $bulanIni = date("m", strtotime($today));
+        $keyword = $request->search;
+
+        if(strlen($keyword)){
+            $rekapPulang = presensiOut::where('nip', 'like', "%$keyword%")
+            ->orWhere('name', 'like', "%$keyword%")->paginate(10);
+        }else{
+            $rekapPulang = presensiOut::whereMonth('tgl_presensi_out', $bulanIni)->orderBy('tgl_presensi_out')->paginate('15');
+        }
+        return view('admin.rekapPresensi.presensiOut', compact('rekapPulang'));
     }
 }

@@ -10,7 +10,7 @@
                             Administrator
                         </div>
                         <h2 class="page-title">
-                            Rekap Presensi Masuk
+                            Rekap Presensi Pulang
                         </h2>
                     </div>
                     <!-- Page title actions -->
@@ -18,7 +18,7 @@
             </div>
         </div>
         <div class="col-auto ms-auto mt-3">
-            <form action="{{ url('rekap_Presensi_in') }}" method="GET">
+            <form action="{{ url('rekap_Presensi_out') }}" method="GET">
                 <div class="input-group">
                     <input type="search" value="{{ Request::get('search') }}" class="form-control" placeholder="Search…"
                         name="search" aria-label="Search in website">
@@ -42,20 +42,20 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Foto Masuk</th>
+                                <th>Foto Pulang</th>
                                 <th>NIP</th>
                                 <th>Name</th>
-                                <th>Tanggal Masuk</th>
+                                <th>Tanggal Pulang</th>
                                 <th class="w-1"></th>
                             </tr>
                         </thead>
                         <tbody>
                             @php
-                                $i = $rekapMasuk->firstItem();
+                                $i = $rekapPulang->firstItem();
                             @endphp
-                            @foreach ($rekapMasuk as $u)
+                            @foreach ($rekapPulang as $u)
                                 @php
-                                    $pathIn = Storage::url('public/upload/presensi-masuk/' . $u->foto_in);
+                                    $pathIn = Storage::url('public/upload/presensi-pulang/' . $u->foto_out);
                                 @endphp
                                 <tr>
                                     <td class="text-secondary strong" data-label="NO">
@@ -75,13 +75,13 @@
                                             <div class="flex-fill">
                                                 <div class="font-weight-medium strong">{{ $u->name }}</div>
                                                 <div class="text-secondary"><a href="#"
-                                                        class="text-reset">{{ $u->location_in }}</a></div>
+                                                        class="text-reset">{{ $u->location_out }}</a></div>
                                             </div>
                                         </div>
                                     </td>
                                     <td data-label="Tanggal Masuk">
-                                        <div class="strong">{{ $u->tgl_presensi }}</div>
-                                        <div class="text-secondary">{{ $u->jam_in }}</div>
+                                        <div class="strong">{{ $u->tgl_presensi_out }}</div>
+                                        <div class="text-secondary">{{ $u->jam_out }}</div>
                                     </td>
                                     <td>
                                         <div class="btn-list flex-nowrap">
@@ -108,7 +108,7 @@
                             @endforeach
                         </tbody>
                     </table>
-                    {{ $rekapMasuk->withQueryString()->links() }}
+                    {{ $rekapPulang->withQueryString()->links() }}
                 </div>
             </div>
         </div>
