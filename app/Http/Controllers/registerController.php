@@ -18,9 +18,10 @@ class registerController extends Controller
     }
 
     public function store(Request $request){
+        dd($request);
         $validasi = $request->validate([
             'name' => 'required|string|max:255',
-            'nip' => 'required|unique:users,nip',
+            'nip' => 'required|unique:users',
             'password' => 'required|min:8',
             'email' => 'required|email|max:255|unique:users',
             'jabatan' => 'required|string|max:255'

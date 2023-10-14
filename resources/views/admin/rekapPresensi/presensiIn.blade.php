@@ -24,9 +24,10 @@
                     <thead>
                         <tr>
                             <th>No</th>
+                            <th>Foto Masuk</th>
                             <th>NIP</th>
                             <th>Name</th>
-                            <th>Title</th>
+                            <th>Tanggal Masuk</th>
                             <th class="w-1"></th>
                         </tr>
                     </thead>
