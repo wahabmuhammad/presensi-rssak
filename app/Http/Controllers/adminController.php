@@ -81,6 +81,6 @@ class adminController extends Controller
         }else{
             $rekapPulang = presensiOut::whereMonth('tgl_presensi_out', $bulanIni)->orderBy('tgl_presensi_out')->paginate('15');
         }
-        return view('admin.rekapPresensi.presensiOut', compact('rekapPulang'));
+        return view('admin.rekapPresensi.presensiOut', compact('rekapPulang', 'today'));
     }
 }

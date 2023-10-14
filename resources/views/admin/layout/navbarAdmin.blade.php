@@ -180,7 +180,7 @@
             </div>
         </div>
         <div class="collapse navbar-collapse" id="navbar-menu">
-            <div>
+            {{-- <div>
                 <form action="{{url('user')}}" method="GET">
                     <div class="input-group">
                         <input type="search" value="{{Request::get('search')}}" class="form-control" placeholder="Search…" name="search"
@@ -197,7 +197,7 @@
                         </button>
                     </div>
                 </form>
-            </div>
+            </div> --}}
         </div>
     </div>
 </header>
