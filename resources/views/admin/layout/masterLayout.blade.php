@@ -72,8 +72,7 @@
             </footer>
         </div>
     </div>
-    {{-- modal list --}}
-    
+
 
 
     <!-- Libs JS -->

@@ -164,10 +164,10 @@
                 <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown"
                     aria-label="Open user menu">
                     <span class="avatar avatar-sm"
-                        style="background-image: url({{ asset('tabler/static/avatars/000m.jpg') }})"></span>
+                        style="background-image: url({{ asset('assets/img/sample/avatar/avatar1.jpg') }})"></span>
                     <div class="d-none d-xl-block ps-2">
-                        <div>Paweł Kuna</div>
-                        <div class="mt-1 small text-secondary">UI Designer</div>
+                        <div>{{Auth::user()->name}}</div>
+                        <div class="mt-1 small text-secondary">{{Auth::user()->jabatan}}</div>
                     </div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
@@ -176,7 +176,7 @@
                     <a href="#" class="dropdown-item">Feedback</a>
                     <div class="dropdown-divider"></div>
                     <a href="./settings.html" class="dropdown-item">Settings</a>
-                    <a href="./sign-in.html" class="dropdown-item">Logout</a>
+                    <a href="{{route('logout')}}" class="dropdown-item">Logout</a>
                 </div>
             </div>
         </div>
@@ -260,7 +260,7 @@
                                 <a class="dropdown-item" href="{{ route('rekapPresensi_In') }}">
                                     Presensi Masuk
                                 </a>
-                                <a class="dropdown-item" href="{{ route('kepegawaianUser') }}">
+                                <a class="dropdown-item" href="{{ route('rekapPresensi_Out') }}">
                                     Presensi Pulang
                                 </a>
                             </div>
