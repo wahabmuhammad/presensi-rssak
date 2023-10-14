@@ -71,6 +71,7 @@ class adminController extends Controller
     }
 
     public function rekapOut(Request $request){
+        dd($request->date_start);
         $today = date("Y-m-d");
         $bulanIni = date("m", strtotime($today));
         $keyword = $request->search;
