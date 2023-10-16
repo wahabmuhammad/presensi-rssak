@@ -39,6 +39,9 @@
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-tittle">Daftar User</h3>
+                    <div class="col-auto ms-auto">
+                        <a href="{{'rekap_Presensi_out/export/excel'}}" class="btn btn-cyan">Export ke Excel</a>
+                    </div>
                 </div>
                 <div class="card-body border-bottom py-3">
                     <form action="{{ url('rekap_Presensi_out') }}" method="GET">

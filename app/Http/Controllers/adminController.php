@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\ExportMasuk;
+use App\Exports\ExportPulang;
 
 class adminController extends Controller
 {
@@ -89,5 +90,9 @@ class adminController extends Controller
             $rekapPulang = presensiOut::whereMonth('tgl_presensi_out', $bulanIni)->orderBy('tgl_presensi_out')->paginate('15');
         }
         return view('admin.rekapPresensi.presensiOut', compact('rekapPulang', 'today'));
+    }
+
+    public function exportPulang(){
+        return Excel::download(new ExportPulang, "Rekap_Presensi_Pulang.xlsx");
     }
 }
