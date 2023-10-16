@@ -41,20 +41,19 @@
                     <h3 class="card-tittle">Daftar User</h3>
                 </div>
                 <div class="card-body border-bottom py-3">
-                    <div class="d-flex">
-                        <div class="text-secondary">
-                            Show
-                            <div class="mx-2 d-inline-block">
-                                <input type="text" class="form-control form-control-sm" name="show" id="show"
-                                    value="{{ Request::get('show') }}" size="3" aria-label="Invoices count">
+                    <form action="{{ url('rekap_Presensi_out') }}" method="GET">
+                        <div class="d-flex">
+                            <div class="text-secondary">
+                                Show
+                                <div class="mx-2 d-inline-block">
+                                    <input type="text" class="form-control form-control-sm" name="show" id="show"
+                                        value="{{ Request::get('show') }}" size="3" aria-label="Invoices count">
+                                </div>
+                                entries
                             </div>
-                            entries
-                        </div>
-                        <form action="{{ url('rekap_Presensi_out') }}" method="GET">
                             <div class="ms-auto text-secondary">
-
+                                <label class="form-label" for="date_start">Tanggal Awal</label>
                                 <div class="input-group">
-                                    <label class="form-label" for="date_start">Tanggal Awal</label> <br>
                                     <input type="date" value="{{ Request::get('date_start') }}" class="form-control"
                                         placeholder="{{ $today }}" name="date_start" aria-label="Search in website">
                                     <span class="input-group-text" id="basic-addon1">
@@ -75,8 +74,8 @@
                                 </div>
                             </div>
                             <div class="ms-auto text-secondary">
+                                <label class="form-label" for="date_to">Tanggal Akhir</label>
                                 <div class="input-group">
-                                    <label class="form-label" for="date_to">Tanggal Akhir</label> <br>
                                     <input type="date" value="{{ Request::get('date_to') }}" class="form-control"
                                         placeholder="{{ $today }}" name="date_to" aria-label="Search in website">
                                     <span class="input-group-text" id="basic-addon1">
@@ -97,15 +96,15 @@
                                 </div>
                             </div>
                             <div class="ms-auto text-secondary">
-
+                                <label class="form-label" for="search">Search</label>
                                 <div class="input-group">
                                     <input type="search" value="{{ Request::get('search') }}" class="form-control"
                                         placeholder="Search…" name="search" aria-label="Search in website">
                                     <button class="btn btn-primary" type="submit">
                                         <!-- Download SVG icon from http://tabler-icons.io/i/search -->
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
-                                            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                                            stroke-linecap="round" stroke-linejoin="round">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24"
+                                            height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                                            fill="none" stroke-linecap="round" stroke-linejoin="round">
                                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                             <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
                                             <path d="M21 21l-6 -6" />
@@ -113,8 +112,9 @@
                                     </button>
                                 </div>
                             </div>
-                        </form>
-                    </div>
+                        </div>
+                    </form>
+
                 </div>
                 <div class="table-responsive">
                     <table class="table table-vcenter table-mobile-md card-table">

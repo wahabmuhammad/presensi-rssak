@@ -36,6 +36,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/user/create-user', [adminController::class, 'create_user'])->name('createUser');
     Route::get('/admin', [adminController::class, 'index'])->name('adminDashboard')->name('admin');
     Route::get('/rekap_Presensi_in', [adminController::class, 'rekap'])->name('rekapPresensi_In');
+    Route::get('/rekap_Presensi_in/export/excel', [adminController::class, 'exportMasuk']);
     Route::get('/rekap_Presensi_out', [adminController::class, 'rekapOut'])->name('rekapPresensi_Out');
 });
 

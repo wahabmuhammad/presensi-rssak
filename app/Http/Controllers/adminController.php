@@ -11,6 +11,8 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\ExportMasuk;
 
 class adminController extends Controller
 {
@@ -67,11 +69,15 @@ class adminController extends Controller
         }else{
             $rekapMasuk = presensiIn::whereMonth('tgl_presensi', $bulanIni)->orderBy('tgl_presensi')->paginate('15');
         }
-        return view('admin.rekapPresensi.presensiIn', compact('rekapMasuk'));
+        return view('admin.rekapPresensi.presensiIn', compact('rekapMasuk', 'today'));
+    }
+
+    public function exportMasuk(){
+        return Excel::download(new ExportMasuk, "Rekap_Presensi_Masuk.xlsx");
     }
 
     public function rekapOut(Request $request){
-        // dd($request->date_start);
+        // dd($request);
         $today = date("Y-m-d");
         $bulanIni = date("m", strtotime($today));
         $keyword = $request->search;
