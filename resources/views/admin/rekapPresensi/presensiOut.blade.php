@@ -45,16 +45,16 @@
                 </div>
                 <div class="card-body border-bottom py-3">
                     <form action="{{ url('rekap_Presensi_out') }}" method="GET">
-                        <div class="d-flex">
-                            <div class="text-secondary">
+                        <div class="row d-flex">
+                            {{-- <div class="text-secondary">
                                 Show
                                 <div class="mx-2 d-inline-block">
                                     <input type="text" class="form-control form-control-sm" name="show" id="show"
                                         value="{{ Request::get('show') }}" size="3" aria-label="Invoices count">
                                 </div>
                                 entries
-                            </div>
-                            <div class="ms-auto text-secondary">
+                            </div> --}}
+                            <div class="col ms-auto text-secondary">
                                 <label class="form-label" for="date_start">Tanggal Awal</label>
                                 <div class="input-group">
                                     <input type="date" value="{{ Request::get('date_start') }}" class="form-control"
@@ -76,7 +76,7 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="ms-auto text-secondary">
+                            <div class="col ms-auto text-secondary">
                                 <label class="form-label" for="date_to">Tanggal Akhir</label>
                                 <div class="input-group">
                                     <input type="date" value="{{ Request::get('date_to') }}" class="form-control"
@@ -98,7 +98,7 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="ms-auto text-secondary">
+                            <div class="col ms-auto text-secondary">
                                 <label class="form-label" for="search">Search</label>
                                 <div class="input-group">
                                     <input type="search" value="{{ Request::get('search') }}" class="form-control"

@@ -6,8 +6,9 @@
         </button>
         <h1 class="navbar-brand navbar-brand-autodark">
             <a href="{{ route('adminDashboardadmin') }}">
-                <img src="{{ asset('tabler/static/logo.svg') }}" width="110" height="32" alt="RSSAK"
+                <img src="{{ asset('tabler/static/logo-small.svg') }}" width="110" height="32"
                     class="navbar-brand-image">
+                <span>RSSAK</span>
             </a>
         </h1>
         <div class="navbar-nav flex-row d-lg-none">
