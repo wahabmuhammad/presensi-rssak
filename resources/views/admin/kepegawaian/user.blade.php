@@ -147,12 +147,12 @@
                                             <a href="#" class="btn btn-orange" onclick="return ">
                                                 Edit
                                             </a>
-                                            <form action="">
-                                                <a href="/" class="btn btn-danger"
-                                                    onclick="return confirm('Apakah Anda Yakin Menghapus Data?');">
+                                            <form action="{{url('/user/delete/{{$u->nim}}')}}" method="POST">
+                                                @method('DELETE')
+                                                @csrf
+                                                <button class="btn btn-danger" onclick="return confirm('Yakin menghapus data user ini?')">
                                                     Delete
-                                                </a>
-
+                                                </button>
                                             </form>
                                         </div>
                                     </td>

@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\ExportMasuk;
 use App\Exports\ExportPulang;
+use GrahamCampbell\ResultType\Success;
 
 class adminController extends Controller
 {
@@ -59,14 +60,23 @@ class adminController extends Controller
         }
     }
 
+    public function destroy(User $userTable ){
+        User::destroy($userTable->nim);
+        return redirect(route('kepegawaianUser'))->with('success','Berhasil Menghapus User');
+    }
+
     public function rekap(Request $request){
         $today = date("Y-m-d");
         $bulanIni = date("m", strtotime($today));
         $keyword = $request->search;
+        $start_to = $request->date_start;
+        $end_to = $request->date_to;
 
         if(strlen($keyword)){
             $rekapMasuk = presensiIn::where('nip', 'like', "%$keyword%")
             ->orWhere('name', 'like', "%$keyword%")->paginate(10);
+        }elseif($start_to){
+            $rekapMasuk = presensiIn::whereBetween('tgl_presensi', [$start_to, $end_to])->paginate(15);
         }else{
             $rekapMasuk = presensiIn::whereMonth('tgl_presensi', $bulanIni)->orderBy('tgl_presensi')->paginate('15');
         }

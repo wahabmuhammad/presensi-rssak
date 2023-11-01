@@ -39,6 +39,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/rekap_Presensi_in/export/excel', [adminController::class, 'exportMasuk']);
     Route::get('/rekap_Presensi_out/export/excel', [adminController::class, 'exportPulang']);
     Route::get('/rekap_Presensi_out', [adminController::class, 'rekapOut'])->name('rekapPresensi_Out');
+    Route::delete('/user/delete', [adminController::class, ''] );
 });
 
 
