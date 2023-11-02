@@ -5,7 +5,7 @@ namespace App\Exports;
 use App\Models\presensiIn;
 use Maatwebsite\Excel\Concerns\FromCollection;
 
-class ExportMasuk implements FromCollection
+class  ExportMasuk implements FromCollection
 {
     /**
      * @return \Illuminate\Support\Collection

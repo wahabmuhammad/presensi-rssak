@@ -92,10 +92,14 @@ class adminController extends Controller
         $today = date("Y-m-d");
         $bulanIni = date("m", strtotime($today));
         $keyword = $request->search;
+        $start_to = $request->date_start;
+        $end_to = $request->date_to;
 
         if(strlen($keyword)){
             $rekapPulang = presensiOut::where('nip', 'like', "%$keyword%")
             ->orWhere('name', 'like', "%$keyword%")->paginate(10);
+        }elseif($start_to){
+            $rekapPulang = presensiOut::whereBetween('tgl_presensi_out', [$start_to, $end_to])->paginate(15);
         }else{
             $rekapPulang = presensiOut::whereMonth('tgl_presensi_out', $bulanIni)->orderBy('tgl_presensi_out')->paginate('15');
         }
