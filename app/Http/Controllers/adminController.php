@@ -60,8 +60,14 @@ class adminController extends Controller
         }
     }
 
-    public function destroy(User $userTable ){
-        User::destroy($userTable->nim);
+    public function edit($id){
+        $user = User::find($id);
+        
+    }
+
+    public function destroy($id){
+        $user = User::find($id);
+        $user->delete();
         return redirect(route('kepegawaianUser'))->with('success','Berhasil Menghapus User');
     }
 

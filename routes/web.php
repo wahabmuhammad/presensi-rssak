@@ -9,6 +9,7 @@ use App\Http\Controllers\registerController;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\URL;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +21,8 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+URL::forceScheme('https');
 
 Route::get('/', function () {
     return view('auth.login');
@@ -39,7 +42,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/rekap_Presensi_in/export/excel', [adminController::class, 'exportMasuk']);
     Route::get('/rekap_Presensi_out/export/excel', [adminController::class, 'exportPulang']);
     Route::get('/rekap_Presensi_out', [adminController::class, 'rekapOut'])->name('rekapPresensi_Out');
-    Route::delete('/user/delete', [adminController::class, ''] );
+    Route::put('/user/{user}/edit', [adminController::class, 'edit'])->name('user.edit');
+    Route::delete('/user/delete/{user}', [adminController::class, 'destroy'])->name('user.delete');
 });
 
 
