@@ -144,8 +144,7 @@
                                     </td>
                                     <td>
                                         <div class="btn-list flex-nowrap">
-                                            <a href="#" class="btn btn-orange d-none d-sm-inline-block"
-                                                data-bs-toggle="modal" data-bs-target="#modal-edit">
+                                            <a href="{{route('user.edit', $u->id)}}" class="btn btn-orange d-none d-sm-inline-block">
                                                 Edit User
                                             </a>
                                             <form action="{{ route('user.delete', $u->id) }}" method="POST">
@@ -233,19 +232,20 @@
             </form>
         </div>
     </div>
-    <div class="modal modal-blur fade" id="modal-edit" tabindex="-1" role="dialog" aria-hidden="true">
+    {{-- <div class="modal modal-blur fade" id="modal-edit" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
-            <form action="{{ route('createUser') }}" method="POST">
+            <form action="{{ route('user.update', $u->id) }}" method="POST">
                 @csrf
+                @method('PUT')
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Membuat User Baru</h5>
+                        <h5 class="modal-title">Edit User </h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <div class="mb-3">
                             <label class="form-label strong">Nama</label>
-                            <input type="text" class="form-control" name="name" id="name"
+                            <input type="text" class="form-control" name="name" id="name" value="{{$u->name}}"
                                 placeholder="Nama Lengkap dan Gelar">
                         </div>
                         <div class="mb-3">
@@ -294,5 +294,5 @@
                 </div>
             </form>
         </div>
-    </div>
+    </div> --}}
 @endsection

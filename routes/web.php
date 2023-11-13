@@ -42,7 +42,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/rekap_Presensi_in/export/excel', [adminController::class, 'exportMasuk']);
     Route::get('/rekap_Presensi_out/export/excel', [adminController::class, 'exportPulang']);
     Route::get('/rekap_Presensi_out', [adminController::class, 'rekapOut'])->name('rekapPresensi_Out');
-    Route::put('/user/{user}/edit', [adminController::class, 'edit'])->name('user.edit');
+    Route::get('/user/{user}/edit', [adminController::class, 'edit'])->name('user.edit');
+    Route::put('/user/{user}', [adminController::class, 'update'])->name('user.update');
     Route::delete('/user/delete/{user}', [adminController::class, 'destroy'])->name('user.delete');
 });
 

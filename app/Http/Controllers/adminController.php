@@ -62,7 +62,23 @@ class adminController extends Controller
 
     public function edit($id){
         $user = User::find($id);
-        
+        return view('admin.kepegawaian.editUser', compact('user'));
+    }
+
+    public function update(Request $request, $id){
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'nip' => 'required',
+            'password' => 'required|min:8',
+            'email' => 'required|email|max:255',
+            'jabatan' => 'required|string|max:255',
+            'role' => 'required'
+        ]);
+
+        $user = User::find($id);
+        dd($user);
+        // $user->update($request->all());
+        // return redirect(route('kepegawaianUser'))->with('success', 'Update Data berhasil');
     }
 
     public function destroy($id){

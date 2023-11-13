@@ -39,7 +39,7 @@ class registerController extends Controller
     }
 
     public function update(){
-        return view('register.forget');
+        return view('auth.forget');
     }
 
     public function resetPassword(Request $request){
