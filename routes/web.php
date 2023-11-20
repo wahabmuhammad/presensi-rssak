@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PresensiController;
 use App\Http\Controllers\presensiOut_Controller;
+use App\Http\Controllers\RecruitmentController;
 use App\Http\Controllers\registerController;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Support\Facades\Auth;
@@ -45,6 +46,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/user/{user}/edit', [adminController::class, 'edit'])->name('user.edit');
     Route::put('/user/{user}', [adminController::class, 'update'])->name('user.update');
     Route::delete('/user/delete/{user}', [adminController::class, 'destroy'])->name('user.delete');
+    Route::get('/recruitment', [RecruitmentController::class, 'index'])->name('recruitment');
+    Route::post('/send/{id}', [RecruitmentController::class, 'sendwa'])->name('sendwa');
 });
 
 

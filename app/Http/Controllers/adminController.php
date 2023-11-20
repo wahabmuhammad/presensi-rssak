@@ -62,6 +62,7 @@ class adminController extends Controller
 
     public function edit($id){
         $user = User::find($id);
+        // dd($user->name);
         return view('admin.kepegawaian.editUser', compact('user'));
     }
 
@@ -76,9 +77,11 @@ class adminController extends Controller
         ]);
 
         $user = User::find($id);
-        dd($user);
-        // $user->update($request->all());
-        // return redirect(route('kepegawaianUser'))->with('success', 'Update Data berhasil');
+        // $user = User::all();
+        // dd($user);
+        $user->update($request->all());
+        notify()->success('Berhasil Update data');
+        return redirect(route('kepegawaianUser'))->with('success', 'Update Data berhasil');
     }
 
     public function destroy($id){
@@ -119,8 +122,8 @@ class adminController extends Controller
 
         if(strlen($keyword)){
             $rekapPulang = presensiOut::where('nip', 'like', "%$keyword%")
-            ->orWhere('name', 'like', "%$keyword%")->paginate(10);
-        }elseif($start_to){
+            ->orWhere('name', 'like', "%$keyword%")->paginate(15);
+        }elseif($keyword OR ($start_to OR $end_to)){
             $rekapPulang = presensiOut::whereBetween('tgl_presensi_out', [$start_to, $end_to])->paginate(15);
         }else{
             $rekapPulang = presensiOut::whereMonth('tgl_presensi_out', $bulanIni)->orderBy('tgl_presensi_out')->paginate('15');

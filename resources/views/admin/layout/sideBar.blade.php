@@ -71,9 +71,9 @@
                                             <a href="#" class="list-group-item-actions">
                                                 <!-- Download SVG icon from http://tabler-icons.io/i/star -->
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon text-muted"
-                                                    width="24" height="24" viewBox="0 0 24 24"
-                                                    stroke-width="2" stroke="currentColor" fill="none"
-                                                    stroke-linecap="round" stroke-linejoin="round">
+                                                    width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
+                                                    stroke="currentColor" fill="none" stroke-linecap="round"
+                                                    stroke-linejoin="round">
                                                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                                     <path
                                                         d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z" />
@@ -167,8 +167,8 @@
                     <span class="avatar avatar-sm"
                         style="background-image: url({{ asset('assets/img/sample/avatar/avatar1.jpg') }})"></span>
                     <div class="d-none d-xl-block ps-2">
-                        <div>{{Auth::user()->name}}</div>
-                        <div class="mt-1 small text-secondary">{{Auth::user()->jabatan}}</div>
+                        <div>{{ Auth::user()->name }}</div>
+                        <div class="mt-1 small text-secondary">{{ Auth::user()->jabatan }}</div>
                     </div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
@@ -177,7 +177,7 @@
                     <a href="#" class="dropdown-item">Feedback</a>
                     <div class="dropdown-divider"></div>
                     <a href="./settings.html" class="dropdown-item">Settings</a>
-                    <a href="{{route('logout')}}" class="dropdown-item">Logout</a>
+                    <a href="{{ route('logout') }}" class="dropdown-item">Logout</a>
                 </div>
             </div>
         </div>
@@ -263,6 +263,35 @@
                                 </a>
                                 <a class="dropdown-item" href="{{ route('rekapPresensi_Out') }}">
                                     Presensi Pulang
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#navbar-base" data-bs-toggle="dropdown"
+                        data-bs-auto-close="false" role="button" aria-expanded="false">
+                        <span
+                            class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/package -->
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user-filled"
+                                width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
+                                stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path d="M12 2a5 5 0 1 1 -5 5l.005 -.217a5 5 0 0 1 4.995 -4.783z" stroke-width="0"
+                                    fill="currentColor" />
+                                <path d="M14 14a5 5 0 0 1 5 5v1a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-1a5 5 0 0 1 5 -5h4z"
+                                    stroke-width="0" fill="currentColor" />
+                            </svg>
+                        </span>
+                        <span class="nav-link-title">
+                            Recruitment
+                        </span>
+                    </a>
+                    <div class="dropdown-menu">
+                        <div class="dropdown-menu-columns">
+                            <div class="dropdown-menu-column">
+                                <a class="dropdown-item" href="{{ route('recruitment') }}">
+                                    Daftar Recruitment
                                 </a>
                             </div>
                         </div>

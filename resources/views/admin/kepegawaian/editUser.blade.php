@@ -13,6 +13,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="{{asset('assets/img/icon/192x192.png')}}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <link rel="manifest" href="__manifest.json">
+    @notifyCss
 </head>
 <body>
     {{-- <!-- loader -->
@@ -79,8 +80,8 @@
 
                                 <div class="row">
                                     <div class="form-outline">
-                                        <label class="form-label" for="jabatan">role</label>
-                                        <input type="text" id="jabatan" name="jabatan" class="form-control form-control-lg @error('jabatan') is-invalid @enderror" value="{{$user->role}}" />
+                                        <label class="form-label" for="role">role</label>
+                                        <input type="text" id="jabatan" name="role" class="form-control form-control-lg @error('role') is-invalid @enderror" value="{{$user->role}}" />
                                     </div>
                                 </div>
 
@@ -93,6 +94,8 @@
                     </div>
                 </div>
             </div>
+        <x-notify::notify/>
+        @notifyJs
         </section>
 
     @push('myscript')

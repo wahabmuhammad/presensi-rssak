@@ -32,6 +32,7 @@
             font-feature-settings: "cv03", "cv04", "cv11";
         }
     </style>
+    {{-- @notifyCss --}}
 </head>
 
 <body>
@@ -71,6 +72,7 @@
                 </div>
             </footer>
         </div>
+
     </div>
 
 
@@ -899,6 +901,8 @@
         });
         // @formatter:on
     </script>
+    <x-notify::notify />
+    @notifyJs
 </body>
 
 </html>
