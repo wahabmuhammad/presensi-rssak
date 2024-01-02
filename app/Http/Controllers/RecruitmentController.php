@@ -37,28 +37,31 @@ Kepada Yth. *".$recruitment->Nama.
 
 "*
 
-RS Sarkies 'Aisyiyah Kudus mengundang Bapak/Ibu untuk hadir dalam kegiatan *'Wawancara Seleksi Pegawai'* dengan formasi *".  $recruitment->Formasi . "* yang akan dilaksanakan pada:
+RS Sarkies 'Aisyiyah Kudus mengucapkan *SELAMAT! Anda Lolos Proses Seleksi Wawancara Pegawai.* Kami mengundang Bapak/Ibu untuk melakukan tahapan berikutnya yaitu ". "*"."Medical Check Up (MCU) Calon Pegawai"."*"." yang akan dilaksanakan pada:
 
-Hari, tgl : Kamis, 23 November 2023
-Jam       : *08.00 WIB - selesai*
-Tempat    : Sarkies Convention Hall (Lantai 8) 
+
+Hari, tgl : Kamis, 07 Desember 2023
+Jam       : "."08.00 WIB - Selesai"."
+Tempat  : RS Sarkies 'Aisyiyah Kudus 
 
 Perlengkapan yang harus dibawa:
-1. Alat tulis
-2. Surat lamaran + CV
+KTP/Kartu Identitas lainnya
 
 Harap memperhatikan hal-hal berikut ini:
-1. Harap datang 30 menit sebelum jadwal
+1. Harap datang tepat waktu
 2. Memakai pakaian rapih, sopan dan bersepatu (perempuan wajib berjilbab)
+3. Harap puasa minimal 7 jam untuk pemeriksaan
 
-Mohon konfirmasi kesediaan Bapak/Ibu untuk menerima ataupun menolak undangan kami. 
+* "."*"."Biaya Pemeriksaan Kesehatan (MCU) adalah Rp. 240.000 (dibayarkan saat proses MCU selesai)."."*"."
 
-Demikian informasi yang dapat kami sampaikan, atas perhatiannya kami sampaikan terimakasih. 
+*Mohon konfirmasi kesediaan Bapak/Ibu untuk menerima ataupun menolak undangan kami.* 
+
+Demikian informasi yang dapat kami sampaikan, atas perhatiannya kami sampaikan terimakasih.  
 
 Salam sehat, salam hebat. 
 
 Panitia Rekruitmen Pegawai
-RS Sarkies ". "'Aisyiyah". " Kudus.";
+RS Sarkies ". "'Aisyiyah". " Kudus";
             
             // dd($pesan);
 
@@ -72,13 +75,13 @@ RS Sarkies ". "'Aisyiyah". " Kudus.";
         $sendwa = WablasTrait::sendText($kumpulan_data);
 
         if($sendwa){
-            $validasi = $recruitment([
-                'name' => $recruitment->Nama,
+            $validasi = [
+                'nama' => $recruitment->Nama,
                 'nohp' => $recruitment->nohp,
                 'tgl_kirim' => $tgl_kirim,
                 'jam_kirim' => $jam_kirim,
                 'pesan' => $pesan,
-            ]);
+            ];
             logwa::create($validasi);
             return redirect()->back()->with('success', 'Berhasil mengirim notifikasi');
         }else{

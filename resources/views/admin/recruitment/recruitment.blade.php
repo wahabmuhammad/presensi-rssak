@@ -126,6 +126,7 @@
                                 <th>STR</th>
                                 <th>Rekomendasi</th>
                                 <th>Sertifikat</th>
+                                <th>Sesi</th>
                                 <th class="w-1"></th>
                             </tr>
                         </thead>
@@ -174,6 +175,10 @@
                                     <td data-label="Sertifikat">
                                         <div class="font-weight-medium strong">
                                             {{ $u->Sertifikat != null ? $u->Sertifikat : '-' }}</div>
+                                    </td>
+                                    <td data-label="Sesi">
+                                        <div class="font-weight-medium strong">
+                                            {{ $u->Kloter != null ? $u->Kloter : '-' }}</div>
                                     </td>
                                     <td>
                                         <div class="btn-list flex-nowrap">

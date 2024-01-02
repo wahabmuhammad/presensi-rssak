@@ -17,6 +17,5 @@ class logwa extends Model
         'tgl_kirim',
         'jam_kirim',
         'pesan',
-        'jabatan',
     ];
 }
