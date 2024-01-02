@@ -112,6 +112,13 @@
         function togglePassword() {
             var passwordInput = document.getElementById('password');
             var eyeIcon = document.getElementById('eye-icon');
+            
+            // Remove the toggle element if the input is empty
+            // if (!passwordInput.value.trim()) {
+            //     document.querySelector('.toggle-password').style.display = 'none';
+            // } else {
+            //     document.querySelector('.toggle-password').style.display = 'block';
+            // }
 
             if (passwordInput.type === 'password') {
                 passwordInput.type = 'text';
@@ -121,12 +128,6 @@
                 eyeIcon.src = 'assets/img/eye-closed.png'; // Ganti dengan path gambar mata terbuka
             }
 
-            // Remove the toggle element if the input is empty
-            if (!passwordInput.value.trim()) {
-                document.querySelector('.toggle-password').style.display = 'none';
-            } else {
-                document.querySelector('.toggle-password').style.display = 'block';
-            }
         }
     </script>
 
