@@ -11,8 +11,8 @@
     <title>E-Presensi RSSAK</title>
     <meta name="description" content="Mobilekit HTML Mobile UI Kit">
     <meta name="keywords" content="bootstrap 4, mobile template, cordova, phonegap, mobile, html" />
-    <link rel="icon" type="image/png" href="{{asset('assets/img/favicon.png')}}" sizes="32x32">
-    <link rel="apple-touch-icon" sizes="180x180" href="{{asset('assets/img/icon/192x192.png')}}">
+    <link rel="icon" type="image/png" href="{{ asset('assets/img/favicon.png') }}" sizes="32x32">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('assets/img/icon/192x192.png') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <link rel="manifest" href="__manifest.json">
 </head>
@@ -25,7 +25,15 @@
     </div>
     <!-- * loader -->
 
-
+    <style>
+        .toggle-password {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+    </style>
     <!-- App Capsule -->
     <div id="appCapsule" class="pt-0">
 
@@ -42,16 +50,17 @@
                     <div class="alert alert-outline-danger">
                         <ul>
                             @foreach ($errors->all() as $item)
-                                <li>{{$item}}</li>
+                                <li>{{ $item }}</li>
                             @endforeach
                         </ul>
                     </div>
                 @endif
-                <form action="{{route ('proseslogin')}}" method="POST">
+                <form action="{{ route('proseslogin') }}" method="POST">
                     @csrf
                     <div class="form-group boxed">
                         <div class="input-wrapper">
-                            <input type="text" name="nip" class="form-control" id="nip" placeholder="Nomor Induk Pegawai">
+                            <input type="text" name="nip" class="form-control" id="nip"
+                                placeholder="Nomor Induk Pegawai">
                             <i class="clear-input">
                                 <ion-icon name="close-circle"></ion-icon>
                             </i>
@@ -60,21 +69,26 @@
 
                     <div class="form-group boxed">
                         <div class="input-wrapper">
-                            <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" placeholder="password">
-                            <i class="clear-input">
-                                <ion-icon name="close-circle"></ion-icon>
-                            </i>
+                            <input type="password" class="form-control @error('password') is-invalid @enderror"
+                                id="password" name="password" placeholder="password">
+                                {{-- <i class="clear-input">
+                                    <ion-icon name="close-circle"></ion-icon>
+                                </i> --}}
+                                <span class="toggle-password" onclick="togglePassword()">
+                                    <img id="eye-icon" src="{{ asset('assets/img/eye.png') }}" alt="Toggle Password"
+                                        width="20">
+                                </span>
                         </div>
                     </div>
 
                     <div class="form-links mt-2">
                         <div>
-                            <a href="{{route('register')}}">Daftar</a>
+                            <a href="{{ route('register') }}">Daftar</a>
                         </div>
-                        <div><a href="{{route('resetPassword')}}" class="text-muted">Lupa Password?</a></div>
+                        <div><a href="{{ route('resetPassword') }}" class="text-muted">Lupa Password?</a></div>
                     </div>
                     <footer>
-                        <div class="text-center mt-5" >
+                        <div class="text-center mt-5">
                             <p class="foter-down">Copyright © 2023</p>
                             <p class="foter-down">Version 0.7.5</p>
                             <p class="foter-down">
@@ -94,22 +108,42 @@
     </div>
     <!-- * App Capsule -->
 
+    <script>
+        function togglePassword() {
+            var passwordInput = document.getElementById('password');
+            var eyeIcon = document.getElementById('eye-icon');
 
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                eyeIcon.src = 'assets/img/eye.png'; // Ganti dengan path gambar mata tertutup
+            } else {
+                passwordInput.type = 'password';
+                eyeIcon.src = 'assets/img/eye-closed.png'; // Ganti dengan path gambar mata terbuka
+            }
+
+            // Remove the toggle element if the input is empty
+            if (!passwordInput.value.trim()) {
+                document.querySelector('.toggle-password').style.display = 'none';
+            } else {
+                document.querySelector('.toggle-password').style.display = 'block';
+            }
+        }
+    </script>
 
     <!-- ///////////// Js Files ////////////////////  -->
     <!-- Jquery -->
-    <script src="{{asset('assets/js/lib/jquery-3.4.1.min.js')}}"></script>
+    <script src="{{ asset('assets/js/lib/jquery-3.4.1.min.js') }}"></script>
     <!-- Bootstrap-->
-    <script src="{{asset('assets/js/lib/popper.min.js')}}"></script>
-    <script src="{{asset('assets/js/lib/bootstrap.min.js')}}"></script>
+    <script src="{{ asset('assets/js/lib/popper.min.js') }}"></script>
+    <script src="{{ asset('assets/js/lib/bootstrap.min.js') }}"></script>
     <!-- Ionicons -->
     <script type="module" src="https://unpkg.com/ionicons@5.0.0/dist/ionicons/ionicons.js"></script>
     <!-- Owl Carousel -->
-    <script src="{{asset('assets/js/plugins/owl-carousel/owl.carousel.min.js')}}"></script>
+    <script src="{{ asset('assets/js/plugins/owl-carousel/owl.carousel.min.js') }}"></script>
     <!-- jQuery Circle Progress -->
-    <script src="{{asset('assets/js/plugins/jquery-circle-progress/circle-progress.min.js')}}"></script>
+    <script src="{{ asset('assets/js/plugins/jquery-circle-progress/circle-progress.min.js') }}"></script>
     <!-- Base Js File -->
-    <script src="{{asset('assets/js/base.js')}}"></script>
+    <script src="{{ asset('assets/js/base.js') }}"></script>
 
 
 </body>
