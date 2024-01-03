@@ -75,7 +75,7 @@
                                     <ion-icon name="close-circle"></ion-icon>
                                 </i> --}}
                                 <span class="toggle-password" onclick="togglePassword()">
-                                    <img id="eye-icon" src="{{ asset('assets/img/eye.png') }}" alt="Toggle Password"
+                                    <img id="eye-icon" src="{{ asset('assets/img/eye-closed.png') }}" alt="Toggle Password"
                                         width="20">
                                 </span>
                         </div>
