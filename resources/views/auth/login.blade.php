@@ -33,6 +33,10 @@
             transform: translateY(-50%);
             cursor: pointer;
         }
+
+        #eye-icon {
+            display: none;
+        }
     </style>
     <!-- App Capsule -->
     <div id="appCapsule" class="pt-0">
@@ -70,14 +74,14 @@
                     <div class="form-group boxed">
                         <div class="input-wrapper">
                             <input type="password" class="form-control @error('password') is-invalid @enderror"
-                                id="password" name="password" placeholder="password">
-                                {{-- <i class="clear-input">
+                                id="password" name="password" placeholder="password" oninput="toggleeye()">
+                            {{-- <i class="clear-input">
                                     <ion-icon name="close-circle"></ion-icon>
                                 </i> --}}
-                                <span class="toggle-password" onclick="togglePassword()">
-                                    <img id="eye-icon" src="{{ asset('assets/img/eye-closed.png') }}" alt="Toggle Password"
-                                        width="20">
-                                </span>
+                            <span class="toggle-password" onclick="togglePassword()">
+                                <img id="eye-icon" src="{{ asset('assets/img/eye-closed.png') }}" alt="Toggle Password"
+                                    width="20">
+                            </span>
                         </div>
                     </div>
 
@@ -109,17 +113,21 @@
     <!-- * App Capsule -->
 
     <script>
-        function togglePassword() {
-            var passwordInput = document.getElementById('password');
-            var eyeIcon = document.getElementById('eye-icon');
-            
+        function toggleeye() {
+            const passwordInput = document.getElementById('password');
+            const eyeIcon = document.getElementById('eye-icon');
             // Remove the toggle element if the input is empty
-            // if (!passwordInput.value.trim()) {
-            //     document.querySelector('.toggle-password').style.display = 'none';
-            // } else {
-            //     document.querySelector('.toggle-password').style.display = 'block';
-            // }
+            if (passwordInput.value.trim() !== '') {
+                eyeIcon.style.display = 'block';
+            } else {
+                eyeIcon.style.display = 'none';
+            }
+        }
 
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const eyeIcon = document.getElementById('eye-icon');
+            // Open toggle 
             if (passwordInput.type === 'password') {
                 passwordInput.type = 'text';
                 eyeIcon.src = 'assets/img/eye.png'; // Ganti dengan path gambar mata tertutup
