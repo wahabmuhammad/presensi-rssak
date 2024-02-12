@@ -22,7 +22,7 @@
                     <div class="list-menu">
                         <div class="item-menu text-center">
                             <div class="menu-icon">
-                                <a href="" class="green" style="font-size: 40px;">
+                                <a href="{{route('profil',$profil->id)}}" class="green" style="font-size: 40px;">
                                     <ion-icon name="person-sharp"></ion-icon>
                                 </a>
                             </div>

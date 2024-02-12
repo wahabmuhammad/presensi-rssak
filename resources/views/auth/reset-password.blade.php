@@ -1,6 +1,19 @@
 @extends('layouts.presensi')
 
 @section('content')
+<style>
+    .toggle-password {
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+        cursor: pointer;
+    }
+
+    #eye-icon {
+        display: none;
+    }
+</style>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -46,7 +59,13 @@
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                                <div class="input-wrapper">
+                                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" oninput="toggleeye()">
+                                    <span class="toggle-password" onclick="togglePassword()">
+                                        <img id="eye-icon" src="{{asset('/assets/img/eye-closed.png')}}" alt="Toggle Password"
+                                            width="20">
+                                    </span>
+                                </div>
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
@@ -61,6 +80,7 @@
 
                             <div class="col-md-6">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                
                             </div>
                         </div>
 
@@ -77,4 +97,30 @@
         </div>
     </div>
 </div>
+
+<script>
+    const passwordInput = document.getElementById('password');
+        const eyeIcon = document.getElementById('eye-icon');
+
+        function toggleeye() {
+            // Remove the toggle element if the input is empty
+            if (passwordInput.value.trim() !== '') {
+                eyeIcon.style.display = 'block';
+            } else {
+                eyeIcon.style.display = 'none';
+            }
+        };
+
+        function togglePassword() {
+            // Open toggle 
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                eyeIcon.src = '{{URL::asset('assets/img/eye.png')}}'; // Ganti dengan path gambar mata tertutup
+            } else {
+                passwordInput.type = 'password';
+                eyeIcon.src = '{{URL::asset('assets/img/eye-closed.png')}}'; // Ganti dengan path gambar mata terbuka
+            }
+
+        };
+</script>
 @endsection

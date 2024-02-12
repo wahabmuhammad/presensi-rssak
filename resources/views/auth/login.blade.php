@@ -11,7 +11,7 @@
     <title>E-Presensi RSSAK</title>
     <meta name="description" content="Mobilekit HTML Mobile UI Kit">
     <meta name="keywords" content="bootstrap 4, mobile template, cordova, phonegap, mobile, html" />
-    <link rel="icon" type="image/png" href="{{ asset('assets/img/favicon.png') }}" sizes="32x32">
+    <link rel="icon" type="image/png" href="{{ asset('assets/img/Logo_RSSA.png') }}" sizes="32x32">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('assets/img/icon/192x192.png') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <link rel="manifest" href="__manifest.json">
@@ -38,6 +38,16 @@
             display: none;
         }
     </style>
+    {{-- Script Copyright Otomatis --}}
+    <script>
+        window.onload = function() {
+            const currentYear = new Date().getFullYear();
+            const copyrightElement = document.getElementById("copyright");
+            copyrightElement.textContent = "Copyright © " + currentYear;
+        };
+    </script>
+    {{-- Script Copyright Otomatis --}}
+
     <!-- App Capsule -->
     <div id="appCapsule" class="pt-0">
 
@@ -93,10 +103,10 @@
                     </div>
                     <footer>
                         <div class="text-center mt-5">
-                            <p class="foter-down">Copyright © 2023</p>
-                            <p class="foter-down">Version 0.7.5</p>
+                            <p class="foter-down" id="copyright"></p>
+                            <p class="foter-down">Version 1.0.0</p>
                             <p class="foter-down">
-                                <i>Development by Tim IT RSSAK</i>
+                                <i>Development by Muhammad Abdul Wahab</i>
                             </p>
                         </div>
                     </footer>
@@ -113,9 +123,10 @@
     <!-- * App Capsule -->
 
     <script>
+        const passwordInput = document.getElementById('password');
+        const eyeIcon = document.getElementById('eye-icon');
+
         function toggleeye() {
-            const passwordInput = document.getElementById('password');
-            const eyeIcon = document.getElementById('eye-icon');
             // Remove the toggle element if the input is empty
             if (passwordInput.value.trim() !== '') {
                 eyeIcon.style.display = 'block';
@@ -125,8 +136,6 @@
         }
 
         function togglePassword() {
-            const passwordInput = document.getElementById('password');
-            const eyeIcon = document.getElementById('eye-icon');
             // Open toggle 
             if (passwordInput.type === 'password') {
                 passwordInput.type = 'text';
@@ -135,7 +144,6 @@
                 passwordInput.type = 'password';
                 eyeIcon.src = 'assets/img/eye-closed.png'; // Ganti dengan path gambar mata terbuka
             }
-
         }
     </script>
 

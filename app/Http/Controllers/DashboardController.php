@@ -14,6 +14,7 @@ class DashboardController extends Controller
         $bulanIni = date("m", strtotime($today));
         $tahunIni = date("Y");
         $user = Auth::user()->nip;
+        $profil = Auth::user();
         $PresensiMasuk = DB::table('presensi')->where('nip', $user)->where('tgl_presensi',$today)->first();
         $PresensiPulang = DB::table('presensi_out')->where('nip', $user)->where('tgl_presensi_out',$today)->first();
         $presensimasukBulanini = DB::table('presensi')->whereMonth('tgl_presensi', $bulanIni)->where('nip', $user)->orderBy('tgl_presensi')->get();
@@ -21,6 +22,10 @@ class DashboardController extends Controller
         $leaderboard = DB::table('presensi')->join('users', 'presensi.nip', '=' , 'users.nip')->where('tgl_presensi', $today)->orderBy('jam_in')->get();
 
         // dd($bulanIni);
-        return view('dashboard.dashboard', compact('PresensiMasuk','PresensiPulang', 'presensimasukBulanini','presensipulangBulanini','leaderboard' ));
+        return view('dashboard.dashboard', compact('PresensiMasuk','PresensiPulang', 'presensimasukBulanini','presensipulangBulanini','leaderboard','profil' ));
+    }
+
+    public function profil(){
+
     }
 }

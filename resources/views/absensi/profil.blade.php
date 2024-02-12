@@ -1,0 +1,1 @@
+<p>Keterangan Route: {{ route('profil{user}') }}</p>

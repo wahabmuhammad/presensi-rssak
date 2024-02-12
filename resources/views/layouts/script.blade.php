@@ -66,6 +66,30 @@
                 am4core.color("#ba113b"),
             ];
         }); // end am4core.ready()
+        
+        const passwordInput = document.getElementById('password');
+        const eyeIcon = document.getElementById('eye-icon');
+
+        function toggleeye() {
+            // Remove the toggle element if the input is empty
+            if (passwordInput.value.trim() !== '') {
+                eyeIcon.style.display = 'block';
+            } else {
+                eyeIcon.style.display = 'none';
+            }
+        };
+
+        function togglePassword() {
+            // Open toggle 
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                eyeIcon.src = '{{URL::asset('assets/img/eye.png')}}'; // Ganti dengan path gambar mata tertutup
+            } else {
+                passwordInput.type = 'password';
+                eyeIcon.src = '{{URL::asset('assets/img/eye-closed.png')}}'; // Ganti dengan path gambar mata terbuka
+            }
+
+        };
     </script>
 
     @stack('myscript')

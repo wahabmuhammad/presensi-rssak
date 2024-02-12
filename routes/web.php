@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PresensiController;
 use App\Http\Controllers\presensiOut_Controller;
+use App\Http\Controllers\profilController;
 use App\Http\Controllers\RecruitmentController;
 use App\Http\Controllers\registerController;
 use Illuminate\Auth\Notifications\ResetPassword;
@@ -30,6 +31,7 @@ Route::get('/', function () {
 })->name('login');
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('/profil{user}', [profilController::class, 'index'])->name('profil');
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::get('/masuk', [PresensiController::class, 'index'])->name('masuk');
