@@ -32,7 +32,7 @@ Route::get('/', function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/profil{user}', [profilController::class, 'index'])->name('profil');
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/home', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::get('/masuk', [PresensiController::class, 'index'])->name('masuk');
     Route::get('/pulang', [presensiOut_Controller::class, 'index'])->name('pulang');
