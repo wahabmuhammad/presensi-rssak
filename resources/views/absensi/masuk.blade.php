@@ -158,14 +158,14 @@
                     title: 'Berhasil',
                     text: status[1],
                     })
-                    setTimeout("location.href='home'",3000);
+                    setTimeout("location.href='dashboard'",3000);
                 }else{
                     Swal.fire({
                     icon: 'warning',
                     title: 'Gagal',
                     text: status[1],
                     })
-                    setTimeout("location.href='home'",3000);
+                    setTimeout("location.href='dashboard'",3000);
                 }
             }
         });

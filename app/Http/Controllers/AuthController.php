@@ -37,7 +37,7 @@ class AuthController extends Controller
             if(Auth::user()->role == 'admin'){
                 return redirect('/admin');
             }else{
-                return redirect('/home');
+                return redirect('/dashboard');
             }
         }else{
             return redirect('/')->withErrors('NIP atau Password tidak sesuai')->withInput();
