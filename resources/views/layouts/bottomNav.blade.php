@@ -19,7 +19,7 @@
 
 <!-- App Bottom Menu -->
 <div class="appBottomMenu">
-    <a href="{{route('dashboard')}}" class="item {{request()->is('dashboard') ? 'active' :''}}">
+    <a href="{{route('dashboard')}}" class="item {{request()->is('home') ? 'active' :''}}">
         <div class="col">
             <ion-icon name="home-outline"></ion-icon>
             <strong style="font-size: 15px">Home</strong>
