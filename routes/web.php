@@ -26,18 +26,23 @@ use Illuminate\Support\Facades\URL;
 
 URL::forceScheme('https');
 
+// Route home
 Route::get('/', function () {
     return view('auth.login');
 })->name('login');
 
-Route::middleware(['auth'])->group(function () {
+//Route Pegawai 
+Route::middleware(['auth', 'cekRole'])->group(function () {
     Route::get('/profil{user}', [profilController::class, 'index'])->name('profil');
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::get('/masuk', [PresensiController::class, 'index'])->name('masuk');
     Route::get('/pulang', [presensiOut_Controller::class, 'index'])->name('pulang');
     Route::post('/presensi/public/masuk', [PresensiController::class, 'store'])->name('store');
     Route::post('/presensi/public/pulang', [presensiOut_Controller::class, 'store'])->name('pulangStore');
+});
+
+// Route Admin
+Route::middleware(['auth', 'cekAdmin'])->group(function(){
     Route::get('/user', [adminController::class, 'user'])->name('kepegawaianUser');
     Route::post('/user/create-user', [adminController::class, 'create_user'])->name('createUser');
     Route::get('/admin', [adminController::class, 'index'])->name('adminDashboard')->name('admin');
@@ -52,11 +57,11 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/send/{id}', [RecruitmentController::class, 'sendwa'])->name('sendwa');
 });
 
-
-
+// Route Login dan Logout
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
 Route::post('/proseslogin', [AuthController::class, 'proseslogin'])->name('proseslogin');
 
-
+// Route Register
 Route::controller(registerController::class)->group(function () {
     Route::get('/register', [registerController::class, 'register'])->name('register');
     Route::post('/register/store', [registerController::class, 'store'])->name('storedata');

@@ -12,10 +12,10 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#000000">
     <title>E-Presensi RSSAK</title>
-    <meta name="description" content="Mobilekit HTML Mobile UI Kit">
-    <meta name="keywords" content="bootstrap 4, mobile template, cordova, phonegap, mobile, html" />
+    <meta name="description" content="Presensi RS Sarkies 'Aisyiyah Kudus">
+    <meta name="keywords" content="Presensi RS Sarkies 'Aisyiyah Kudus" />
     <link rel="icon" type="image/png" href="{{ asset('assets/img/Logo_RSSA.png') }}" sizes="32x32">
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('assets/img/icon/192x192.png') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('assets/img/icon/Logo_RSSA.png') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <link rel="manifest" href="__manifest.json">
     <meta name="csrf-token" content="{{ csrf_token() }}">
