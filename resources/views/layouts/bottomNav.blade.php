@@ -46,10 +46,10 @@
             <strong style="font-size: 15px">Rekap</strong>
         </div>
     </a>
-    <a href="{{route('logout')}}" class="item">
+    <a href="{{route('profil', Auth::user()->id)}}" class="item">
         <div class="col">
-            <ion-icon name="log-out-outline" role="img" class="md hydrated" aria-label="to-login"></ion-icon>
-            <strong style="font-size: 15px">Logout</strong>
+            <ion-icon name="person-outline" role="img" class="md hydrated" aria-label="to-login"></ion-icon>
+            <strong style="font-size: 15px">Akun</strong>
         </div>
     </a>
 </div>

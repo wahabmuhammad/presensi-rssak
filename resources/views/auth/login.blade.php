@@ -117,12 +117,47 @@
                 </form>
             </div>
         </div>
-
-
     </div>
+    {{-- Modal On load Page --}}
+    <div class="modal modal-blur fade" id="myModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Informasi Update</h3>
+                    <ion-icon name="close-outline" class="btn-close" id="modal-close" data-bs-dismiss="modal" aria-label="Close"></ion-icon>
+                    {{-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> --}}
+                </div>
+                <div class="modal-body">
+                    <p>1. Update Halaman Akun untuk merubah info akun (Done) <br>
+                        2. Update Halaman Slip Gaji (Coming Soon) <br>
+                        3. Update Halaman Cuti (Coming Soon) <br>
+                        4. Update Halaman Rekap Presensi (Coming Soon) <br>
+                        <p class="mt-30">
+                            Jika ada kendala terkait presensi hubungi melalui <a href="https://wa.me/6281215837977">link berikut</a> <br>
+                            <i>Ketuk layar anda untuk menutup Pop up display</i>
+                        </p>
+                    </p>
+                </div>
+                {{-- <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div> --}}
+            </div>
+        </div>
+    </div>
+
+
     <!-- * App Capsule -->
 
+    <!-- Jquery -->
+    <script src="{{ asset('assets/js/lib/jquery-3.4.1.min.js') }}"></script>
     <script>
+        $(window).on('load', function() {
+            $('#myModal').modal('show');
+        });
+        $('#modal-close').on('click', function() {
+            $('#myModal').modal('hidden');
+        })
         const passwordInput = document.getElementById('password');
         const eyeIcon = document.getElementById('eye-icon');
 
@@ -148,8 +183,6 @@
     </script>
 
     <!-- ///////////// Js Files ////////////////////  -->
-    <!-- Jquery -->
-    <script src="{{ asset('assets/js/lib/jquery-3.4.1.min.js') }}"></script>
     <!-- Bootstrap-->
     <script src="{{ asset('assets/js/lib/popper.min.js') }}"></script>
     <script src="{{ asset('assets/js/lib/bootstrap.min.js') }}"></script>

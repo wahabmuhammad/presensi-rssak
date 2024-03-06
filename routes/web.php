@@ -33,8 +33,11 @@ Route::get('/', function () {
 
 //Route Pegawai 
 Route::middleware(['auth', 'cekRole'])->group(function () {
-    Route::get('/profil{user}', [profilController::class, 'index'])->name('profil');
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/slip-gaji/{user}', [profilController::class, 'slipgaji'])->name('slip-gaji');
+    Route::get('/profil{user}', [profilController::class, 'index'])->name('profil');
+    Route::put('/update-profile{user}', [profilController::class, 'store'])->name('updateprofil');
+    Route::get('/slip-gaji{user}', [profilController::class, 'slipgaji'])->name('slipgaji');
     Route::get('/masuk', [PresensiController::class, 'index'])->name('masuk');
     Route::get('/pulang', [presensiOut_Controller::class, 'index'])->name('pulang');
     Route::post('/presensi/public/masuk', [PresensiController::class, 'store'])->name('store');

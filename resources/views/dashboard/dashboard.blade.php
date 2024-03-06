@@ -21,18 +21,18 @@
                     <div class="list-menu">
                         <div class="item-menu text-center">
                             <div class="menu-icon">
-                                <a href="{{ route('profil', $profil->id) }}" class="green" style="font-size: 40px;">
-                                    <ion-icon name="person-sharp"></ion-icon>
+                                <a href="{{ route('slip-gaji', $profil->id) }}" class="green" style="font-size: 40px;">
+                                    <ion-icon name="wallet-outline"></ion-icon>
                                 </a>
                             </div>
                             <div class="menu-name">
-                                <span class="text-center">Profil</span>
+                                <span class="text-center">Slip Gaji</span>
                             </div>
                         </div>
                         <div class="item-menu text-center">
                             <div class="menu-icon">
                                 <a href="" class="danger" style="font-size: 40px;">
-                                    <ion-icon name="calendar-number"></ion-icon>
+                                    <ion-icon name="calendar-number-outline"></ion-icon>
                                 </a>
                             </div>
                             <div class="menu-name">
@@ -42,7 +42,7 @@
                         <div class="item-menu text-center">
                             <div class="menu-icon">
                                 <a href="" class="primary" style="font-size: 40px;">
-                                    <ion-icon name="time"></ion-icon>
+                                    <ion-icon name="time-outline"></ion-icon>
                                 </a>
                             </div>
                             <div class="menu-name">
@@ -52,23 +52,23 @@
                         <div class="item-menu text-center">
                             <div class="menu-icon">
                                 <a href="" class="warning" style="font-size: 40px;">
-                                    <ion-icon name="document-text"></ion-icon>
+                                    <ion-icon name="document-text-outline"></ion-icon>
                                 </a>
                             </div>
                             <div class="menu-name">
                                 <span class="text-center">Histori</span>
                             </div>
                         </div>
-                        <div class="item-menu text-center">
+                        {{-- <div class="item-menu text-center">
                             <div class="menu-icon">
                                 <a href="" class="orange" style="font-size: 40px;">
-                                    <ion-icon name="location"></ion-icon>
+                                    <ion-icon name="location-outline"></ion-icon>
                                 </a>
                             </div>
                             <div class="menu-name">
                                 Lokasi
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>
