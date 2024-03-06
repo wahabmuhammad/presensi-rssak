@@ -119,13 +119,13 @@
         </div>
     </div>
     {{-- Modal On load Page --}}
-    <div class="modal modal-blur fade" id="myModal" tabindex="-1">
+    {{-- <div class="modal modal-blur fade" id="myModal" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h3 class="modal-title">Informasi Update</h3>
                     <ion-icon name="close-outline" class="btn-close" id="modal-close" data-bs-dismiss="modal" aria-label="Close"></ion-icon>
-                    {{-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> --}}
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <p>1. Update Halaman Akun untuk merubah info akun (Done) <br>
@@ -138,13 +138,13 @@
                         </p>
                     </p>
                 </div>
-                {{-- <div class="modal-footer">
+                <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary">Save changes</button>
-                </div> --}}
+                </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
 
     <!-- * App Capsule -->
