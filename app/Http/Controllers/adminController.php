@@ -54,9 +54,11 @@ class adminController extends Controller
         //create to database
         $simpan = User::create($validasi);
         if($simpan){
-            return back()->with('Berhasil Membuat User');
+            // toastr()->success('Data berhasi disimpan');
+            return back()->with('success','Berhasil Membuat User');
         }else{
-            return back()->with('Gagal Membuat User');
+            // toastr()->error('Data gagal disimpan!');
+            return back()->with('error','Gagal Membuat User');
         }
     }
 
@@ -80,13 +82,14 @@ class adminController extends Controller
         // $user = User::all();
         // dd($user);
         $user->update($request->all());
-        notify()->success('Berhasil Update data');
+        toastr()->success('Data berhasi diperbarui!');
         return redirect(route('kepegawaianUser'))->with('success', 'Update Data berhasil');
     }
 
     public function destroy($id){
         $user = User::find($id);
         $user->delete();
+        // toastr()->success('Data berhasi dihapus!');
         return redirect(route('kepegawaianUser'))->with('success','Berhasil Menghapus User');
     }
 
@@ -133,5 +136,9 @@ class adminController extends Controller
 
     public function exportPulang(){
         return Excel::download(new ExportPulang, "Rekap_Presensi_Pulang.xlsx");
+    }
+
+    public function inputGaji(){
+        return view('admin.kepegawaian.gaji-pegawai');
     }
 }

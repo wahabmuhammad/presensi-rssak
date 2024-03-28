@@ -227,6 +227,9 @@
                                 <a class="dropdown-item" href="{{ route('kepegawaianUser') }}">
                                     User Pegawai
                                 </a>
+                                <a class="dropdown-item" href="{{ route('gajiPegawai') }}">
+                                    Input Gaji Pegawai
+                                </a>
                             </div>
                         </div>
                     </div>

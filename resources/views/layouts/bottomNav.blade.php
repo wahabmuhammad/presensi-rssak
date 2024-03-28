@@ -19,7 +19,7 @@
 
 <!-- App Bottom Menu -->
 <div class="appBottomMenu">
-    <a href="{{route('dashboard')}}" class="item {{request()->is('home') ? 'active' :''}}">
+    <a href="{{route('dashboard')}}" class="item {{request()->is('dashboard') ? 'active' :''}}">
         <div class="col">
             <ion-icon name="home-outline"></ion-icon>
             <strong style="font-size: 15px">Home</strong>
@@ -39,14 +39,14 @@
             </div>
         </div>
     </a>
-    <a href="#" class="item">
+    <a href="{{route('historiPresensi', Auth::user()->id)}}" class="item {{request()->routeIs('historiPresensi', Auth::user()->id) ? 'active' :''}}">
         <div class="col">
             <ion-icon name="document-text-outline" role="img" class="md hydrated"
                 aria-label="document text outline"></ion-icon>
             <strong style="font-size: 15px">Rekap</strong>
         </div>
     </a>
-    <a href="{{route('profil', Auth::user()->id)}}" class="item">
+    <a href="{{route('profil', Auth::user()->id)}}" class="item {{request()->routeIs('profil', Auth::user()->id) ? 'active' :''}}">
         <div class="col">
             <ion-icon name="person-outline" role="img" class="md hydrated" aria-label="to-login"></ion-icon>
             <strong style="font-size: 15px">Akun</strong>

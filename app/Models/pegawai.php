@@ -2,30 +2,38 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
+use PhpParser\Node\NullableType;
 
-
-class pegawai extends Authenticatable
+class pegawai extends Model
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasFactory, Notifiable;
 
-    /**
-     * Protected var for acronym
-     *
-     * @var string
-     */
-    protected $table ="pegawai";
-    public $primaryKey ="nip";
+    protected $table = 'pegawai_m';
+    
     protected $fillable = [
+        'id',
         'nip',
         'nama_lengkap',
+        'nama_panggilan',
+        'gol_mk',
+        'tmt',
+        'sk_pt',
+        'status_pegawai',
+        'jenis_kelamin',
+        'formasi',
         'jabatan',
-        'no_hp',
-        'password',
+        'penempatan',
+        'mulai_kerja',
+        'nik',
+        'ttl',
+        'alamat',
+        'lulusan',
+        'pendidikan_usia',
+        'program_studi',
+        'status'
     ];
 
     

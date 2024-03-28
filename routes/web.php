@@ -3,6 +3,7 @@
 use App\Http\Controllers\adminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\historiPresensi_Controller;
 use App\Http\Controllers\PresensiController;
 use App\Http\Controllers\presensiOut_Controller;
 use App\Http\Controllers\profilController;
@@ -34,8 +35,9 @@ Route::get('/', function () {
 //Route Pegawai 
 Route::middleware(['auth', 'cekRole'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/history/{user}', [historiPresensi_Controller::class, 'show'])->name('historiPresensi');
     Route::get('/slip-gaji/{user}', [profilController::class, 'slipgaji'])->name('slip-gaji');
-    Route::get('/profil{user}', [profilController::class, 'index'])->name('profil');
+    Route::get('/profil/{user}', [profilController::class, 'index'])->name('profil');
     Route::put('/update-profile{user}', [profilController::class, 'store'])->name('updateprofil');
     Route::get('/slip-gaji{user}', [profilController::class, 'slipgaji'])->name('slipgaji');
     Route::get('/masuk', [PresensiController::class, 'index'])->name('masuk');
@@ -47,6 +49,7 @@ Route::middleware(['auth', 'cekRole'])->group(function () {
 // Route Admin
 Route::middleware(['auth', 'cekAdmin'])->group(function(){
     Route::get('/user', [adminController::class, 'user'])->name('kepegawaianUser');
+    Route::get('/gaji-pegawai', [adminController::class, 'inputGaji'])->name('gajiPegawai');
     Route::post('/user/create-user', [adminController::class, 'create_user'])->name('createUser');
     Route::get('/admin', [adminController::class, 'index'])->name('adminDashboard')->name('admin');
     Route::get('/rekap_Presensi_in', [adminController::class, 'rekap'])->name('rekapPresensi_In');
