@@ -19,7 +19,7 @@
 
 <!-- App Bottom Menu -->
 <div class="appBottomMenu">
-    <a href="{{route('dashboard')}}" class="item {{request()->is('dashboard') ? 'active' :''}}">
+    <a href="{{ route('dashboard') }}" class="item {{ request()->is('dashboard') ? 'active' : '' }}">
         <div class="col">
             <ion-icon name="home-outline"></ion-icon>
             <strong style="font-size: 15px">Home</strong>
@@ -35,22 +35,42 @@
     <a href="" class="item">
         <div class="col">
             <div class="action-button large" id="camera">
-                <ion-icon name="camera" id="camera" role="img" class="md hydrated" aria-label="add outline"></ion-icon>
+                <ion-icon name="camera" id="camera" role="img" class="md hydrated"
+                    aria-label="add outline"></ion-icon>
             </div>
         </div>
     </a>
-    <a href="{{route('historiPresensi', Auth::user()->id)}}" class="item {{request()->routeIs('historiPresensi', Auth::user()->id) ? 'active' :''}}">
+    <a href="{{ route('historiPresensi', Auth::user()->id) }}"
+        class="item {{ request()->routeIs('historiPresensi', Auth::user()->id) ? 'active' : '' }}">
         <div class="col">
             <ion-icon name="document-text-outline" role="img" class="md hydrated"
                 aria-label="document text outline"></ion-icon>
             <strong style="font-size: 15px">Rekap</strong>
         </div>
     </a>
-    <a href="{{route('profil', Auth::user()->id)}}" class="item {{request()->routeIs('profil', Auth::user()->id) ? 'active' :''}}">
+    {{-- <a href="{{ route('profil', Auth::user()->id) }}"
+        class="item {{ request()->routeIs('profil', Auth::user()->id) ? 'active' : '' }}">
+        <div class="col">
+            <ion-icon name="person-outline" role="img" class="md hydrated" aria-label="to-login"></ion-icon>
+            <strong style="font-size: 15px">Akun</strong>
+        </div>
+    </a> --}}
+    <!-- resources/views/inputForm.blade.php -->
+    {{-- Assuming you are using Bootstrap for styling --}}
+
+    <a href="{{ route('profil', Auth::user()->id) }}"
+        class="item {{ request()->routeIs('profil', Auth::user()->id) ? 'active' : '' }}" id="dropdownMenuLink"
+        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <div class="col">
             <ion-icon name="person-outline" role="img" class="md hydrated" aria-label="to-login"></ion-icon>
             <strong style="font-size: 15px">Akun</strong>
         </div>
     </a>
+    <div class="dropdown-menu dropdown-menu-up" aria-labelledby="dropdownMenuLink">
+        <a class="dropdown-item" href="{{ route('profil', Auth::user()->id) }}">Profile</a>
+        <a class="dropdown-item" href="{{route('logout')}}">Logout</a>
+    </div>
+
 </div>
+
 <!-- * App Bottom Menu -->
