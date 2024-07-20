@@ -219,9 +219,9 @@
                                         <div class="in">
                                             <div>
                                                 <b>{{ $l->name }}</b> <br>
-                                                <small>
+                                                {{-- <small>
                                                     {{ $l->jabatan }}
-                                                </small>
+                                                </small> --}}
                                             </div>
                                             <div>
                                                 <h5>Masuk</h5>
