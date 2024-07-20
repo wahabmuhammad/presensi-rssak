@@ -100,8 +100,7 @@
                                                             <span class="strong">NIP</span>
                                                         </label>
                                                         <input type="text" id="nip" name="nip"
-                                                            class="form-control form-control" value="{{ $id->nip }}"
-                                                            @disabled(true) />
+                                                            class="form-control form-control" value="{{ $id->nip }}"/>
                                                     </div>
                                                 </div>
                                             </div> <br>
