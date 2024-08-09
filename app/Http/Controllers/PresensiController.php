@@ -12,17 +12,20 @@ class PresensiController extends Controller
 {
     public function index(){
         $today = date("Y-m-d");
-        
         $nip = Auth::user()->nip;
+        $cekPulang = DB::table('presensi')->where('presensi.nip',$nip)->latest('presensi.id')->first();
         $cek = DB::table('presensi')->where('tgl_presensi', $today)->where('nip',$nip)->count();
-        return view('absensi.masuk', compact('cek'));
+        // dd($cekPulang);
+        return view('absensi.masuk', compact('cek', 'cekPulang'));
     }
 
     public function store(Request $request){
+        // dd($request);
         $name = Auth::user()->name;
         $nip = Auth::user()->nip;
         $tgl_presensi = date("Y-m-d");
         $jam = date("H:i:s");
+        $shift = $request->shift;
         $lokasi = $request->lokasi;
         $image = $request->image;
         $folderPath = "public/upload/presensi-masuk/";
@@ -32,9 +35,11 @@ class PresensiController extends Controller
         $fileName = $formatName . ".png";
         $file = $folderPath . $fileName;
         
+        
         $cek = DB::table('presensi')->where('tgl_presensi', $tgl_presensi)->where('nip',$nip)->count();
         if($cek == 0){
             $dataMasuk = [
+                'shift' => $shift,
                 'name' => $name,
                 'nip' => $nip, 
                 'tgl_presensi' => $tgl_presensi,
