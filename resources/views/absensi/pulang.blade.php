@@ -232,7 +232,6 @@
                 cache: false,
                 success: function(respond) {
                     var status = respond.split("|");
-                    console.log(respond);
                     if (status[0] == "success") {
                         Swal.fire({
                             icon: 'success',
