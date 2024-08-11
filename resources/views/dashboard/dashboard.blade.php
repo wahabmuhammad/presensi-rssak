@@ -224,8 +224,14 @@
                                                 </small>
                                             </div>
                                             <div>
-                                                <h5>Masuk</h5>
+                                                <h5>Shift</h5>
                                                 <span class="badge badge-primary">
+                                                    {{$l->shift}}
+                                                </span>
+                                            </div>
+                                            <div>
+                                                <h5>Masuk</h5>
+                                                <span class="badge badge-success">
                                                     {{ $l->jam_in }}
                                                 </span>
                                             </div>
@@ -313,30 +319,38 @@
                 if(timeString >= "03:00:00" && timeString <= "05:00:00"){
                     shift = "Pagi 1";
                     jamkerja = "04.00 - 12.00";
+                    // document.getElementById('jamkerja').textContent = jamkerja;
                 }else if (timeString >= "06:00:00" && timeString <= "08:00:00" ){
                     shift = "Pagi 2";
                     jamkerja = "07.00 - 14.00";
+                    // document.getElementById('jamkerja').textContent = jamkerja;
                 }else if (timeString >= "08:30:00" && timeString <= "09:30:00"){
                     shift = "Middle 1";
                     jamkerja = "09.00 - 16.00";
+                    // document.getElementById('jamkerja').textContent = jamkerja;
                 }else if(timeString >= "09:30:00" && timeString <=  "10:30:00"){
                     shift = "Middle 2";
                     jamkerja = "10.00 - 17.00";
+                    // document.getElementById('jamkerja').textContent = jamkerja;
                 }else if(timeString >= "11:30:00" && timeString <=  "12:30:00"){
                     shift = "Middle 3";
                     jamkerja = "12.00 - 19.00";
+                    // document.getElementById('jamkerja').textContent = jamkerja;
                 }else if(timeString >= "13:00:00" && timeString <= "15:00:00"){
                     shift = "Siang";
                     jamkerja = "14.00 - 21.00";
+                    // document.getElementById('jamkerja').textContent = jamkerja;
                 }else if(timeString >= "20:00:00" && timeString <= "22:00:00"){
                     shift = "Malam";
                     jamkerja = "21.00 - 07.00";
+                    // document.getElementById('jamkerja').textContent = jamkerja;
                 } else{
                     shift = "Anda berada di luar jam kerja";
                 }
                 document.getElementById('shift').value = shift;
                 document.getElementById('jamkerja').textContent = jamkerja;
         }
+        setInterval(shiftPegawai, 1000);
         shiftPegawai();
     </script>
 @endsection
