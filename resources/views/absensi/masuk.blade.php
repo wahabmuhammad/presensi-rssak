@@ -267,7 +267,7 @@
                 });
                 return; // Exit function if 'lokasi' is empty
             }
-            if (shift == "Anda berada di luar jam kerja") {
+            if (shift.toLowerCase() == "anda berada di luar jam kerja") {
                 Swal.fire({
                     icon: 'error',
                     title: 'Anda berada di luar jam kerja',
