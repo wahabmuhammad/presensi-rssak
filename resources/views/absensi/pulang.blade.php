@@ -4,7 +4,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
         crossorigin="anonymous"></script>
-    <div class="appHeader bg-primary text-light">
+    <div class="appHeader bg-danger text-light">
         <div class="left">
             <a href="{{ route('dashboard') }}" class="headerButton goBack">
                 <ion-icon name="chevron-back-outline"></ion-icon>
@@ -42,11 +42,31 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="card">
+        <div class="card-header">
+            <div id="datetime" class='text-center'>
+                <h2 id="time"></h2>
+                <h4 id="date">{{$hari}},{{ $cekPulang->tgl_presensi }}</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="card-body text-center pb-1">
+                {{-- <button id="takepresensi" class="btn btn-success btn-block">
+                    <ion-icon name="camera-outline"></ion-icon>
+                    Presensi Masuk
+                </button> --}}
+                <input type="text" id="shift" name="shift" class="form-control" style="text-align: center"
+                    value="{{ $cekPulang->shift}}" disabled>
+                <h4 id="jamkerja"></h4>
+            </div>
+        </div>
+    </div>
+
+    {{-- <div class="row">
         <button id="takepresensi" class="btn btn-danger btn-block">
             <ion-icon name="camera-outline"></ion-icon>
             Presensi Pulang</button>
-    </div>
+    </div> --}}
 
 
     <div class="row mt-2">
@@ -72,7 +92,7 @@
         </a>
         <a href="#" class="item">
             <div class="col">
-                <div class="action-button large" id="camera">
+                <div class="action-button large  bg-danger" id="camera">
                     <ion-icon name="camera" id="camera" role="img" class="md hydrated"
                         aria-label="add outline"></ion-icon>
                 </div>
@@ -96,6 +116,52 @@
 @endsection
 
 @push('myscript')
+    <script>
+        function updateDateTime() {
+            const now = new Date();
+
+            // Nama hari dalam bahasa Indonesia
+            const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+            const dayName = days[now.getDay()];
+
+            // Mendapatkan tanggal
+            const day = String(now.getDate()).padStart(2, '0');
+            const month = String(now.getMonth() + 1).padStart(2, '0'); // Bulan di JavaScript dimulai dari 0
+            const year = now.getFullYear();
+            const dateString = `${dayName}, ${day}-${month}-${year}`;
+
+            // Mendapatkan waktu
+            const hours = now.getHours();
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            const timeString = `${String(hours).padStart(2, '0')}:${minutes}:${seconds}`;
+            // console.log(timeString);
+
+            // // Menentukan ucapan berdasarkan jam
+            // let greeting;
+            // if (hours < 12) {
+            //     greeting = 'Selamat Pagi, ';
+            // } else if (hours < 15) {
+            //     greeting = 'Selamat Siang, ';
+            // } else if (hours < 18) {
+            //     greeting = 'Selamat Sore, ';
+            // } else {
+            //     greeting = 'Selamat Malam, ';
+            // }
+
+
+            // // Memperbarui elemen HTML
+            // document.getElementById('greeting').textContent = greeting;
+            // document.getElementById('date').textContent = dateString;
+            document.getElementById('time').textContent = timeString;
+        }
+
+        // Memperbarui jam dan tanggal setiap detik
+        setInterval(updateDateTime, 1000);
+
+        // Memanggil fungsi pertama kali untuk langsung menampilkan jam dan tanggal saat halaman dimuat
+        updateDateTime();
+    </script>
     <script>
         Webcam.set({
             height: 480,
@@ -166,10 +232,11 @@
                 cache: false,
                 success: function(respond) {
                     var status = respond.split("|");
+                    console.log(respond);
                     if (status[0] == "success") {
                         Swal.fire({
                             icon: 'success',
-                            title: 'Berhasil',
+                            title: 'Presensi Pulang berhasil',
                             text: status[1],
                         })
                         setTimeout("location.href='dashboard'", 3000);
@@ -181,6 +248,7 @@
                         })
                         setTimeout("location.href='dashboard'", 3000);
                     }
+                    
                 }
             });
         });
