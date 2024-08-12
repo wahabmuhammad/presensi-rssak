@@ -205,8 +205,9 @@
 
 
         $("#camera").click(function(e) {
+            e.preventDefault();
+            $(this).prop('disabled', true);
             var lokasi = $("#lokasi").val().trim(); // Get and trim the value of 'lokasi' input field
-
             // Check if 'lokasi' value is empty
             if (!lokasi) {
                 Swal.fire({

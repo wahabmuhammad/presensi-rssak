@@ -255,6 +255,8 @@
 
 
         $("#camera").click(function(e) {
+            e.preventDefault();
+            $(this).prop('disabled', true);
             var lokasi = $("#lokasi").val().trim(); // Get and trim the value of 'lokasi' input field
             var shift = $("#shift").val();
             // console.log(shift);
@@ -267,15 +269,15 @@
                 });
                 return; // Exit function if 'lokasi' is empty
             }
-            if (shift.toLowerCase() == "anda berada di luar jam kerja") {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Anda berada di luar jam kerja',
-                    text: 'Mohon mengisi presensi sesuai dengan jam kerja!!!',
-                })
-                setTimeout("location.href='dashboard'", 3000);
-                return;
-            }
+            // if (shift.toLowerCase() == "anda berada di luar jam kerja") {
+            //     Swal.fire({
+            //         icon: 'error',
+            //         title: 'Anda berada di luar jam kerja',
+            //         text: 'Mohon mengisi presensi sesuai dengan jam kerja!!!',
+            //     })
+            //     setTimeout("location.href='dashboard'", 3000);
+            //     return;
+            // }
             Webcam.snap(function(uri) {
                 image = uri;
             });
@@ -312,6 +314,7 @@
                     }
                 }
             });
+            // $(this).prop('disabled', false);
         });
     </script>
 @endpush
