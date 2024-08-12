@@ -217,23 +217,29 @@
                                             <img src="{{ url($pathIn) }}" alt="" class="imaged w64">
                                         </div>
                                         <div class="in">
-                                            <div>
-                                                <b>{{ $l->name }}</b> <br>
-                                                <small>
-                                                    {{ $l->jabatan }}
-                                                </small>
+                                            <div class="col">
+                                                <div class="row">
+                                                    <b>{{ $l->name }}</b> <br>
+                                                    <small>
+                                                        {{ $l->jabatan }}
+                                                    </small>
+                                                </div>
                                             </div>
-                                            <div>
-                                                <h5>Shift</h5>
-                                                <span class="badge badge-primary">
-                                                    {{$l->shift}}
-                                                </span>
-                                            </div>
-                                            <div>
-                                                <h5>Masuk</h5>
-                                                <span class="badge badge-success">
-                                                    {{ $l->jam_in }}
-                                                </span>
+                                            {{-- <div>
+                                            </div> --}}
+                                            <div class="col">
+                                                <div class="row">
+                                                    <h5 style="margin-right: 5px">Shift</h5>
+                                                    <span class="badge badge-primary">
+                                                        {{$l->shift}}
+                                                    </span>
+                                                </div>
+                                                <div class="row">
+                                                    <h5 style="margin-right: 5px">Masuk</h5>
+                                                    <span class="badge badge-success">
+                                                        {{ $l->jam_in }}
+                                                    </span>
+                                                </div>
                                             </div>
 
                                         </div>
