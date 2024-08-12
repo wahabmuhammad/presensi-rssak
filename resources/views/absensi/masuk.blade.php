@@ -177,7 +177,7 @@
             if (timeString >= "03:00:00" && timeString <= "05:00:00") {
                 shift = "Pagi 1";
                 jamkerja = "04.00 - 12.00";
-            } else if (timeString >= "06:00:00" && timeString <= "08:00:00") {
+            } else if (timeString >= "06:00:00" && timeString <= "08:10:00") {
                 shift = "Pagi 2";
                 jamkerja = "07.00 - 14.00";
             } else if (timeString >= "08:30:00" && timeString <= "09:30:00") {

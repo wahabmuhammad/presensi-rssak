@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\shift;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -15,7 +16,9 @@ class PresensiController extends Controller
         $nip = Auth::user()->nip;
         $cekPulang = DB::table('presensi')->where('presensi.nip',$nip)->latest('presensi.id')->first();
         $cek = DB::table('presensi')->where('tgl_presensi', $today)->where('nip',$nip)->count();
-        // dd($cekPulang);
+        $shift = shift::get();
+        
+        // dd($shift);
         return view('absensi.masuk', compact('cek', 'cekPulang'));
     }
 
@@ -50,7 +53,7 @@ class PresensiController extends Controller
             $simpan = DB::table('presensi')->insert($dataMasuk);
             if($simpan){
                 Storage::put($file, $image_base64);
-                echo "success|Semangat Bekerja Hari ini|in";
+                echo "success|Terimakasih. Selamat Bekerja ya. Semangat!|in";
             }else{
                 echo "error|Silahkan Hubungi TIM IT";
             }

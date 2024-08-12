@@ -54,8 +54,8 @@ class presensiOut_Controller extends Controller
             $simpan = DB::table('presensi')->where('id', $cek->id)->update($dataMasuk);
             if($simpan){
                 Storage::put($file, $image_base64);
-                list($jam, $menit, $detik) = explode(':', $total_jam);
-                echo "success|Hati-Hati di Jalan,, total jam kerja anda ".$jam.PHP_EOL."Jam ".$menit.PHP_EOL." Menit"."|out";
+                // list($jam, $menit, $detik) = explode(':', $total_jam);
+                echo "success|Terimakasih Atas Kerja Kerasnya Hari Ini. Anda Hebat. Hati-hati di Jalan ya.|out";
             }else{
                 echo "error|Silahkan Hubungi TIM IT| ";
             }
