@@ -269,15 +269,15 @@
                 });
                 return; // Exit function if 'lokasi' is empty
             }
-            // if (shift.toLowerCase() == "anda berada di luar jam kerja") {
-            //     Swal.fire({
-            //         icon: 'error',
-            //         title: 'Anda berada di luar jam kerja',
-            //         text: 'Mohon mengisi presensi sesuai dengan jam kerja!!!',
-            //     })
-            //     setTimeout("location.href='dashboard'", 3000);
-            //     return;
-            // }
+            if (shift.toLowerCase() == "anda berada di luar jam kerja") {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Anda berada di luar jam kerja',
+                    text: 'Mohon mengisi presensi sesuai dengan jam kerja!!!',
+                })
+                setTimeout("location.href='dashboard'", 3000);
+                return;
+            }
             Webcam.snap(function(uri) {
                 image = uri;
             });
