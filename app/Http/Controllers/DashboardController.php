@@ -15,8 +15,8 @@ class DashboardController extends Controller
         $tahunIni = date("Y");
         $user = Auth::user()->nip;
         $profil = Auth::user();
-        $PresensiMasuk = DB::table('presensi')->where('nip', $user)->where('tgl_presensi',$today)->first();
-        $PresensiPulang = DB::table('presensi_out')->where('nip', $user)->where('tgl_presensi_out',$today)->first();
+        $PresensiMasuk = DB::table('presensi')->where('nip', $user)->latest('presensi.id')->first();
+        $PresensiPulang = DB::table('presensi')->where('nip', $user)->latest('presensi.id')->first();
         $presensimasukBulanini = DB::table('presensi')->whereMonth('tgl_presensi', $bulanIni)->whereYear('tgl_presensi', date('Y'))->where('nip', $user)->orderBy('tgl_presensi')->get();
         $presensipulangBulanini = DB::table('presensi')->whereMonth('tgl_presensi_out', $bulanIni)->where('nip', $user)->orderBy('tgl_presensi_out')->get();
         $leaderboard = DB::table('presensi')->join('pegawais', 'presensi.nip', '=' , 'pegawais.nip')->where('tgl_presensi', $today)->orderBy('jam_in')->get();
