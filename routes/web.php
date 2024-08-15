@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\adminController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\cutiController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\historiPresensi_Controller;
 use App\Http\Controllers\PresensiController;
@@ -37,6 +38,7 @@ Route::middleware(['auth', 'cekRole'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/history/{user}', [historiPresensi_Controller::class, 'show'])->name('historiPresensi');
     Route::get('/slip-gaji/{user}', [profilController::class, 'slipgaji'])->name('slip-gaji');
+    Route::get('/cuti', [cutiController::class, 'index'])->name('cuti');
     Route::get('/profil/{user}', [profilController::class, 'index'])->name('profil');
     Route::put('/update-profile{user}', [profilController::class, 'store'])->name('updateprofil');
     Route::get('/slip-gaji{user}', [profilController::class, 'slipgaji'])->name('slipgaji');
