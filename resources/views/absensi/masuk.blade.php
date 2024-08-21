@@ -283,7 +283,7 @@
             });
             var lokasi = $("#lokasi").val();
             var shift = $('#shift').val();
-            console.log(shift);
+            // console.log(shift);
 
             $.ajax({
                 type: 'POST',
@@ -292,21 +292,30 @@
                     _token: "{{ csrf_token() }}",
                     image: image,
                     lokasi: lokasi,
-                    shift: shift,
+                    shift: shift.toLowerCase(),
                 },
                 cache: false,
                 success: function(respond) {
                     var status = respond.split("|");
                     if (status[0] == "success") {
                         Swal.fire({
-                            icon: 'success',
-                            title: 'Berhasil',
-                            text: status[1],
+                            icon: status[0],
+                            title: "Presensi Berhasil",
+                            // text: status[1],
+                            html: `<p>${status[1]}</p><br><strong><h2>${status[2]}</h2></strong>`
                         })
-                        setTimeout("location.href='dashboard'", 3000);
+                        setTimeout("location.href='dashboard'", 10000);
+                    } else if(status[0] == "info"){
+                        Swal.fire({
+                            icon: status[0],
+                            title: "Presensi Berhasil",
+                            // text: status[1],
+                            html: `<p>${status[1]}</p><br><strong><h2>${status[2]}</h2></strong>`
+                        })
+                        setTimeout("location.href='dashboard'", 10000);
                     } else {
                         Swal.fire({
-                            icon: 'warning',
+                            icon: 'error',
                             title: 'Gagal',
                             text: status[1],
                         })

@@ -11,24 +11,28 @@ use Illuminate\Support\Facades\Storage;
 
 class PresensiController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $today = date("Y-m-d");
         $nip = Auth::user()->nip;
-        $cekPulang = DB::table('presensi')->where('presensi.nip',$nip)->latest('presensi.id')->first();
-        $cek = DB::table('presensi')->where('tgl_presensi', $today)->where('nip',$nip)->count();
+        $cekPulang = DB::table('presensi')->where('presensi.nip', $nip)->latest('presensi.id')->first();
+        $cek = DB::table('presensi')->where('tgl_presensi', $today)->where('nip', $nip)->count();
         $shift = shift::get();
-        
+        // $namaShift = $shift->namashift();
         // dd($shift);
         return view('absensi.masuk', compact('cek', 'cekPulang'));
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         // dd($request);
         $name = Auth::user()->name;
         $nip = Auth::user()->nip;
         $tgl_presensi = date("Y-m-d");
         $jam = date("H:i:s");
         $shift = $request->shift;
+        // $shift = 'pagi 2';
+        $shiftModel = shift::get();
         $lokasi = $request->lokasi;
         $image = $request->image;
         $folderPath = "public/upload/presensi-masuk/";
@@ -37,27 +41,61 @@ class PresensiController extends Controller
         $image_base64 = base64_decode($image_parts[1]);
         $fileName = $formatName . ".png";
         $file = $folderPath . $fileName;
-        
-        
-        $cek = DB::table('presensi')->where('tgl_presensi', $tgl_presensi)->where('nip',$nip)->count();
-        if($cek == 0){
-            $dataMasuk = [
-                'shift' => $shift,
-                'name' => $name,
-                'nip' => $nip, 
-                'tgl_presensi' => $tgl_presensi,
-                'jam_in' => $jam,
-                'foto_in' => $fileName,
-                'location_in' => $lokasi
-            ];
-            $simpan = DB::table('presensi')->insert($dataMasuk);
-            if($simpan){
-                Storage::put($file, $image_base64);
-                echo "success|Terimakasih. Selamat Bekerja ya. Semangat!|in";
-            }else{
-                echo "error|Silahkan Hubungi TIM IT";
+
+
+        $cek = DB::table('presensi')->where('tgl_presensi', $tgl_presensi)->where('nip', $nip)->count();
+        if ($cek == 0) {
+            foreach ($shiftModel as $shifts) {
+                $namaShift = $shifts->namashift;
+                $jamkerja = $shifts->jammasuk;
+                if ($shift == $namaShift) {
+                    if ($jam >= $jamkerja) {
+                        $jamkerja = \Carbon\Carbon::parse($jamkerja); // Ensure $jamkerja is a Carbon instance
+                        $jam = \Carbon\Carbon::parse($jam); // Ensure $jam is a Carbon instance
+                        // Calculate the difference in minutes
+                        $diff = $jam->diff($jamkerja);
+                        // Format the difference as H:i:s
+                        $terlambat = sprintf('%02d:%02d:%02d', $diff->h, $diff->i, $diff->s);
+                        $dataMasuk = [
+                            'shift' => $shift,
+                            'name' => $name,
+                            'nip' => $nip,
+                            'tgl_presensi' => $tgl_presensi,
+                            'jam_in' => $jam,
+                            'foto_in' => $fileName,
+                            'location_in' => $lokasi,
+                            'jam_terlambat' => $terlambat,
+                        ];
+                        $simpan = DB::table('presensi')->insert($dataMasuk);
+                        if ($simpan) {
+                            Storage::put($file, $image_base64);
+                            list($jam, $menit, $detik) = explode(':', $terlambat);
+                            echo "info|Anda Terlambat ".$menit." Menit ".$detik." Detik"." Tetap Semangat ya! Semoga Besok Lebih On Time lagi!|Selamat Milad ke-23 tahun buat kamu yang lahir hari ini, sukses selalu!|in";
+                        } else {
+                            echo "error|Silahkan Hubungi TIM IT";
+                        }
+                    } else {
+                        $dataMasuk = [
+                            'shift' => $shift,
+                            'name' => $name,
+                            'nip' => $nip, 
+                            'tgl_presensi' => $tgl_presensi,
+                            'jam_in' => $jam,
+                            'foto_in' => $fileName,
+                            'location_in' => $lokasi
+                        ];
+                        $simpan = DB::table('presensi')->insert($dataMasuk);
+                        if($simpan){
+                            Storage::put($file, $image_base64);
+                            // dd($namaShift);
+                            echo "success|Terimakasih. Selamat Bekerja ya. Semangat!|Selamat Milad ke-23 tahun buat kamu yang lahir hari ini, sukses selalu!|in";
+                        }else{
+                            echo "error|Silahkan Hubungi TIM IT";
+                        }
+                    }
+                } 
             }
-        }elseif ($cek == 1) {
+        } elseif ($cek == 1) {
             echo "error|Maaf Anda Sudah melakukan Presensi Masuk Hari ini";
         }
     }
