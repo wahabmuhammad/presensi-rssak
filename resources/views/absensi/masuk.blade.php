@@ -302,7 +302,7 @@
                             icon: status[0],
                             title: "Presensi Berhasil",
                             // text: status[1],
-                            html: `<p>${status[1]}</p><br><strong><h2>${status[2]}</h2></strong>`
+                            html: `<strong><h2>${status[1]}</h2></strong>`
                         })
                         setTimeout("location.href='dashboard'", 10000);
                     } else if(status[0] == "info"){
@@ -310,7 +310,7 @@
                             icon: status[0],
                             title: "Presensi Berhasil",
                             // text: status[1],
-                            html: `<p>${status[1]}</p><br><strong><h2>${status[2]}</h2></strong>`
+                            html: `<strong><h2>${status[1]}</h2></strong>`
                         })
                         setTimeout("location.href='dashboard'", 10000);
                     } else {

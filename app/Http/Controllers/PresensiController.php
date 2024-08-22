@@ -70,7 +70,7 @@ class PresensiController extends Controller
                         if ($simpan) {
                             Storage::put($file, $image_base64);
                             list($jam, $menit, $detik) = explode(':', $terlambat);
-                            echo "info|Anda Terlambat ".$menit." Menit ".$detik." Detik"." Tetap Semangat ya! Semoga Besok Lebih On Time lagi!|Selamat Milad ke-23 tahun buat kamu yang lahir hari ini, sukses selalu!|in";
+                            echo "info|Terimakasih Sudah Hadir. Semangat Bekerja ya. Semoga Allah SWT Mudahkan Urusan Hari Ini.|in";
                         } else {
                             echo "error|Silahkan Hubungi TIM IT";
                         }
@@ -88,7 +88,7 @@ class PresensiController extends Controller
                         if($simpan){
                             Storage::put($file, $image_base64);
                             // dd($namaShift);
-                            echo "success|Terimakasih. Selamat Bekerja ya. Semangat!|Selamat Milad ke-23 tahun buat kamu yang lahir hari ini, sukses selalu!|in";
+                            echo "success|Terimakasih Sudah Hadir. Semangat Bekerja ya. Semoga Allah SWT Mudahkan Urusan Hari Ini.|in";
                         }else{
                             echo "error|Silahkan Hubungi TIM IT";
                         }
