@@ -19,7 +19,7 @@ class DashboardController extends Controller
         $PresensiPulang = DB::table('presensi')->where('nip', $user)->where('tgl_presensi_out', '=', $today)->first();
         $presensimasukBulanini = DB::table('presensi')->whereMonth('tgl_presensi', $bulanIni)->whereYear('tgl_presensi', date('Y'))->where('nip', $user)->orderBy('tgl_presensi')->get();
         $presensipulangBulanini = DB::table('presensi')->whereMonth('tgl_presensi_out', $bulanIni)->where('nip', $user)->orderBy('tgl_presensi_out')->get();
-        $leaderboard = DB::table('presensi')->join('pegawais', 'presensi.nip', '=' , 'pegawais.nip')->where('tgl_presensi', $today)->orderBy('jam_in')->get();
+        $leaderboard = DB::table('presensi')->leftJoin('pegawais', 'presensi.nip', '=' , 'pegawais.nip')->where('tgl_presensi', $today)->orderBy('jam_in')->get();
 
         // dd($leaderboard);
         return view('dashboard.dashboard', compact('PresensiMasuk','PresensiPulang', 'presensimasukBulanini','presensipulangBulanini','leaderboard','profil' ));
