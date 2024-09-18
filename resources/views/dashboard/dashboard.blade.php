@@ -342,7 +342,7 @@
                     shift = "Middle 3";
                     jamkerja = "12.00 - 19.00";
                     // document.getElementById('jamkerja').textContent = jamkerja;
-                }else if(timeString >= "13:00:00" && timeString <= "15:00:00"){
+                }else if(timeString >= "12:30:00" && timeString <= "15:00:00"){
                     shift = "Siang";
                     jamkerja = "14.00 - 21.00";
                     // document.getElementById('jamkerja').textContent = jamkerja;
