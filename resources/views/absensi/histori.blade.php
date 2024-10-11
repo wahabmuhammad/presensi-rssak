@@ -40,7 +40,7 @@
                                             <div class="input-group">
                                                 <input type="date" value="{{ Request::get('date_start') }}"
                                                     class="form-control" placeholder="" name="date_start"
-                                                    aria-label="Search in website">
+                                                    aria-label="Search in website" id="date_start">
                                                 <span class="input-group-text" id="basic-addon1">
                                                     <!-- Download SVG icon from http://tabler-icons.io/i/search -->
                                                     <svg xmlns="http://www.w3.org/2000/svg"
@@ -63,7 +63,7 @@
                                             <div class="input-group">
                                                 <input type="date" value="{{ Request::get('date_to') }}"
                                                     class="form-control" placeholder="" name="date_to"
-                                                    aria-label="Search in website">
+                                                    aria-label="Search in website" id="date_to">
                                                 <span class="input-group-text" id="basic-addon1">
                                                     <!-- Download SVG icon from http://tabler-icons.io/i/search -->
                                                     <svg xmlns="http://www.w3.org/2000/svg"
@@ -139,6 +139,7 @@
                                                         $pathIn = Storage::url(
                                                             'public/upload/presensi-masuk/' . $data->foto_in,
                                                         );
+                                                        $pathOut = Storage::url('public/upload/presensi-pulang/' . $data->foto_out);
                                                     @endphp
                                                     <tr>
                                                         <td class="text-secondary strong" data-label="No">
@@ -180,7 +181,7 @@
                                                 @php
                                                     // $i = $userTable->firstItem();
                                                 @endphp
-                                                @foreach ($dataOut as $d)
+                                                @foreach ($dataIn as $d)
                                                     @php
                                                         $pathIn = Storage::url(
                                                             'public/upload/presensi-pulang/' . $d->foto_out,
@@ -218,6 +219,20 @@
         </div>
 
     </div>
+
+    {{-- <script>
+        window.onload = function() {
+            // Get the current date
+            var currentDate = new Date();
+            
+            // Format the date value as YYYY-MM-DD (required format for input type=date)
+            var formattedDate = currentDate.toISOString().split('T')[0];
+            
+            // Set the value of the input date field to the current date
+            document.getElementById("date_to").value = formattedDate;
+            document.getElementById("date_start").value = formattedDate;
+        };
+    </script> --}}
 @endsection
 
 @include('layouts.bottomNav')
