@@ -168,7 +168,7 @@
             const dateString = `${dayName}, ${day}-${month}-${year}`;
 
             //Mendapatkan user yang login
-            const user = @json($user);
+            // const user = @json($user);
             // console.log(user);
 
             // Mendapatkan waktu
