@@ -167,6 +167,10 @@
             const year = now.getFullYear();
             const dateString = `${dayName}, ${day}-${month}-${year}`;
 
+            //Mendapatkan user yang login
+            const user = @json($user);
+            // console.log(user);
+
             // Mendapatkan waktu
             const hours = now.getHours();
             const minutes = String(now.getMinutes()).padStart(2, '0');
@@ -192,6 +196,9 @@
             } else if (timeString >= "12:30:00" && timeString <= "15:00:00") {
                 shift = "Siang";
                 jamkerja = "14.00 - 21.00";
+            } else if(timeString >= "16:30:00" && timeString <= "17:30:00"){
+                shift= "Driver Siang";
+                jamkerja = "17.00 - 24.00";
             } else if (timeString >= "20:00:00" && timeString <= "22:00:00") {
                 shift = "Malam";
                 jamkerja = "21.00 - 07.00";
@@ -297,6 +304,7 @@
                 cache: false,
                 success: function(respond) {
                     var status = respond.split("|");
+                    console.log(status);
                     if (status[0] == "success") {
                         Swal.fire({
                             icon: status[0],
