@@ -167,9 +167,7 @@
             const year = now.getFullYear();
             const dateString = `${dayName}, ${day}-${month}-${year}`;
 
-            //Mendapatkan user yang login
-            // const user = @json($user);
-            // console.log(user);
+            
 
             // Mendapatkan waktu
             const hours = now.getHours();
