@@ -264,9 +264,9 @@
                                 <a class="dropdown-item" href="{{ route('rekapPresensi_In') }}">
                                     Presensi Masuk
                                 </a>
-                                <a class="dropdown-item" href="{{ route('rekapPresensi_Out') }}">
+                                {{-- <a class="dropdown-item" href="{{ route('rekapPresensi_Out') }}">
                                     Presensi Pulang
-                                </a>
+                                </a> --}}
                             </div>
                         </div>
                     </div>
