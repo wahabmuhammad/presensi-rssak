@@ -82,7 +82,7 @@ class adminController extends Controller
         // $user = User::all();
         // dd($user);
         $user->update($request->all());
-        toastr()->success('Data berhasi diperbarui!');
+        // toastr()->success('Data berhasi diperbarui!');
         return redirect(route('kepegawaianUser'))->with('success', 'Update Data berhasil');
     }
 
@@ -99,14 +99,21 @@ class adminController extends Controller
         $keyword = $request->search;
         $start_to = $request->date_start;
         $end_to = $request->date_to;
-
-        if(strlen($keyword)){
-            $rekapMasuk = presensiIn::where('nip', 'like', "%$keyword%")
-            ->orWhere('name', 'like', "%$keyword%")->paginate(10);
-        }elseif($start_to){
-            $rekapMasuk = presensiIn::whereBetween('tgl_presensi', [$start_to, $end_to])->paginate(15);
+        
+        if($start_to!= null && $end_to != null){
+            if(strlen($keyword)){
+                $rekapMasuk = presensiIn::where('nip', 'like', "%$keyword%")
+                ->orWhere('name', 'like', "%$keyword%")
+                ->whereBetween('tgl_presensi', [$start_to, $end_to])
+                ->paginate(15);
+            }else{
+                $rekapMasuk = presensiIn::whereBetween('tgl_presensi', [$start_to, $end_to])->paginate(15);
+            }
         }else{
-            $rekapMasuk = presensiIn::whereMonth('tgl_presensi', $bulanIni)->orderBy('tgl_presensi')->paginate('15');
+            $rekapMasuk = presensiIn::whereYear('tgl_presensi',date("Y"))
+            ->whereMonth('tgl_presensi', $bulanIni)
+            ->orderBy('tgl_presensi')
+            ->paginate('15');
         }
         return view('admin.rekapPresensi.presensiIn', compact('rekapMasuk', 'today'));
     }
@@ -126,7 +133,7 @@ class adminController extends Controller
         if(strlen($keyword)){
             $rekapPulang = presensiOut::where('nip', 'like', "%$keyword%")
             ->orWhere('name', 'like', "%$keyword%")->paginate(15);
-        }elseif($keyword OR ($start_to OR $end_to)){
+        }elseif($keyword OR ($start_to && $end_to)){
             $rekapPulang = presensiOut::whereBetween('tgl_presensi_out', [$start_to, $end_to])->paginate(15);
         }else{
             $rekapPulang = presensiOut::whereMonth('tgl_presensi_out', $bulanIni)->orderBy('tgl_presensi_out')->paginate('15');

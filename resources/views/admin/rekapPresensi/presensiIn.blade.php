@@ -123,11 +123,17 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Foto Masuk</th>
                                 <th>NIP</th>
-                                <th>Name</th>
+                                <th>Nama</th>
+                                <th>Shift</th>
+                                <th>Foto Masuk</th>
+                                <th>Foto Pulang</th>
                                 <th>Tanggal Masuk</th>
-                                <th class="w-1"></th>
+                                <th>Jam Masuk</th>
+                                <th>Tanggal Pulang</th>
+                                <th>Jam Pulang</th>
+                                <th>Keterlambatan</th>
+                                <th>Total Jam Kerja</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -137,16 +143,11 @@
                             @foreach ($rekapMasuk as $u)
                                 @php
                                     $pathIn = Storage::url('public/upload/presensi-masuk/' . $u->foto_in);
+                                    $pathOut = Storage::url('public/upload/presensi-pulang/' . $u->foto_out);
                                 @endphp
                                 <tr>
                                     <td class="text-secondary strong" data-label="NO">
                                         {{ $loop->iteration }}
-                                    </td>
-                                    <td class="text-secondary strong" data-label="Foto Masuk">
-                                        <div class="icon-box">
-                                            <img src="{{ url($pathIn) }}" alt="image" height="42" width="62"
-                                                class="imaged rounded center">
-                                        </div>
                                     </td>
                                     <td class="text-secondary strong" data-label="NIP">
                                         {{ $u->nip }}
@@ -155,16 +156,50 @@
                                         <div class="d-flex py-1 align-items-center">
                                             <div class="flex-fill">
                                                 <div class="font-weight-medium strong">{{ $u->name }}</div>
-                                                <div class="text-secondary"><a href="#"
-                                                        class="text-reset">{{ $u->location_in }}</a></div>
+                                                {{-- <div class="text-secondary"><a href="#"
+                                                        class="text-reset">{{ $u->location_in }}</a></div> --}}
                                             </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-secondary strong" data-label="Shift">
+                                        {{$u->shift}}
+                                    </td>
+                                    <td class="text-secondary strong" data-label="Foto Masuk">
+                                        <div class="icon-box">
+                                            <img src="{{ url($pathIn) }}" alt="image" height="42" width="62"
+                                                class="imaged rounded center">
+                                        </div>
+                                    </td>
+                                    <td class="text-secondary strong" data-label="Foto Masuk">
+                                        <div class="icon-box">
+                                            <img src="{{ url($pathOut) }}" alt="image" height="42" width="62"
+                                                class="imaged rounded center">
                                         </div>
                                     </td>
                                     <td data-label="Tanggal Masuk">
                                         <div class="strong">{{ $u->tgl_presensi }}</div>
-                                        <div class="text-secondary">{{ $u->jam_in }}</div>
+                                        {{-- <div class="text-secondary">{{ $u->jam_in }}</div> --}}
                                     </td>
-                                    <td>
+                                    <td data-label="Jam Masuk">
+                                        <div class="strong">{{$u->jam_in}}</div>
+                                    </td>
+                                    <td data-label="Tanggal Pulang">
+                                        <div class="strong">{{ $u->tgl_presensi_out }}</div>
+                                        {{-- <div class="text-secondary">{{ $u->jam_in }}</div> --}}
+                                    </td>
+                                    <td data-label="Jam Pulang">
+                                        <div class="strong">{{ $u->jam_out }}</div>
+                                        {{-- <div class="text-secondary">{{ $u->jam_in }}</div> --}}
+                                    </td>
+                                    <td data-label="Keterlambatan">
+                                        <div class="strong">{{ $u->jam_terlambat }}</div>
+                                        {{-- <div class="text-secondary">{{ $u->jam_in }}</div> --}}
+                                    </td>
+                                    <td data-label="Total Jam Kerja">
+                                        <div class="strong">{{ $u->total_jamkerja }}</div>
+                                        {{-- <div class="text-secondary">{{ $u->jam_in }}</div> --}}
+                                    </td>
+                                    {{-- <td>
                                         <div class="btn-list flex-nowrap">
                                             <div class="dropdown">
                                                 <button class="btn dropdown-toggle align-text-top"
@@ -181,7 +216,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </td>
+                                    </td> --}}
                                 </tr>
                                 @php
                                     $i++;
