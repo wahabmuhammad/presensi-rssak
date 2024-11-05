@@ -127,9 +127,9 @@
                                 <th>Nama</th>
                                 <th>Shift</th>
                                 <th>Foto Masuk</th>
-                                <th>Foto Pulang</th>
                                 <th>Tanggal Masuk</th>
                                 <th>Jam Masuk</th>
+                                <th>Foto Pulang</th>
                                 <th>Tanggal Pulang</th>
                                 <th>Jam Pulang</th>
                                 <th>Keterlambatan</th>
@@ -170,11 +170,6 @@
                                                 class="imaged rounded center">
                                         </div>
                                     </td>
-                                    <td class="text-secondary strong" data-label="Foto Masuk">
-                                        <div class="icon-box">
-                                            <img src="{{ url($pathOut) }}" alt="image" height="42" width="62"
-                                                class="imaged rounded center">
-                                        </div>
                                     </td>
                                     <td data-label="Tanggal Masuk">
                                         <div class="strong">{{ $u->tgl_presensi }}</div>
@@ -183,6 +178,11 @@
                                     <td data-label="Jam Masuk">
                                         <div class="strong">{{$u->jam_in}}</div>
                                     </td>
+                                    <td class="text-secondary strong" data-label="Foto Masuk">
+                                        <div class="icon-box">
+                                            <img src="{{ url($pathOut) }}" alt="image" height="42" width="62"
+                                                class="imaged rounded center">
+                                        </div>
                                     <td data-label="Tanggal Pulang">
                                         <div class="strong">{{ $u->tgl_presensi_out }}</div>
                                         {{-- <div class="text-secondary">{{ $u->jam_in }}</div> --}}
