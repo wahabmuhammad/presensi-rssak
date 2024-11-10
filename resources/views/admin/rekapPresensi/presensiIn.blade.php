@@ -3,6 +3,7 @@
     <div class="container-xl">
         <div class="page-header d-print-none">
             <div class="container-xl">
+
                 <div class="row g-2 align-items-center">
                     <div class="col">
                         <!-- Page pre-title -->
@@ -13,34 +14,36 @@
                             Rekap Presensi Masuk
                         </h2>
                     </div>
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center">
+                                    <div class="subheader">Total Presensi Masuk</div>
+                                </div>
+                                <div class="h1 mb-3">{{ $jumlahMasuk }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-lg-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center">
+                                    <div class="subheader">Total Keterlambatan</div>
+                                </div>
+                                <div class="h1 mb-3">{{ $totalTerlambat }}</div>
+                            </div>
+                        </div>
+                    </div>
                     <!-- Page title actions -->
                 </div>
             </div>
         </div>
-        {{-- <div class="col-auto ms-auto mt-3">
-            <form action="{{ url('rekap_Presensi_in') }}" method="GET">
-                <div class="input-group">
-                    <input type="search" value="{{ Request::get('search') }}" class="form-control" placeholder="Search…"
-                        name="search" aria-label="Search in website">
-                    <button class="btn btn-primary" type="submit">
-                        <!-- Download SVG icon from http://tabler-icons.io/i/search -->
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
-                            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
-                            stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
-                            <path d="M21 21l-6 -6" />
-                        </svg>
-                    </button>
-                </div>
-            </form>
-        </div> --}}
         <div class="col-12", style="margin-top: 30px">
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-tittle">Daftar User</h3>
                     <div class="col-auto ms-auto">
-                        <a href="{{'rekap_Presensi_in/export/excel'}}" class="btn btn-cyan">Export ke Excel</a>
+                        <a href="{{ 'rekap_Presensi_in/export/excel' }}" class="btn btn-cyan">Export ke Excel</a>
                     </div>
                 </div>
                 <div class="card-body border-bottom py-3">
@@ -105,9 +108,9 @@
                                         placeholder="Search…" name="search" aria-label="Search in website">
                                     <button class="btn btn-primary" type="submit">
                                         <!-- Download SVG icon from http://tabler-icons.io/i/search -->
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24"
-                                            height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
-                                            fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
+                                            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                            stroke-linecap="round" stroke-linejoin="round">
                                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                             <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
                                             <path d="M21 21l-6 -6" />
@@ -162,7 +165,7 @@
                                         </div>
                                     </td>
                                     <td class="text-secondary strong" data-label="Shift">
-                                        {{$u->shift}}
+                                        {{ $u->shift }}
                                     </td>
                                     <td class="text-secondary strong" data-label="Foto Masuk">
                                         <div class="icon-box">
@@ -176,7 +179,7 @@
                                         {{-- <div class="text-secondary">{{ $u->jam_in }}</div> --}}
                                     </td>
                                     <td data-label="Jam Masuk">
-                                        <div class="strong">{{$u->jam_in}}</div>
+                                        <div class="strong">{{ $u->jam_in }}</div>
                                     </td>
                                     <td class="text-secondary strong" data-label="Foto Masuk">
                                         <div class="icon-box">
