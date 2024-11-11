@@ -346,7 +346,10 @@
                     shift = "Siang";
                     jamkerja = "14.00 - 21.00";
                     // document.getElementById('jamkerja').textContent = jamkerja;
-                }else if(timeString >= "20:00:00" && timeString <= "22:00:00"){
+                } else if(timeString >= "16:30:00" && timeString <= "17:30:00"){
+                    shift= "Driver Siang";
+                    jamkerja = "17.00 - 24.00";
+                } else if(timeString >= "20:00:00" && timeString <= "22:00:00"){
                     shift = "Malam";
                     jamkerja = "21.00 - 07.00";
                     // document.getElementById('jamkerja').textContent = jamkerja;
