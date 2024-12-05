@@ -15,7 +15,7 @@
                 </div>
                 <div id="user-info">
                     <div class="row">
-                        <h3 id="greeting"> 
+                        <h3 id="greeting">
                         </h3> <span>
                             <h3 id="user-name"> {{ Auth::user()->name }}</h3>
                         </span>
@@ -97,7 +97,8 @@
                             </div>
                         </div>
                         <div class="card-body text-center pb-1">
-                            <input type="text" id="shift" name="shift" class="form-control" style="text-align: center" disabled>
+                            <input type="text" id="shift" name="shift" class="form-control"
+                                style="text-align: center" disabled>
                             <h4 id="jamkerja"></h4>
                         </div>
                         <div class="card-body text-center">
@@ -231,7 +232,7 @@
                                                 <div class="row">
                                                     <h5 style="margin-right: 5px">Shift</h5>
                                                     <span class="badge badge-primary">
-                                                        {{$l->shift}}
+                                                        {{ $l->shift }}
                                                     </span>
                                                 </div>
                                                 <div class="row">
@@ -289,7 +290,7 @@
                 greeting = 'Selamat Malam, ';
             }
 
-            
+
             // Memperbarui elemen HTML
             document.getElementById('greeting').textContent = greeting;
             document.getElementById('date').textContent = dateString;
@@ -302,7 +303,7 @@
         // Memanggil fungsi pertama kali untuk langsung menampilkan jam dan tanggal saat halaman dimuat
         updateDateTime();
 
-        function shiftPegawai(){
+        function shiftPegawai() {
             const now = new Date();
 
             // Nama hari dalam bahasa Indonesia
@@ -322,42 +323,45 @@
             const timeString = `${String(hours).padStart(2, '0')}:${minutes}:${seconds}`;
 
             let shift, jamkerja;
-                if(timeString >= "03:00:00" && timeString <= "05:00:00"){
-                    shift = "Pagi 1";
-                    jamkerja = "04.00 - 12.00";
-                    // document.getElementById('jamkerja').textContent = jamkerja;
-                }else if (timeString >= "06:00:00" && timeString <= "08:10:00" ){
-                    shift = "Pagi 2";
-                    jamkerja = "07.00 - 14.00";
-                    // document.getElementById('jamkerja').textContent = jamkerja;
-                }else if (timeString >= "08:30:00" && timeString <= "09:30:00"){
-                    shift = "Middle 1";
-                    jamkerja = "09.00 - 16.00";
-                    // document.getElementById('jamkerja').textContent = jamkerja;
-                }else if(timeString >= "09:30:00" && timeString <=  "10:30:00"){
-                    shift = "Middle 2";
-                    jamkerja = "10.00 - 17.00";
-                    // document.getElementById('jamkerja').textContent = jamkerja;
-                }else if(timeString >= "11:30:00" && timeString <=  "12:30:00"){
-                    shift = "Middle 3";
-                    jamkerja = "12.00 - 19.00";
-                    // document.getElementById('jamkerja').textContent = jamkerja;
-                }else if(timeString >= "12:30:00" && timeString <= "15:00:00"){
-                    shift = "Siang";
-                    jamkerja = "14.00 - 21.00";
-                    // document.getElementById('jamkerja').textContent = jamkerja;
-                } else if(timeString >= "16:30:00" && timeString <= "17:30:00"){
-                    shift= "Driver Siang";
-                    jamkerja = "17.00 - 24.00";
-                } else if(timeString >= "20:00:00" && timeString <= "22:00:00"){
-                    shift = "Malam";
-                    jamkerja = "21.00 - 07.00";
-                    // document.getElementById('jamkerja').textContent = jamkerja;
-                } else{
-                    shift = "Anda berada di luar jam kerja";
-                }
-                document.getElementById('shift').value = shift;
-                document.getElementById('jamkerja').textContent = jamkerja;
+            if (timeString >= "03:00:00" && timeString <= "05:00:00") {
+                shift = "Pagi 1";
+                jamkerja = "04.00 - 12.00";
+                // document.getElementById('jamkerja').textContent = jamkerja;
+            } else if (timeString >= "06:00:00" && timeString <= "08:10:00") {
+                shift = "Pagi 2";
+                jamkerja = "07.00 - 14.00";
+                // document.getElementById('jamkerja').textContent = jamkerja;
+            } else if (timeString >= "08:30:00" && timeString <= "09:30:00") {
+                shift = "Middle 1";
+                jamkerja = "09.00 - 16.00";
+                // document.getElementById('jamkerja').textContent = jamkerja;
+            } else if (timeString >= "09:30:00" && timeString <= "10:30:00") {
+                shift = "Middle 2";
+                jamkerja = "10.00 - 17.00";
+                // document.getElementById('jamkerja').textContent = jamkerja;
+            } else if (timeString >= "11:30:00" && timeString <= "12:30:00") {
+                shift = "Middle 3";
+                jamkerja = "12.00 - 19.00";
+                // document.getElementById('jamkerja').textContent = jamkerja;
+            } else if (timeString >= "10:30:00" && timeString <= "11:15:00") {
+                shift = "Middle 4";
+                jamkerja = "11.00 - 18.00";
+            } else if (timeString >= "12:30:00" && timeString <= "15:00:00") {
+                shift = "Siang";
+                jamkerja = "14.00 - 21.00";
+                // document.getElementById('jamkerja').textContent = jamkerja;
+            } else if (timeString >= "16:30:00" && timeString <= "17:30:00") {
+                shift = "Driver Siang";
+                jamkerja = "17.00 - 24.00";
+            } else if (timeString >= "20:00:00" && timeString <= "22:00:00") {
+                shift = "Malam";
+                jamkerja = "21.00 - 07.00";
+                // document.getElementById('jamkerja').textContent = jamkerja;
+            } else {
+                shift = "Anda berada di luar jam kerja";
+            }
+            document.getElementById('shift').value = shift;
+            document.getElementById('jamkerja').textContent = jamkerja;
         }
         setInterval(shiftPegawai, 1000);
         shiftPegawai();

@@ -191,6 +191,9 @@
             } else if (timeString >= "11:30:00" && timeString <= "12:30:00") {
                 shift = "Middle 3";
                 jamkerja = "12.00 - 19.00";
+            }else if(timeString >= "10:30:00" && timeString <= "11:15:00"){
+                shift = "Middle 4";
+                jamkerja = "11.00 - 18.00";
             } else if (timeString >= "12:30:00" && timeString <= "15:00:00") {
                 shift = "Siang";
                 jamkerja = "14.00 - 21.00";
@@ -221,36 +224,36 @@
 
         Webcam.attach('.webcam-capture');
 
-        var lokasi = document.getElementById('lokasi');
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
-        }
+        // var lokasi = document.getElementById('lokasi');
+        // if (navigator.geolocation) {
+        //     navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+        // }
 
 
-        function successCallback(posisi) {
-            lokasi.value = posisi.coords.latitude + "," + posisi.coords.longitude;
-            // Check if 'lokasi' value is empty
-            // if (!lokasi.value.trim()) {
-            //     alert('Warning: Lokasi is empty. Please enable location services or manually enter your location.');
-            //     return; // Exit function if 'lokasi' is empty
-            // }
-            var map = L.map('map').setView([posisi.coords.latitude, posisi.coords.longitude], 13);
-            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                maxZoom: 19,
-                attribution: '© OpenStreetMap'
-            }).addTo(map);
-            var marker = L.marker([posisi.coords.latitude, posisi.coords.longitude]).addTo(map);
-            var circle = L.circle([posisi.coords.latitude, posisi.coords.longitude], {
-                color: 'red',
-                fillColor: '#f03',
-                fillOpacity: 0.5,
-                radius: 100
-            }).addTo(map);
-        }
+        // function successCallback(posisi) {
+        //     lokasi.value = posisi.coords.latitude + "," + posisi.coords.longitude;
+        //     // Check if 'lokasi' value is empty
+        //     // if (!lokasi.value.trim()) {
+        //     //     alert('Warning: Lokasi is empty. Please enable location services or manually enter your location.');
+        //     //     return; // Exit function if 'lokasi' is empty
+        //     // }
+        //     var map = L.map('map').setView([posisi.coords.latitude, posisi.coords.longitude], 13);
+        //     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        //         maxZoom: 19,
+        //         attribution: '© OpenStreetMap'
+        //     }).addTo(map);
+        //     var marker = L.marker([posisi.coords.latitude, posisi.coords.longitude]).addTo(map);
+        //     var circle = L.circle([posisi.coords.latitude, posisi.coords.longitude], {
+        //         color: 'red',
+        //         fillColor: '#f03',
+        //         fillOpacity: 0.5,
+        //         radius: 100
+        //     }).addTo(map);
+        // }
 
-        function errorCallback() {
+        // function errorCallback() {
 
-        }
+        // }
 
         // $.ajaxSetup({
         //     headers: {
@@ -266,14 +269,14 @@
             var shift = $("#shift").val();
             // console.log(shift);
             // Check if 'lokasi' value is empty
-            if (!lokasi) {
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Lokasi Anda Kosong',
-                    text: 'Mohon izinkan atau aktifkan lokasi anda terlebih dahulu. Jika belum bisa harap hubungi IT',
-                });
-                return; // Exit function if 'lokasi' is empty
-            }
+            // if (!lokasi) {
+            //     Swal.fire({
+            //         icon: 'warning',
+            //         title: 'Lokasi Anda Kosong',
+            //         text: 'Mohon izinkan atau aktifkan lokasi anda terlebih dahulu. Jika belum bisa harap hubungi IT',
+            //     });
+            //     return; // Exit function if 'lokasi' is empty
+            // }
             if (shift.toLowerCase() == "anda berada di luar jam kerja") {
                 Swal.fire({
                     icon: 'error',

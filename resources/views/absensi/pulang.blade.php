@@ -172,26 +172,26 @@
 
         Webcam.attach('.webcam-capture');
 
-        var lokasi = document.getElementById('lokasi');
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
-        }
+        // var lokasi = document.getElementById('lokasi');
+        // if (navigator.geolocation) {
+        //     navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+        // }
 
-        function successCallback(posisi) {
-            lokasi.value = posisi.coords.latitude + "," + posisi.coords.longitude;
-            var map = L.map('map').setView([posisi.coords.latitude, posisi.coords.longitude], 13);
-            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                maxZoom: 19,
-                attribution: '© OpenStreetMap'
-            }).addTo(map);
-            var marker = L.marker([posisi.coords.latitude, posisi.coords.longitude]).addTo(map);
-            var circle = L.circle([posisi.coords.latitude, posisi.coords.longitude], {
-                color: 'red',
-                fillColor: '#f03',
-                fillOpacity: 0.5,
-                radius: 100
-            }).addTo(map);
-        }
+        // function successCallback(posisi) {
+        //     lokasi.value = posisi.coords.latitude + "," + posisi.coords.longitude;
+        //     var map = L.map('map').setView([posisi.coords.latitude, posisi.coords.longitude], 13);
+        //     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        //         maxZoom: 19,
+        //         attribution: '© OpenStreetMap'
+        //     }).addTo(map);
+        //     var marker = L.marker([posisi.coords.latitude, posisi.coords.longitude]).addTo(map);
+        //     var circle = L.circle([posisi.coords.latitude, posisi.coords.longitude], {
+        //         color: 'red',
+        //         fillColor: '#f03',
+        //         fillOpacity: 0.5,
+        //         radius: 100
+        //     }).addTo(map);
+        // }
 
         function errorCallback() {
 
@@ -209,14 +209,14 @@
             $(this).prop('disabled', true);
             var lokasi = $("#lokasi").val().trim(); // Get and trim the value of 'lokasi' input field
             // Check if 'lokasi' value is empty
-            if (!lokasi) {
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Lokasi Anda Kosong',
-                    text: 'Mohon izinkan atau aktifkan lokasi anda terlebih dahulu. Jika belum bisa harap hubungi IT',
-                });
-                return; // Exit function if 'lokasi' is empty
-            }
+            // if (!lokasi) {
+            //     Swal.fire({
+            //         icon: 'warning',
+            //         title: 'Lokasi Anda Kosong',
+            //         text: 'Mohon izinkan atau aktifkan lokasi anda terlebih dahulu. Jika belum bisa harap hubungi IT',
+            //     });
+            //     return; // Exit function if 'lokasi' is empty
+            // }
             Webcam.snap(function(uri) {
                 image = uri;
             });
