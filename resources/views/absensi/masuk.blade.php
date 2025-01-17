@@ -176,7 +176,7 @@
             const timeString = `${String(hours).padStart(2, '0')}:${minutes}:${seconds}`;
 
             let shift, jamkerja;
-            if (timeString >= "03:00:00" && timeString <= "05:00:00") {
+            if (timeString >= "03:00:00" && timeString <= "05:59:00") {
                 shift = "Pagi 1";
                 jamkerja = "04.00 - 12.00";
             } else if (timeString >= "06:00:00" && timeString <= "08:10:00") {
