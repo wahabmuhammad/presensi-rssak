@@ -1,4 +1,4 @@
-@extends('admin.layout.masterlayout')
+@extends('admin.layout.masterLayout')
 @section('content')
     <div class="container-xl">
         <div class="page-header d-print-none">
