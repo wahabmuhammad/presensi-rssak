@@ -38,7 +38,7 @@ Route::middleware(['auth', 'cekRole'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/history/{user}', [historiPresensi_Controller::class, 'show'])->name('historiPresensi');
     Route::get('/slip-gaji/{user}', [profilController::class, 'slipgaji'])->name('slip-gaji');
-    Route::get('/cuti', [cutiController::class, 'index'])->name('cuti');
+    // Route::get('/cuti', [cutiController::class, 'index'])->name('cuti');
     Route::get('/profil/{user}', [profilController::class, 'index'])->name('profil');
     Route::put('/update-profile{user}', [profilController::class, 'store'])->name('updateprofil');
     Route::get('/slip-gaji{user}', [profilController::class, 'slipgaji'])->name('slipgaji');
@@ -63,6 +63,7 @@ Route::middleware(['auth', 'cekAdmin'])->group(function(){
     Route::delete('/user/delete/{user}', [adminController::class, 'destroy'])->name('user.delete');
     Route::get('/recruitment', [RecruitmentController::class, 'index'])->name('recruitment');
     Route::post('/send/{id}', [RecruitmentController::class, 'sendwa'])->name('sendwa');
+    Route::post('/bulk-send', [RecruitmentController::class, 'bulkSend'])->name('bulkSend');
 });
 
 // Route Login dan Logout

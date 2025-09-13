@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('recruitments', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('NIK')->unique();
+            $table->bigInteger('NIK')->unique()->nullable();
             $table->string('Nama');
-            $table->date('TTL');
-            $table->string('Alamat');
+            $table->date('TTL')->nullable();
+            $table->string('Alamat')->nullable();
             $table->string('Formasi');
-            $table->string('Pendidikan');
-            $table->string('Universitas/Sekolah');
+            $table->string('Pendidikan')->nullable();
+            $table->string('Universitas/Sekolah')->nullable();
             $table->integer('nohp');
             $table->string('Rekomendasi')->nullable(true);
             $table->string('Sertifikat')->nullable(true);
