@@ -110,18 +110,18 @@ class adminController extends Controller
         if ($start_to != null && $end_to != null) {
             if (strlen($keyword)) {
                 $rekapMasuk = presensiIn::where('nip', 'ilike', "%$keyword%")
-                    ->orWhere('name', 'like', "%$keyword%")
+                    ->orWhere('name', 'ilike', "%$keyword%")
                     ->whereBetween('tgl_presensi', [$start_to, $end_to])
                     ->paginate(15);
 
                 $jumlahMasuk = presensiIn::where('nip', 'ilike', "%$keyword%")
-                    ->orWhere('name', 'like', "%$keyword%")
+                    ->orWhere('name', 'ilike', "%$keyword%")
                     ->whereBetween('tgl_presensi', [$start_to, $end_to])
                     ->select('jam_in')
                     ->count();
 
                 $totalTerlambat = presensiIn::where('nip', 'ilike', "%$keyword%")
-                    ->orWhere('name', 'like', "%$keyword%")
+                    ->orWhere('name', 'ilike', "%$keyword%")
                     ->whereBetween('tgl_presensi', [$start_to, $end_to])
                     ->whereNotNull('jam_terlambat')
                     ->count();
@@ -130,7 +130,7 @@ class adminController extends Controller
                 $rekapMasuk = presensiIn::whereBetween('tgl_presensi', [$start_to, $end_to])->paginate(15);
 
                 $jumlahMasuk = presensiIn::where('nip', 'ilike', "%$keyword%")
-                    ->orWhere('name', 'like', "%$keyword%")
+                    ->orWhere('name', 'ilike', "%$keyword%")
                     ->whereBetween('tgl_presensi', [$start_to, $end_to])
                     ->select('jam_in')
                     ->count();
