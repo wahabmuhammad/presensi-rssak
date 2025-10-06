@@ -39,7 +39,15 @@
     <div class="row" style="margin-top: 70px">
         <div class="col">
             <input type="hidden" id="lokasi">
-            <div class="webcam-capture" style="-webkit-transform: scaleX(1);"></div>
+            {{-- <div class="webcam-capture" style="-webkit-transform: scaleX(1);"></div> --}}
+            <div class="webcam-capture"
+                style="position:relative; display:inline-block; width:100%; max-width:100%; -webkit-transform: scaleX(1);">
+
+                <video id="video" autoplay muted playsinline
+                    style="width:100%; height:auto; border-radius:10px;"></video>
+
+                <canvas id="overlay" style="position:absolute; top:0; left:0; width:100%; height:100%;"></canvas>
+            </div>
         </div>
     </div>
 
@@ -59,6 +67,7 @@
                 <input type="text" id="shift" name="shift" class="form-control" style="text-align: center"
                     disabled>
                 <h4 id="jamkerja"></h4>
+                <div id="my-ip-jq">Ip Anda:</div>
             </div>
         </div>
     </div>
@@ -167,7 +176,7 @@
             const year = now.getFullYear();
             const dateString = `${dayName}, ${day}-${month}-${year}`;
 
-            
+
 
             // Mendapatkan waktu
             const hours = now.getHours();
@@ -191,14 +200,14 @@
             } else if (timeString >= "11:30:00" && timeString <= "12:30:00") {
                 shift = "Middle 3";
                 jamkerja = "12.00 - 19.00";
-            }else if(timeString >= "10:30:00" && timeString <= "11:15:00"){
+            } else if (timeString >= "10:30:00" && timeString <= "11:15:00") {
                 shift = "Middle 4";
                 jamkerja = "11.00 - 18.00";
             } else if (timeString >= "12:30:00" && timeString <= "15:00:00") {
                 shift = "Siang";
                 jamkerja = "14.00 - 21.00";
-            } else if(timeString >= "16:30:00" && timeString <= "17:30:00"){
-                shift= "Driver Siang";
+            } else if (timeString >= "16:30:00" && timeString <= "17:30:00") {
+                shift = "Driver Siang";
                 jamkerja = "17.00 - 24.00";
             } else if (timeString >= "20:00:00" && timeString <= "22:00:00") {
                 shift = "Malam";
@@ -213,7 +222,7 @@
     </script>
 @endsection
 
-@push('myscript')
+{{-- @push('myscript')
     <script>
         Webcam.set({
             height: 480,
@@ -270,12 +279,12 @@
             // console.log(shift);
             // Check if 'lokasi' value is empty
             // if (!lokasi) {
-            //     Swal.fire({
-            //         icon: 'warning',
-            //         title: 'Lokasi Anda Kosong',
-            //         text: 'Mohon izinkan atau aktifkan lokasi anda terlebih dahulu. Jika belum bisa harap hubungi IT',
-            //     });
-            //     return; // Exit function if 'lokasi' is empty
+            // Swal.fire({
+            // icon: 'warning',
+            // title: 'Lokasi Anda Kosong',
+            // text: 'Mohon izinkan atau aktifkan lokasi anda terlebih dahulu. Jika belum bisa harap hubungi IT',
+            // });
+            // return; // Exit function if 'lokasi' is empty
             // }
             if (shift.toLowerCase() == "anda berada di luar jam kerja") {
                 Swal.fire({
@@ -311,28 +320,174 @@
                             icon: status[0],
                             title: "Presensi Berhasil",
                             // text: status[1],
-                            html: `<strong><h2>${status[1]}</h2></strong>`
+                            html: `<strong>
+        <h2>${status[1]}</h2>
+    </strong>`
                         })
-                        setTimeout("location.href='dashboard'", 10000);
-                    } else if(status[0] == "info"){
+                        // setTimeout("location.href='dashboard'", 3000);
+                    } else if (status[0] == "info") {
                         Swal.fire({
                             icon: status[0],
                             title: "Presensi Berhasil",
                             // text: status[1],
-                            html: `<strong><h2>${status[1]}</h2></strong>`
+                            html: `<strong>
+        <h2>${status[1]}</h2>
+    </strong>`
                         })
-                        setTimeout("location.href='dashboard'", 10000);
+                        // setTimeout("location.href='dashboard'", 3000);
                     } else {
                         Swal.fire({
                             icon: 'error',
                             title: 'Gagal',
                             text: status[1],
                         })
-                        setTimeout("location.href='dashboard'", 3000);
+                        // setTimeout("location.href='dashboard'", 3000);
                     }
                 }
             });
             // $(this).prop('disabled', false);
+        });
+    </script>
+@endpush --}}
+@push('myscript')
+    <script>
+        let faceDetected = false;
+        let image = "";
+        let userIp = "";
+
+        // 1️⃣ Ambil IP Public
+        $.ajax({
+            url: 'https://api.ipify.org?format=json',
+            method: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                userIp = data.ip;
+                $('#my-ip-jq').text(userIp);
+            },
+            error: function() {
+                userIp = "error";
+                $('#my-ip-jq').text('error');
+            }
+        });
+
+        // 2️⃣ Load model face-api
+        document.addEventListener("DOMContentLoaded", async () => {
+            await faceapi.nets.tinyFaceDetector.loadFromUri('models');
+            console.log("Face detection model loaded!");
+
+            const video = document.getElementById('video');
+            navigator.mediaDevices.getUserMedia({
+                    video: {}
+                })
+                .then(stream => {
+                    video.srcObject = stream
+                })
+                .catch(err => console.error("Webcam error:", err));
+
+            video.addEventListener('play', () => {
+                const canvas = document.getElementById('overlay');
+                const context = canvas.getContext('2d');
+
+                // Samakan ukuran canvas dengan video
+                const setCanvasSize = () => {
+                    canvas.width = video.videoWidth;
+                    canvas.height = video.videoHeight;
+                };
+
+                setCanvasSize();
+
+                setInterval(async () => {
+                    setCanvasSize();
+                    const displaySize = {
+                        width: video.videoWidth,
+                        height: video.videoHeight
+                    };
+                    faceapi.matchDimensions(canvas, displaySize);
+
+                    const detections = await faceapi.detectAllFaces(
+                        video,
+                        new faceapi.TinyFaceDetectorOptions()
+                    );
+                    const resizedDetections = faceapi.resizeResults(detections,
+                        displaySize);
+
+                    context.clearRect(0, 0, canvas.width, canvas.height);
+                    faceapi.draw.drawDetections(canvas, resizedDetections);
+
+                    faceDetected = detections.length > 0;
+                }, 500);
+            });
+        });
+
+        // 3️⃣ Button Presensi dengan validasi wajah + IP
+        $("#camera").click(function(e) {
+            e.preventDefault();
+
+            // 🔒 Validasi IP
+            const allowedIps = ["182.253.39.138","202.51.208.2"];
+            if (!allowedIps.includes(userIp)) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Anda di luar Jaringan Rumah Sakit!',
+                    text: `Anda terdeteksi menggunakan IP: ${userIp}. Mohon sambungkan wifi handphone atau komputer anda dengan jaringan Rumah Sakit untuk melakukan presensi.`
+                });
+                return;
+            }
+
+            // 🔒 Validasi Wajah
+            if (!faceDetected) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Wajah tidak terdeteksi!',
+                    text: 'Mohon pastikan wajah terlihat jelas di kamera sebelum presensi.'
+                });
+                return;
+            }
+
+            $(this).prop('disabled', true);
+
+            const lokasi = $("#lokasi").val();
+            const shift = $('#shift').val();
+            const ip = $('#my-ip-jq').text();
+
+            // ambil snapshot
+            const video = document.getElementById('video');
+            const canvasSnap = document.createElement('canvas');
+            canvasSnap.width = video.videoWidth;
+            canvasSnap.height = video.videoHeight;
+            canvasSnap.getContext('2d').drawImage(video, 0, 0, canvasSnap.width, canvasSnap.height);
+            image = canvasSnap.toDataURL("image/jpeg", 0.8);
+
+            $.ajax({
+                type: 'POST',
+                url: 'presensi/public/masuk',
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    image: image,
+                    lokasi: lokasi,
+                    shift: shift.toLowerCase(),
+                    ip: ip
+                },
+                cache: false,
+                success: function(respond) {
+                    var status = respond.split("|");
+                    if (status[0] == "success" || status[0] == "info") {
+                        Swal.fire({
+                            icon: status[0],
+                            title: "Presensi Berhasil",
+                            html: `<strong><h2>${status[1]}</h2></strong>`
+                        });
+                        setTimeout("location.href='dashboard'", 3000);
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Gagal',
+                            text: status[1],
+                        });
+                        setTimeout("location.href='dashboard'", 3000);
+                    }
+                }
+            });
         });
     </script>
 @endpush

@@ -18,6 +18,8 @@
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('assets/img/icon/Logo_RSSA.png') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <link rel="manifest" href="__manifest.json">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.26/webcam.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
     <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 
