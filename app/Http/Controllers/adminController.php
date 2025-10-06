@@ -109,18 +109,18 @@ class adminController extends Controller
 
         if ($start_to != null && $end_to != null) {
             if (strlen($keyword)) {
-                $rekapMasuk = presensiIn::where('nip', 'like', "%$keyword%")
+                $rekapMasuk = presensiIn::where('nip', 'ilike', "%$keyword%")
                     ->orWhere('name', 'like', "%$keyword%")
                     ->whereBetween('tgl_presensi', [$start_to, $end_to])
                     ->paginate(15);
 
-                $jumlahMasuk = presensiIn::where('nip', 'like', "%$keyword%")
+                $jumlahMasuk = presensiIn::where('nip', 'ilike', "%$keyword%")
                     ->orWhere('name', 'like', "%$keyword%")
                     ->whereBetween('tgl_presensi', [$start_to, $end_to])
                     ->select('jam_in')
                     ->count();
 
-                $totalTerlambat = presensiIn::where('nip', 'like', "%$keyword%")
+                $totalTerlambat = presensiIn::where('nip', 'ilike', "%$keyword%")
                     ->orWhere('name', 'like', "%$keyword%")
                     ->whereBetween('tgl_presensi', [$start_to, $end_to])
                     ->whereNotNull('jam_terlambat')
@@ -129,7 +129,7 @@ class adminController extends Controller
             } else {
                 $rekapMasuk = presensiIn::whereBetween('tgl_presensi', [$start_to, $end_to])->paginate(15);
 
-                $jumlahMasuk = presensiIn::where('nip', 'like', "%$keyword%")
+                $jumlahMasuk = presensiIn::where('nip', 'ilike', "%$keyword%")
                     ->orWhere('name', 'like', "%$keyword%")
                     ->whereBetween('tgl_presensi', [$start_to, $end_to])
                     ->select('jam_in')
@@ -173,7 +173,7 @@ class adminController extends Controller
         $end_to = $request->date_to;
 
         if (strlen($keyword)) {
-            $rekapPulang = presensiOut::where('nip', 'like', "%$keyword%")
+            $rekapPulang = presensiOut::where('nip', 'ilike', "%$keyword%")
                 ->orWhere('name', 'like', "%$keyword%")->paginate(15);
         } elseif ($keyword or ($start_to && $end_to)) {
             $rekapPulang = presensiOut::whereBetween('tgl_presensi_out', [$start_to, $end_to])->paginate(15);
