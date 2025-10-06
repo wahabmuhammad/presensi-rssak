@@ -28,6 +28,7 @@
                         @yield('message')
                     </div>
                 </div>
+                @yield('extra')
             </div>
         </div>
     </body>
