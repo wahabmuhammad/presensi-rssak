@@ -176,19 +176,19 @@
         let userIp = "";
 
         // 1️⃣ Ambil IP Public
-        $.ajax({
-            url: 'https://api.ipify.org?format=json',
-            method: 'GET',
-            dataType: 'json',
-            success: function(data) {
-                userIp = data.ip;
-                $('#my-ip-jq').text(userIp);
-            },
-            error: function() {
-                userIp = "error";
-                $('#my-ip-jq').text('error');
-            }
-        });
+        // $.ajax({
+        //     url: 'https://api.ipify.org?format=json',
+        //     method: 'GET',
+        //     dataType: 'json',
+        //     success: function(data) {
+        //         userIp = data.ip;
+        //         $('#my-ip-jq').text(userIp);
+        //     },
+        //     error: function() {
+        //         userIp = "error";
+        //         $('#my-ip-jq').text('error');
+        //     }
+        // });
 
         // 2️⃣ Load model face-api
         document.addEventListener("DOMContentLoaded", async () => {

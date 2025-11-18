@@ -97,7 +97,7 @@
         <a href="#" class="item">
             <div class="col">
                 <div class="action-button large bg-success" id="camera">
-                    <ion-icon name="camera" id="camera" role="img" class="md hydrated"
+                    <ion-icon name="camera" id="camera-icon" role="img" class="md hydrated"
                         aria-label="add outline"></ion-icon>
                 </div>
             </div>
@@ -356,19 +356,19 @@
         let userIp = "";
 
         // 1️⃣ Ambil IP Public
-        $.ajax({
-            url: 'https://api.ipify.org?format=json',
-            method: 'GET',
-            dataType: 'json',
-            success: function(data) {
-                userIp = data.ip;
-                $('#my-ip-jq').text(userIp);
-            },
-            error: function() {
-                userIp = "error";
-                $('#my-ip-jq').text('error');
-            }
-        });
+        // $.ajax({
+        //     url: 'https://api.ipify.org?format=json',
+        //     method: 'GET',
+        //     dataType: 'json',
+        //     success: function(data) {
+        //         userIp = data.ip;
+        //         $('#my-ip-jq').text(userIp);
+        //     },
+        //     error: function() {
+        //         userIp = "error";
+        //         $('#my-ip-jq').text('error');
+        //     }
+        // });
 
         // 2️⃣ Load model face-api
         document.addEventListener("DOMContentLoaded", async () => {
@@ -422,7 +422,7 @@
         // 3️⃣ Button Presensi dengan validasi wajah + IP
         $("#camera").click(function(e) {
             e.preventDefault();
-
+            
             // 🔒 Validasi IP
             const allowedIps = ["182.253.39.138","202.51.208.2"];
             if (!allowedIps.includes(userIp)) {
@@ -433,13 +433,13 @@
                 });
                 return;
             }
-
+        
             // 🔒 Validasi Wajah
             if (!faceDetected) {
                 Swal.fire({
                     icon: 'warning',
                     title: 'Wajah tidak terdeteksi!',
-                    text: 'Mohon pastikan wajah terlihat jelas di kamera sebelum presensi.'
+                    text: 'Mohon Lepas masker terlebih dulu dan pastikan wajah terlihat jelas di kamera sebelum presensi.'
                 });
                 return;
             }
@@ -449,6 +449,16 @@
             const lokasi = $("#lokasi").val();
             const shift = $('#shift').val();
             const ip = $('#my-ip-jq').text();
+            //shift validation
+            if (shift.toLowerCase() == "anda berada di luar jam kerja") {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Anda berada di luar jam kerja',
+                    text: 'Mohon mengisi presensi sesuai dengan jam kerja!!!',
+                })
+                setTimeout("location.href='dashboard'", 3000);
+                return;
+            }
 
             // ambil snapshot
             const video = document.getElementById('video');
