@@ -424,15 +424,15 @@
             e.preventDefault();
             
             // 🔒 Validasi IP
-            const allowedIps = ["182.253.39.138","202.51.208.2"];
-            if (!allowedIps.includes(userIp)) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Anda di luar Jaringan Rumah Sakit!',
-                    text: `Anda terdeteksi menggunakan IP: ${userIp}. Mohon sambungkan wifi handphone atau komputer anda dengan jaringan Rumah Sakit untuk melakukan presensi.`
-                });
-                return;
-            }
+            // const allowedIps = ["182.253.39.138","202.51.208.2"];
+            // if (!allowedIps.includes(userIp)) {
+            //     Swal.fire({
+            //         icon: 'error',
+            //         title: 'Anda di luar Jaringan Rumah Sakit!',
+            //         text: `Anda terdeteksi menggunakan IP: ${userIp}. Mohon sambungkan wifi handphone atau komputer anda dengan jaringan Rumah Sakit untuk melakukan presensi.`
+            //     });
+            //     return;
+            // }
         
             // 🔒 Validasi Wajah
             if (!faceDetected) {
