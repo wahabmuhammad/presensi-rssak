@@ -356,19 +356,19 @@
         let userIp = "";
 
         // 1️⃣ Ambil IP Public
-        // $.ajax({
-        //     url: 'https://api.ipify.org?format=json',
-        //     method: 'GET',
-        //     dataType: 'json',
-        //     success: function(data) {
-        //         userIp = data.ip;
-        //         $('#my-ip-jq').text(userIp);
-        //     },
-        //     error: function() {
-        //         userIp = "error";
-        //         $('#my-ip-jq').text('error');
-        //     }
-        // });
+        $.ajax({
+            url: 'https://api.ipify.org?format=json',
+            method: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                userIp = data.ip;
+                $('#my-ip-jq').text(userIp);
+            },
+            error: function() {
+                userIp = "error";
+                $('#my-ip-jq').text('error');
+            }
+        });
 
         // 2️⃣ Load model face-api
         document.addEventListener("DOMContentLoaded", async () => {
@@ -424,15 +424,15 @@
             e.preventDefault();
             
             // 🔒 Validasi IP
-            // const allowedIps = ["182.253.39.138","202.51.208.2"];
-            // if (!allowedIps.includes(userIp)) {
-            //     Swal.fire({
-            //         icon: 'error',
-            //         title: 'Anda di luar Jaringan Rumah Sakit!',
-            //         text: `Anda terdeteksi menggunakan IP: ${userIp}. Mohon sambungkan wifi handphone atau komputer anda dengan jaringan Rumah Sakit untuk melakukan presensi.`
-            //     });
-            //     return;
-            // }
+            const allowedIps = ["182.253.39.138","202.51.208.2"];
+            if (!allowedIps.includes(userIp)) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Anda di luar Jaringan Rumah Sakit!',
+                    text: `Anda terdeteksi menggunakan IP: ${userIp}. Mohon sambungkan wifi handphone atau komputer anda dengan jaringan Rumah Sakit untuk melakukan presensi.`
+                });
+                return;
+            }
         
             // 🔒 Validasi Wajah
             if (!faceDetected) {
