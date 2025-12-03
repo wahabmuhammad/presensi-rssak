@@ -208,7 +208,7 @@
                                                 @endforeach
                                             </tbody>
                                         </table>
-                                        {{ $dataOut->withQueryString()->links() }}
+                                        {{ $dataIn->withQueryString()->links() }}
                                     </div>
                                 </div>
                             </div>

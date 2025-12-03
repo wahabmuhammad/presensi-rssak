@@ -20,12 +20,12 @@ class historiPresensi_Controller extends Controller
 
         if($dateStart && $dateEnd === null){
             $dataIn = DB::table('presensi')->whereMonth('tgl_presensi', $bulanIni)->Where('nip', $presensiIn->nip)->orderBy('tgl_presensi')->paginate(10);
-            $dataOut = DB::table('presensi_out')->whereMonth('tgl_presensi_out', $bulanIni)->where('nip', $presensiIn->nip)->orderBy('tgl_presensi_out')->paginate(10);
+            // $dataOut = DB::table('presensi_out')->whereMonth('tgl_presensi_out', $bulanIni)->where('nip', $presensiIn->nip)->orderBy('tgl_presensi_out')->paginate(10);
         }else{
             $dataIn = presensiIn::whereBetween('tgl_presensi', [$dateStart, $dateEnd])->where('nip', $presensiIn->nip)->paginate(10);
-            $dataOut = presensiOut::whereBetween('tgl_presensi_out', [$dateStart, $dateEnd])->where('nip', $presensiIn->nip)->paginate(10);
+            // $dataOut = presensiOut::whereBetween('tgl_presensi_out', [$dateStart, $dateEnd])->where('nip', $presensiIn->nip)->paginate(10);
         }
         // dd($dataOut);
-        return view('absensi.histori', compact('dataIn', 'dataOut', 'presensiIn'));
+        return view('absensi.histori', compact('dataIn', 'presensiIn'));
     }
 }
