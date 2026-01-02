@@ -203,7 +203,7 @@
             } else if (timeString >= "10:30:00" && timeString <= "11:15:00") {
                 shift = "Middle 4";
                 jamkerja = "11.00 - 18.00";
-            } else if (timeString >= "12:30:00" && timeString <= "15:00:00") {
+            } else if (timeString >= "12:30:00" && timeString <= "16:30:00") {
                 shift = "Siang";
                 jamkerja = "14.00 - 21.00";
             } else if (timeString >= "16:30:00" && timeString <= "17:30:00") {
