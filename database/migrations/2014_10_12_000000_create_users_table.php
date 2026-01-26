@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('jabatan');
             $table->enum('role', ['pegawai', 'admin'])->default('pegawai');
+            $table->integer('pegawaifk');
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

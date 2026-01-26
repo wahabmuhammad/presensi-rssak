@@ -25811,3 +25811,17 @@ Antialiasing
   -webkit-font-smoothing: auto;
   -moz-osx-font-smoothing: auto;
 }
+
+.dataTables_wrapper {
+    width: 100%;
+}
+
+.dataTables_scrollBody {
+    overflow-x: auto !important;
+}
+th{
+  text-align: center;
+}
+th, td {
+    white-space: nowrap;
+}

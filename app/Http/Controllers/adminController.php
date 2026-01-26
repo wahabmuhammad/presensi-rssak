@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\ExportMasuk;
 use App\Exports\ExportPulang;
+use App\Models\pegawai;
 use GrahamCampbell\ResultType\Success;
 
 class adminController extends Controller
@@ -186,6 +187,121 @@ class adminController extends Controller
     public function exportPulang()
     {
         return Excel::download(new ExportPulang, "Rekap_Presensi_Pulang.xlsx");
+    }
+
+    public function dataPegawai(Request $request)
+    {
+        // $datas =  DB::table('pegawais')
+        // ->leftJoin('jenisproduk_m', 'jenisproduk_m.id', '=', 'produk_t.jenisproduk_fk')
+        // ->leftJoin('kelompokproduk_m', 'kelompokproduk_m.id', '=', 'jenisproduk_m.kelompokproduk_fk')
+        // ->leftJoin('detailjenis_m', 'detailjenis_m.id', '=', 'produk_t.detailjenis_fk')
+        // ->leftJoin('penjamin_t', 'penjamin_t.id', '=', 'produk_t.penjamin_fk')
+        // ->select('produk_t.*', 'jenisproduk_m.namajenis', 'kelompokproduk_m.namakelompok', 'detailjenis_m.detailjenis', 'penjamin_t.namapenjamin')
+        // ->where('produk_t.statusenabled', '=', true)->orderBy('id', 'asc')
+        // ->paginate(10);
+        // Jika request AJAX
+        // if ($request->ajax()) {
+        // dd($datas);
+        // return view('user.pemeriksaan', compact('datas'))->render();
+        //     return response()->json([
+        //         'datas' => $datas->items(),
+        //         'pagination' => (string) $datas->links()
+        //     ]);
+        // }
+        // dd($datas);
+        return view('admin.kepegawaian.data-pegawai');
+    }
+    public function get_datapegawai()
+    {
+        $pegawai = DB::table('pegawai_m')
+            ->leftJoin('status_kerja_m', 'status_kerja_m.id', '=', 'pegawai_m.status_pegawaifk')
+            ->leftJoin('statuskawin_m', 'statuskawin_m.id', '=', 'pegawai_m.status_kawinfk')
+            ->leftJoin('ruangan_m', 'ruangan_m.id_ruangan', '=', 'pegawai_m.unitkerja')
+            ->leftJoin('jabatan_fungsional_m', 'jabatan_fungsional_m.id', '=', 'pegawai_m.tunjangan_fungsional_fk')
+            ->leftJoin('jenispegawai_m', 'jenispegawai_m.id', '=', 'pegawai_m.jenispegawai_fk')
+            ->leftJoin('formasi_m', 'formasi_m.id', '=', 'pegawai_m.formasi_fk')
+            ->leftJoin('pendidikan_m', 'pendidikan_m.id', '=', 'pegawai_m.pendidikan_fk')
+            ->leftJoin('jabatan_m', 'jabatan_m.id', '=', 'pegawai_m.jabatan_fk')
+            ->select(
+                'pegawai_m.*',
+                DB::raw("
+                    CASE 
+                        WHEN pegawai_m.jenis_kelamin = 1 THEN 'Laki-laki'
+                        WHEN pegawai_m.jenis_kelamin = 2 THEN 'Perempuan'
+                        ELSE '-'
+                    END AS jenis_kelamin_text
+                "),
+                DB::raw("TO_CHAR(pegawai_m.tgl_lahir, 'DD-MM-YYYY') AS tgl_lahir_formatted"),
+                DB::raw("TO_CHAR(pegawai_m.awal_masuk, 'DD-MM-YYYY') AS awal_masuk_formatted"),
+                DB::raw("TO_CHAR(pegawai_m.tmt, 'DD-MM-YYYY') AS tmt_formatted"),
+                DB::raw("TO_CHAR(pegawai_m.sk_pt, 'DD-MM-YYYY') AS sk_pt_formatted"),
+                DB::raw("EXTRACT(YEAR FROM AGE(CURRENT_DATE, pegawai_m.tgl_lahir)) AS usia"),
+                'status_kerja_m.status_kerja',
+                'statuskawin_m.status_kawin',
+                'ruangan_m.nama_ruangan as unitkerja',
+                'jabatan_fungsional_m.jabatan_fungsional',
+                'jenispegawai_m.jenispegawai',
+                'formasi_m.formasi',
+                'pendidikan_m.nama_pendidikan',
+                'jabatan_m.namajabatan as jabatan'
+            )
+            ->where('pegawai_m.statusenabled', '=', true)
+            ->orderBy('pegawai_m.id', 'asc')
+            ->paginate(10);
+        // Jika request AJAX
+        // return view('user.pemeriksaan', compact('datas'))->render();
+        return response()->json([
+            'datas' => $pegawai->items(),
+            'pagination' => (string) $pegawai->links()
+        ]);
+    }
+    //get data pegawai options
+    public function options_datapegawai()
+    {
+        return response()->json([
+            'statusPegawai' => DB::table('status_kerja_m')->where('statusenabled', true)->get(),
+            'statusKawin'   => DB::table('statuskawin_m')->where('statusenabled', true)->get(),
+            'ruangan'     => DB::table('ruangan_m')->where('statusenabled', true)->select('id_ruangan', 'nama_ruangan')->get(),
+            'tunjanganFungsional' => DB::table('jabatan_fungsional_m')->where('statusenabled', true)->select('id', 'jabatan_fungsional')->get(),
+            'jenisPegawai'  => DB::table('jenispegawai_m')->where('statusenabled', true)->get(),
+            'formasi'      => DB::table('formasi_m')->where('statusenabled', true)->get(),
+            'pendidikan'   => DB::table('pendidikan_m')->where('statusenabled', true)->get(),
+            'jabatan'       => DB::table('jabatan_m')->where('statusenabled', true)->select('id', 'namajabatan')->get(),
+        ]);
+    }
+
+    public function store_datapegawai(Request $request)
+    {
+        $validatedData = $request->validate([
+            'nik' => 'required|unique:pegawai_m,nik',
+            'nip' => 'required|unique:pegawai_m,nip',
+            'nama_lengkap' => 'required|string|max:255',
+            'nama_panggilan' => 'required|string|max:100',
+            'tempat_lahir' => 'required|string|max:100',
+            'tgl_lahir' => 'required|date',
+            'gol_mk' => 'required|string|max:50',
+            'awal_masuk' => 'required|date',
+            'tmt' => 'required|date',
+            'sk_pt' => 'required|date',
+            'jenis_kelamin' => 'required|integer',
+            'alamat' => 'required|string',
+            'alumni' => 'required|string|max:255',
+            'nohp' => 'string|max:20',
+            'email' => 'nullable|max:255',
+            'pendidikan_fk' => 'required|integer',
+            'program_studi' => 'required|string|max:255',
+            'status_pegawaifk' => 'required|integer',
+            'tunjangan_fungsional_fk' => 'required|integer',
+            'status_kawinfk' => 'required|integer',
+            'unitkerja' => 'required|integer',
+            'formasi_fk' => 'required|integer',
+            'jabatan_fk' => 'required|integer',
+            'jenispegawai_fk' => 'required|integer',
+        ]);
+
+        $pegawai = pegawai::create($validatedData);
+
+        return response()->json(['success' => true, 'message' => 'Data pegawai berhasil disimpan.']);
     }
 
     public function inputGaji()

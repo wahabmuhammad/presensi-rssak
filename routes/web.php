@@ -44,6 +44,8 @@ Route::middleware(['auth', 'cekRole'])->group(function () {
     Route::get('/slip-gaji{user}', [profilController::class, 'slipgaji'])->name('slipgaji');
     Route::get('/masuk', [PresensiController::class, 'index'])->name('masuk');
     Route::get('/pulang', [presensiOut_Controller::class, 'index'])->name('pulang');
+    Route::get('/dinas-luar', [PresensiController::class, 'dinasLuar'])->name('dinasLuar');
+    Route::get('/cuti', [PresensiController::class, 'indexcuti'])->name('cuti');
     Route::post('/presensi/public/masuk', [PresensiController::class, 'store'])->name('store');
     Route::post('/presensi/public/pulang', [presensiOut_Controller::class, 'store'])->name('pulangStore');
 });
@@ -64,6 +66,11 @@ Route::middleware(['auth', 'cekAdmin'])->group(function(){
     Route::get('/recruitment', [RecruitmentController::class, 'index'])->name('recruitment');
     Route::post('/send/{id}', [RecruitmentController::class, 'sendwa'])->name('sendwa');
     Route::post('/bulk-send', [RecruitmentController::class, 'bulkSend'])->name('bulkSend');
+    //Route Data Pegawai
+    Route::get('/data-pegawai', [adminController::class, 'dataPegawai'])->name('dataPegawai');
+    Route::get('/get/data-pegawai', [adminController::class, 'get_datapegawai']);
+    Route::get('/pegawai/options', [adminController::class, 'options_datapegawai']);
+    Route::post('/pegawai/store', [adminController::class, 'store_datapegawai'])->name('storeDatapegawai');
 });
 
 // Route Login dan Logout

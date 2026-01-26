@@ -17,10 +17,16 @@
     <!-- CSS files -->
     <link rel="icon" type="image/png" href="{{ asset('assets/img/Logo_RSSA.png') }}" sizes="32x32">
     <link href="{{ asset('tabler/dist/css/tabler-flags.min.css?1692870487') }}" rel="stylesheet" />
-    <link href="{{ asset('tabler/dist/css/tabler.min.css?1692870487') }}" rel="stylesheet" />
+    {{-- <link href="{{ asset('tabler/dist/css/tabler.min.css?1692870487') }}" rel="stylesheet" /> --}}
+    <link rel="stylesheet" href="{{ asset('tabler/dist/css/tabler.css') }}" rel="stylesheet">
     <link href="{{ asset('tabler/dist/css/tabler-payments.min.css?1692870487') }}" rel="stylesheet" />
     <link href="{{ asset('tabler/dist/css/tabler-vendors.min.css?1692870487') }}" rel="stylesheet" />
     <link href="{{ asset('tabler/dist/css/demo.min.css?1692870487') }}" rel="stylesheet" />
+    <script src="{{ asset('assets/js/jquery-3.6.0.min.js') }}"></script>
+    <script src="{{asset('assets/js/sweetalert2.min.js')}}"></script>
+    <script src="{{ asset('tabler/dist/libs/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('assets/js/dataTables.fixedColumns.min.js') }}"></script>
+
     <style>
         @import url('https://rsms.me/inter/inter.css');
 
@@ -35,7 +41,7 @@
     {{-- @notifyCss --}}
 </head>
 
-<body>
+<body class="layout-fluid">
     <script src="{{ asset('tabler/dist/js/demo-theme.min.js?1692870487') }}"></script>
     <div class="page">
         <!-- Sidebar -->

@@ -12,39 +12,44 @@ class pegawai extends Model
     use HasFactory, Notifiable;
 
     protected $table = 'pegawai_m';
-    
+
     protected $fillable = [
-        'id',
+        'statusenabled',
+        'nik',
         'nip',
         'nama_lengkap',
         'nama_panggilan',
+        'tempat_lahir',
+        'tgl_lahir',
         'gol_mk',
+        'awal_masuk',
         'tmt',
         'sk_pt',
-        'status_pegawai',
         'jenis_kelamin',
-        'formasi',
-        'jabatan',
-        'penempatan',
-        'mulai_kerja',
-        'nik',
-        'ttl',
         'alamat',
-        'lulusan',
-        'pendidikan_usia',
+        'alumni',
+        'nohp',
+        'email',
+        'pendidikan_fk',
         'program_studi',
-        'status'
+        'status_pegawaifk',
+        'tunjangan_fungsional_fk',
+        'status_kawinfk',
+        'unitkerja',
+        'formasi_fk',
+        'jabatan_fk',
+        'jenispegawai_fk',
     ];
 
-    
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
+    public $timestamps = false;
+    // protected $hidden = [
+    //     'password',
+    //     'remember_token',
+    // ];
 
     
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-        'password' => 'hashed',
-    ];
+    // protected $casts = [
+    //     'email_verified_at' => 'datetime',
+    //     'password' => 'hashed',
+    // ];
 }
