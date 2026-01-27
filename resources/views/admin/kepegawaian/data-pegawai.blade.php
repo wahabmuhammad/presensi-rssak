@@ -117,7 +117,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="table-responsive"  style="max-height: 600px; overflow:auto;">
+                <div class="table-responsive" style="max-height: 600px; overflow:auto;">
                     <table class="table table-vcenter table-mobile-md card-table table-striped table-bordered table-sticky">
                         <thead>
                             <tr>
@@ -168,6 +168,9 @@
                         </div>
                     </div>
                 </div>
+                <div class="pagination-links" id="pagination-links">
+                    {{-- {{ $datas->links() }} <!-- Menampilkan link pagination --> --}}
+                </div>
             </div>
         </div>
     </div>
@@ -179,9 +182,9 @@
         $(document).ready(function() {
             // console.log('ok');
 
-            function loadData() {
+            function loadData(page = 1) {
                 $.ajax({
-                    url: "get/data-pegawai", // endpoint API
+                    url: "get/data-pegawai?page=" + page, // endpoint API
                     type: "GET",
                     dataType: "json",
                     beforeSend: function() {
@@ -190,13 +193,16 @@
                     },
                     success: function(response) {
                         // console.log(response);
-                        let rows = "";
+                        var rows = '';
+                        var startIndex = (page - 1) *
+                            10;
 
                         $.each(response.datas, function(index, item) {
                             // console.log(item);
+                            var rowNumber = startIndex + index + 1;
                             rows += `
                         <tr>
-                            <td>${index + 1}</td>
+                            <td>${rowNumber}</td>
                             <td>${item.nip}</td>
                             <td>${item.nik}</td>
                             <td>${item.nama_lengkap}</td>
@@ -211,8 +217,8 @@
                             <td>${item.jabatan}</td>
                             <td>${item.jenispegawai}</td>
                             <td>${item.unitkerja}</td>
-                            <td>${item.nohp}</td>
-                            <td>${item.email}</td>
+                            <td>${item.nohp ?? '-'}</td>
+                            <td>${item.email ?? '-'}</td>
                             <td>${item.tempat_lahir}, ${item.tgl_lahir_formatted}</td>
                             <td>${item.alumni}</td>
                             <td>${item.nama_pendidikan} / ${item.usia} th</td>
@@ -224,6 +230,7 @@
                         });
 
                         $("#tablePegawai").html(rows);
+                        $('#pagination-links').html(response.pagination);
                     },
                     error: function(xhr, status, error) {
                         console.error("Error:", error);
@@ -240,6 +247,11 @@
                     }
                 });
             }
+            $(document).on('click', '.pagination a', function(e) {
+                e.preventDefault();
+                var page = $(this).attr('href').split('page=')[1];
+                loadData(page);
+            });
             loadData();
 
             function updateNamaLengkap() {
