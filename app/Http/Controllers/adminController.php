@@ -255,6 +255,18 @@ class adminController extends Controller
             'pagination' => (string) $pegawai->links()
         ]);
     }
+    //function ajax get-pegawai
+    public function get_pegawai(Request $request){
+        $keyword = $request->query('query');
+        $pegawai = DB::table('pegawai_m')
+            ->where('nama_lengkap', 'ilike', "%$keyword%")
+            // ->orWhere('nip', 'ilike', "%$keyword%")
+            ->select('id', 'nama_lengkap')
+            ->get();
+
+        return response()->json($pegawai);
+    }
+
     //get data pegawai options
     public function options_datapegawai()
     {
@@ -281,15 +293,15 @@ class adminController extends Controller
             'tgl_lahir' => 'required|date',
             'gol_mk' => 'required|string|max:50',
             'awal_masuk' => 'required|date',
-            'tmt' => 'required|date',
-            'sk_pt' => 'required|date',
+            'tmt' => 'nullable|date',
+            'sk_pt' => 'nullable|date',
             'jenis_kelamin' => 'required|integer',
-            'alamat' => 'required|string',
-            'alumni' => 'required|string|max:255',
+            'alamat' => 'nullable|string',
+            'alumni' => 'nullable|string|max:255',
             'nohp' => 'string|max:20',
             'email' => 'nullable|max:255',
             'pendidikan_fk' => 'required|integer',
-            'program_studi' => 'required|string|max:255',
+            'program_studi' => 'nullable|string|max:255',
             'status_pegawaifk' => 'required|integer',
             'tunjangan_fungsional_fk' => 'required|integer',
             'status_kawinfk' => 'required|integer',
@@ -304,8 +316,34 @@ class adminController extends Controller
         return response()->json(['success' => true, 'message' => 'Data pegawai berhasil disimpan.']);
     }
 
+    public function slipgaji()
+    {
+        return view('admin.kepegawaian.slipgajiIndex');
+    }
+
     public function inputGaji()
     {
         return view('admin.kepegawaian.gaji-pegawai');
+    }
+    // function store_komponengaji
+    public function store_komponengaji(Request $request)
+    {
+        // dd($request);
+        $validatedData = $request->validate([
+            'pegawai_fk' => 'required|integer',
+            'pgpns' => 'required|string|max:255',
+            'tahunpgpns' => 'required|numeric',
+            'dasarbpjsks' => 'required|string|max:50',
+            'dasarbpjstk' => 'required|string|max:50',
+        ]);
+
+        $komponenGaji = DB::table('komponengaji_m')->insert($validatedData);
+
+        return response()->json(['success' => true, 'message' => 'Komponen gaji berhasil disimpan.']);
+    }
+
+    public function komponenGajiIndex()
+    {
+        return view('admin.kepegawaian.komponengaji_index');
     }
 }

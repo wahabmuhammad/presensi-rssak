@@ -118,7 +118,7 @@
                     </div>
                 </div>
                 <div class="table-responsive" style="max-height: 600px; overflow:auto;">
-                    <table class="table table-vcenter table-mobile-md card-table table-striped table-bordered table-sticky">
+                    <table class="table table-vcenter table-mobile-md card-table table-bordered table-sticky">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -156,10 +156,10 @@
                     <div id="loading" style="display:none;">
                         <div class="container container-slim py-4">
                             <div class="text-center">
-                                <div class="mb-3">
+                                {{-- <div class="mb-3">
                                     <a href="." class="navbar-brand navbar-brand-autodark"><img
                                             src="./static/logo-small.svg" height="36" alt=""></a>
-                                </div>
+                                </div> --}}
                                 <div class="text-secondary mb-3">Memuat Data</div>
                                 <div class="progress progress-sm">
                                     <div class="progress-bar progress-bar-indeterminate"></div>
@@ -168,8 +168,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="pagination-links" id="pagination-links">
-                    {{-- {{ $datas->links() }} <!-- Menampilkan link pagination --> --}}
+                <div class="card-footer">
+                    <div class="pagination-links" id="pagination-links">
+                        {{-- {{ $datas->links() }} <!-- Menampilkan link pagination --> --}}
+                    </div>
                 </div>
             </div>
         </div>
@@ -201,7 +203,7 @@
                             // console.log(item);
                             var rowNumber = startIndex + index + 1;
                             rows += `
-                        <tr>
+                        <tr class="pegawai-row">
                             <td>${rowNumber}</td>
                             <td>${item.nip}</td>
                             <td>${item.nik}</td>
@@ -371,6 +373,22 @@
                 let formData = $(this).serialize(); // Serialize the form data
 
                 saveData(formData); // Call the saveData function
+            });
+
+            $('.table').on('click', '.pegawai-row', function() {
+                patientId = $(this).data('id');
+
+                $('.pegawai-row').removeClass('highlight');
+                // Tambahkan highlight pada baris yang dipilih
+                $(this).addClass('highlight');
+                // Klik di luar tabel untuk menghapus highlight
+                $(document).on('click', function(e) {
+                    if (!$(e.target).closest('.table').length) {
+                        // Hapus highlight jika klik di luar tabel
+                        $('.pegawai-row').removeClass('highlight');
+                        patientId = null;
+                    }
+                });
             });
 
             // loadData();
