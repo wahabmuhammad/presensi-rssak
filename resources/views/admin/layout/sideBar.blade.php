@@ -233,6 +233,9 @@
                                 <a class="dropdown-item" href="{{ route('gajiPegawai') }}">
                                     Input Gaji Pegawai
                                 </a>
+                                <a class="dropdown-item" href="{{ route('komponenGajiIndex') }}">
+                                    Aturan Komponen Gaji
+                                </a>
                             </div>
                         </div>
                     </div>

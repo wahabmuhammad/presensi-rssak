@@ -71,6 +71,18 @@ Route::middleware(['auth', 'cekAdmin'])->group(function(){
     Route::get('/get/data-pegawai', [adminController::class, 'get_datapegawai']);
     Route::get('/pegawai/options', [adminController::class, 'options_datapegawai']);
     Route::post('/pegawai/store', [adminController::class, 'store_datapegawai'])->name('storeDatapegawai');
+    Route::post('/gaji-pegawai/komponen-gaji/save', [adminController::class, 'store_komponengaji'])->name('storeKomponengajiPegawai');
+    Route::get('/get-data-gaji-pegawai', [adminController::class, 'get_data_gaji_pegawai'])->name('getDataGajiPegawai');
+    Route::get('/get-komponen-gaji/pegawai', [adminController::class, 'get_komponen_gaji'])->name('getKomponenGaji');
+
+    //route komponen gaji
+    Route::get('/komponen-gaji-index', [adminController::class, 'komponenGajiIndex'])->name('komponenGajiIndex');
+    // Route::get('/login-page-new', [adminController::class, 'loginPageNew'])->name('loginPageNew');
+
+    //route ajax get-pegawai
+    Route::get('/get-pegawai', [adminController::class, 'get_pegawai'])->name('get-pegawai');
+
+    Route::get('/slip-gaji', [adminController::class, 'slipgaji'])->name('slip-gaji');
 });
 
 // Route Login dan Logout

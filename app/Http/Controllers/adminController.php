@@ -256,7 +256,8 @@ class adminController extends Controller
         ]);
     }
     //function ajax get-pegawai
-    public function get_pegawai(Request $request){
+    public function get_pegawai(Request $request)
+    {
         $keyword = $request->query('query');
         $pegawai = DB::table('pegawai_m')
             ->where('nama_lengkap', 'ilike', "%$keyword%")
@@ -324,6 +325,72 @@ class adminController extends Controller
     public function inputGaji()
     {
         return view('admin.kepegawaian.gaji-pegawai');
+    }
+
+    //function get_data_gaji_pegawai on index gaji-pegawai
+    public function get_data_gaji_pegawai(Request $request)
+    {
+        $data = DB::table('komponengaji_m')
+            ->leftJoin('pegawai_m', 'pegawai_m.id', '=', 'komponengaji_m.pegawai_fk')
+            ->select(
+                'komponengaji_m.*',
+                'pegawai_m.nama_lengkap as nama_pegawai',
+                'pegawai_m.nip as nip_pegawai'
+            )
+            // ->where('komponengaji_m.statusenabled', true)
+            ->orderBy('komponengaji_m.id_komponengaji', 'asc')
+            ->paginate(10);
+        return response()->json([
+            'datas' => $data->items(),
+            'pagination' => (string) $data->links()
+        ]);
+    }
+
+    public function get_komponen_gaji(Request $request)
+    {
+        $id = $request->query('data');
+        $komponenGaji = $pegawai = DB::table('pegawai_m')
+            ->leftJoin('status_kerja_m', 'status_kerja_m.id', '=', 'pegawai_m.status_pegawaifk')
+            ->leftJoin('statuskawin_m', 'statuskawin_m.id', '=', 'pegawai_m.status_kawinfk')
+            ->leftJoin('ruangan_m', 'ruangan_m.id_ruangan', '=', 'pegawai_m.unitkerja')
+            ->leftJoin('jabatan_fungsional_m', 'jabatan_fungsional_m.id', '=', 'pegawai_m.tunjangan_fungsional_fk')
+            ->leftJoin('jenispegawai_m', 'jenispegawai_m.id', '=', 'pegawai_m.jenispegawai_fk')
+            ->leftJoin('formasi_m', 'formasi_m.id', '=', 'pegawai_m.formasi_fk')
+            ->leftJoin('pendidikan_m', 'pendidikan_m.id', '=', 'pegawai_m.pendidikan_fk')
+            ->leftJoin('jabatan_m', 'jabatan_m.id', '=', 'pegawai_m.jabatan_fk')
+            ->leftJoin('komponengaji_m', 'komponengaji_m.pegawai_fk', '=', 'pegawai_m.id')
+            ->select(
+                'pegawai_m.*',
+                DB::raw("
+                    CASE 
+                        WHEN pegawai_m.jenis_kelamin = 1 THEN 'Laki-laki'
+                        WHEN pegawai_m.jenis_kelamin = 2 THEN 'Perempuan'
+                        ELSE '-'
+                    END AS jenis_kelamin_text
+                "),
+                DB::raw("TO_CHAR(pegawai_m.tgl_lahir, 'DD-MM-YYYY') AS tgl_lahir_formatted"),
+                DB::raw("TO_CHAR(pegawai_m.awal_masuk, 'DD-MM-YYYY') AS awal_masuk_formatted"),
+                DB::raw("TO_CHAR(pegawai_m.tmt, 'DD-MM-YYYY') AS tmt_formatted"),
+                DB::raw("TO_CHAR(pegawai_m.sk_pt, 'DD-MM-YYYY') AS sk_pt_formatted"),
+                DB::raw("EXTRACT(YEAR FROM AGE(CURRENT_DATE, pegawai_m.tgl_lahir)) AS usia"),
+                DB::raw("EXTRACT(YEAR FROM AGE(CURRENT_DATE, pegawai_m.awal_masuk)) AS masa_kerja"),
+                'status_kerja_m.status_kerja',
+                'statuskawin_m.status_kawin',
+                'ruangan_m.nama_ruangan as unitkerja',
+                'jabatan_fungsional_m.jabatan_fungsional',
+                'jenispegawai_m.jenispegawai',
+                'formasi_m.formasi',
+                'pendidikan_m.nama_pendidikan',
+                'jabatan_m.namajabatan as jabatan',
+                'komponengaji_m.pgpns',
+                'komponengaji_m.tahunpgpns',
+                'komponengaji_m.dasarbpjsks',
+                'komponengaji_m.dasarbpjstk'
+            )
+            ->where('pegawai_m.statusenabled', '=', true)
+            ->first();
+
+        return response()->json($komponenGaji);
     }
     // function store_komponengaji
     public function store_komponengaji(Request $request)
