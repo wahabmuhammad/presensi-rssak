@@ -399,9 +399,9 @@ class adminController extends Controller
         $validatedData = $request->validate([
             'pegawai_fk' => 'required|integer',
             'pgpns' => 'required|string|max:255',
-            'tahunpgpns' => 'required|numeric',
-            'dasarbpjsks' => 'required|string|max:50',
-            'dasarbpjstk' => 'required|string|max:50',
+            'tahunpgpns' => 'nullable|numeric',
+            'dasarbpjsks' => 'nullable|string|max:50',
+            'dasarbpjstk' => 'nullable|string|max:50',
         ]);
 
         $komponenGaji = DB::table('komponengaji_m')->insert($validatedData);
