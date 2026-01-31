@@ -286,6 +286,7 @@
                 let formData = $(this).serialize(); // Serialize the form data
 
                 saveData(formData); // Call the saveData function
+                loadData();
             });
 
         });
