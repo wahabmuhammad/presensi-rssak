@@ -25,8 +25,24 @@
                     <!-- Page title actions -->
                     <div class="col-auto ms-auto d-print-none">
                         <div class="btn-list">
-                            <a href="#" class="btn btn-primary d-none d-sm-inline-block" data-bs-toggle="modal"
-                                data-bs-target="#modal-report">
+                            <a class="btn btn-primary d-none d-sm-inline-block" id="editPegawai">
+                                <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    class="icon icon-tabler icons-tabler-outline icon-tabler-user-edit">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
+                                    <path d="M6 21v-2a4 4 0 0 1 4 -4h3.5" />
+                                    <path d="M18.42 15.61a2.1 2.1 0 0 1 2.97 2.97l-3.39 3.42h-3v-3l3.42 -3.39" />
+                                </svg>
+                                Edit Pegawai
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-auto ms-auto d-print-none">
+                        <div class="btn-list">
+                            <a href="#" class="btn btn-primary d-none d-sm-inline-block" id="tambahPegawai">
                                 <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -42,25 +58,6 @@
                             </a>
                         </div>
                     </div>
-                    {{-- <div class="col-auto ms-auto d-print-none">
-                        <div class="btn-list">
-                            <a href="#" class="btn btn-primary d-none d-sm-inline-block" data-bs-toggle="modal"
-                                data-bs-target="#modal-report">
-                                <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    class="icon icon-tabler icons-tabler-outline icon-tabler-user-plus">
-                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                    <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
-                                    <path d="M16 19h6" />
-                                    <path d="M19 16v6" />
-                                    <path d="M6 21v-2a4 4 0 0 1 4 -4h4" />
-                                </svg>
-                                Tambah Pegawai
-                            </a>
-                        </div>
-                    </div> --}}
                 </div>
             </div>
         </div>
@@ -100,8 +97,8 @@
                         <div class="ms-auto text-secondary">
                             <form action="" method="GET">
                                 <div class="input-group">
-                                    <input type="search" value="" class="form-control"
-                                        placeholder="Search…" name="search" aria-label="Search in website" id="search">
+                                    <input type="search" value="" class="form-control" placeholder="Search…"
+                                        name="search" aria-label="Search in website" id="search">
                                     <button class="btn btn-primary" type="submit">
                                         <!-- Download SVG icon from http://tabler-icons.io/i/search -->
                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
@@ -203,7 +200,7 @@
                             // console.log(item);
                             var rowNumber = startIndex + index + 1;
                             rows += `
-                        <tr class="pegawai-row">
+                        <tr class="pegawai-row" data-id="${item.id}">
                             <td>${rowNumber}</td>
                             <td>${item.nip}</td>
                             <td>${item.nik}</td>
@@ -269,7 +266,7 @@
                         $.each(response.datas, function(index, item) {
                             var rowNumber = startIndex + index + 1;
                             rows += `
-                    <tr class="pegawai-row">
+                    <tr class="pegawai-row" data-id="${item.id}">
                         <td>${rowNumber}</td>
                         <td>${item.nip}</td>
                         <td>${item.nik}</td>
@@ -340,58 +337,128 @@
             }
 
             $('#gelar_depan, #nama_pegawai, #gelar_belakang').on('keyup change', updateNamaLengkap);
+            function editNamaLengkap() {
+                let depan = $('#editgelar_depan').val();
+                let nama = $('#editnama_pegawai').val();
+                let belakang = $('#editgelar_belakang').val();
 
-            $.get('pegawai/options', function(res) {
+                let full = '';
 
-                let statusPegawai = '';
-                res.statusPegawai.forEach(e => {
-                    statusPegawai += `<option value="${e.id}">${e.status_kerja}</option>`;
+                if (depan) full += depan + '. ';
+                if (nama) full += nama;
+                if (belakang) full += ', ' + belakang;
+
+                $('#editnama_lengkap').val(full.trim());
+            }
+
+            $('#editgelar_depan, #editnama_pegawai, #editgelar_belakang').on('keyup change', editNamaLengkap);
+
+            // $.get('pegawai/options', function(res) {
+
+            //     let statusPegawai = '';
+            //     res.statusPegawai.forEach(e => {
+            //         statusPegawai += `<option value="${e.id}">${e.status_kerja}</option>`;
+            //     });
+            //     $('select[name=status_pegawaifk]').html(statusPegawai);
+
+            //     let jabatan = '';
+            //     res.jabatan.forEach(e => {
+            //         jabatan += `<option value="${e.id}">${e.namajabatan}</option>`;
+            //     });
+            //     $('select[name=jabatan_fk]').html(jabatan);
+
+            //     let tunjanganFungsional = '';
+            //     res.tunjanganFungsional.forEach(e => {
+            //         tunjanganFungsional +=
+            //             `<option value="${e.id}">${e.jabatan_fungsional}</option>`;
+            //     });
+            //     $('select[name=tunjangan_fungsional_fk]').html(tunjanganFungsional);
+            //     let formasi = '';
+            //     res.formasi.forEach(e => {
+            //         formasi += `<option value="${e.id}">${e.formasi}</option>`;
+            //     });
+            //     $('select[name=formasi_fk]').html(formasi);
+
+            //     let ruangan = '';
+            //     res.ruangan.forEach(e => {
+            //         ruangan += `<option value="${e.id_ruangan}">${e.nama_ruangan}</option>`;
+            //     });
+            //     $('select[name=unitkerja]').html(ruangan);
+
+            //     let pendidikan = '';
+            //     res.pendidikan.forEach(e => {
+            //         pendidikan += `<option value="${e.id}">${e.nama_pendidikan}</option>`;
+            //     });
+            //     $('select[name=pendidikan_fk]').html(pendidikan);
+
+            //     let jenisPegawai = '';
+            //     res.jenisPegawai.forEach(e => {
+            //         jenisPegawai += `<option value="${e.id}">${e.jenispegawai}</option>`;
+            //     });
+            //     $('select[name=jenispegawai_fk]').html(jenisPegawai);
+
+            //     let statusKawin = '';
+            //     res.statusKawin.forEach(e => {
+            //         statusKawin += `<option value="${e.id}">${e.status_kawin}</option>`;
+            //     });
+            //     $('select[name=status_kawinfk]').html(statusKawin);
+
+            // });
+            function loadPegawaiOptions(callback = null) {
+                $.get('pegawai/options', function(res) {
+
+                    $('select[name=status_pegawaifk]').html(
+                        res.statusPegawai.map(e =>
+                            `<option value="${e.id}">${e.status_kerja}</option>`
+                        ).join('')
+                    );
+
+                    $('select[name=jabatan_fk]').html(
+                        res.jabatan.map(e =>
+                            `<option value="${e.id}">${e.namajabatan}</option>`
+                        ).join('')
+                    );
+
+                    $('select[name=tunjangan_fungsional_fk]').html(
+                        res.tunjanganFungsional.map(e =>
+                            `<option value="${e.id}">${e.jabatan_fungsional}</option>`
+                        ).join('')
+                    );
+
+                    $('select[name=formasi_fk]').html(
+                        res.formasi.map(e =>
+                            `<option value="${e.id}">${e.formasi}</option>`
+                        ).join('')
+                    );
+
+                    $('select[name=unitkerja]').html(
+                        res.ruangan.map(e =>
+                            `<option value="${e.id_ruangan}">${e.nama_ruangan}</option>`
+                        ).join('')
+                    );
+
+                    $('select[name=pendidikan_fk]').html(
+                        res.pendidikan.map(e =>
+                            `<option value="${e.id}">${e.nama_pendidikan}</option>`
+                        ).join('')
+                    );
+
+                    $('select[name=jenispegawai_fk]').html(
+                        res.jenisPegawai.map(e =>
+                            `<option value="${e.id}">${e.jenispegawai}</option>`
+                        ).join('')
+                    );
+
+                    $('select[name=status_kawinfk]').html(
+                        res.statusKawin.map(e =>
+                            `<option value="${e.id}">${e.status_kawin}</option>`
+                        ).join('')
+                    );
+
+                    if (callback) callback();
                 });
-                $('select[name=status_pegawaifk]').html(statusPegawai);
-
-                let jabatan = '';
-                res.jabatan.forEach(e => {
-                    jabatan += `<option value="${e.id}">${e.namajabatan}</option>`;
-                });
-                $('select[name=jabatan_fk]').html(jabatan);
-
-                let tunjanganFungsional = '';
-                res.tunjanganFungsional.forEach(e => {
-                    tunjanganFungsional +=
-                        `<option value="${e.id}">${e.jabatan_fungsional}</option>`;
-                });
-                $('select[name=tunjangan_fungsional_fk]').html(tunjanganFungsional);
-                let formasi = '';
-                res.formasi.forEach(e => {
-                    formasi += `<option value="${e.id}">${e.formasi}</option>`;
-                });
-                $('select[name=formasi_fk]').html(formasi);
-
-                let ruangan = '';
-                res.ruangan.forEach(e => {
-                    ruangan += `<option value="${e.id_ruangan}">${e.nama_ruangan}</option>`;
-                });
-                $('select[name=unitkerja]').html(ruangan);
-
-                let pendidikan = '';
-                res.pendidikan.forEach(e => {
-                    pendidikan += `<option value="${e.id}">${e.nama_pendidikan}</option>`;
-                });
-                $('select[name=pendidikan_fk]').html(pendidikan);
-
-                let jenisPegawai = '';
-                res.jenisPegawai.forEach(e => {
-                    jenisPegawai += `<option value="${e.id}">${e.jenispegawai}</option>`;
-                });
-                $('select[name=jenispegawai_fk]').html(jenisPegawai);
-
-                let statusKawin = '';
-                res.statusKawin.forEach(e => {
-                    statusKawin += `<option value="${e.id}">${e.status_kawin}</option>`;
-                });
-                $('select[name=status_kawinfk]').html(statusKawin);
-
-            });
+            }
+            loadPegawaiOptions();
 
             function saveData(formData) {
                 $.ajax({
@@ -444,23 +511,166 @@
                 saveData(formData); // Call the saveData function
             });
 
-            $('.table').on('click', '.pegawai-row', function() {
-                patientId = $(this).data('id');
+            // Handle row click to select pegawai
+            let pegawaiId = null;
+
+            // Klik baris pegawai
+            $('.table').on('click', '.pegawai-row', function(e) {
+                e.stopPropagation(); // cegah event document
+
+                pegawaiId = $(this).data('id');
+                // console.log(pegawaiId);
 
                 $('.pegawai-row').removeClass('highlight');
-                // Tambahkan highlight pada baris yang dipilih
                 $(this).addClass('highlight');
-                // Klik di luar tabel untuk menghapus highlight
-                $(document).on('click', function(e) {
-                    if (!$(e.target).closest('.table').length) {
-                        // Hapus highlight jika klik di luar tabel
-                        $('.pegawai-row').removeClass('highlight');
-                        patientId = null;
-                    }
-                });
             });
 
-            // loadData();
+            // Klik di luar tabel → reset
+            $(document).on('click', function(e) {
+                if (!$(e.target).closest('.table').length) {
+                    $('.pegawai-row').removeClass('highlight');
+                    pegawaiId = null;
+                    // console.log(pegawaiId);
+                }
+            });
+            //Handle tambah pegawai
+            $('#tambahPegawai').on('click', function() {
+                // reset form input
+                $('#form-inputpegawai')[0].reset();
+
+                // reset semua select (biar kosong)
+                $('#form-inputpegawai select').val(null).trigger('change');
+                loadPegawaiOptions();
+                $('#modal-report').modal('show');
+            });
+
+            //Handle edit pasien 
+            $('#editPegawai').on('click', function() {
+                if (!pegawaiId) {
+                    Swal.fire({
+                        title: "Error",
+                        text: "Pilih pegawai terlebih dahulu!",
+                        icon: "warning",
+                        confirmButtonText: "OK"
+                    });
+                    return;
+                }
+                // console.log(pegawaiId);
+                $.get(`pegawai/${pegawaiId}/get`, function(pegawai) {
+                    // Load options → setelah selesai baru set value
+                    loadPegawaiOptions(function() {
+
+                        $('select[name=status_pegawaifk]').val(pegawai.status_pegawaifk);
+                        $('select[name=jabatan_fk]').val(pegawai.jabatan_fk);
+                        $('select[name=tunjangan_fungsional_fk]').val(pegawai
+                            .tunjangan_fungsional_fk);
+                        $('select[name=formasi_fk]').val(pegawai.formasi_fk);
+                        $('select[name=unitkerja]').val(pegawai.unitkerja);
+                        $('select[name=pendidikan_fk]').val(pegawai.pendidikan_fk);
+                        $('select[name=jenispegawai_fk]').val(pegawai.jenispegawai_fk);
+                        $('select[name=status_kawinfk]').val(pegawai.status_kawinfk);
+                        $('select[name=jenis_kelamin]').val(pegawai.jenis_kelamin);
+                        // input biasa
+                        $('[name=id_pegawai]').val(pegawai.id);
+                        $('[name=nik]').val(pegawai.nik);
+                        $('[name=nip]').val(pegawai.nip);
+                        $('[name=nohp]').val(pegawai.nohp);
+                        $('[name=email]').val(pegawai.email);
+                        $('[name=nip]').val(pegawai.nip);
+                        $('[name=awal_masuk]').val(pegawai.awal_masuk);
+                        $('[name=tempat_lahir]').val(pegawai.tempat_lahir);
+                        $('[name=tgl_lahir]').val(pegawai.tgl_lahir);
+                        $('[name=gol_mk]').val(pegawai.gol_mk);
+                        $('[name=tmt]').val(pegawai.tmt);
+                        $('[name=sk_pt]').val(pegawai.sk_pt);
+                        $('[name=alumni]').val(pegawai.alumni);
+                        $('[name=program_studi]').val(pegawai.program_studi);
+                        $('[name=nama_pegawai]').val(pegawai.nama_lengkap);
+                        $('#editnama_lengkap').val(pegawai.nama_lengkap);
+                        $('[name=alamat]').val(pegawai.alamat);
+
+                        $('#modal-edit-pegawai').modal('show');
+                    });
+                });
+                // Isi data ke modal
+            });
+            $('#modal-report').on('hidden.bs.modal', function() {
+
+                // reset form input
+                $('#form-inputpegawai')[0].reset();
+
+                // reset semua select (biar kosong)
+                $('#form-inputpegawai select').val(null).trigger('change');
+
+                // hapus highlight row
+                $('.pegawai-row').removeClass('highlight');
+
+                // reset id pegawai
+                pegawaiId = null;
+            });
+            $('#modal-edit-pegawai').on('hidden.bs.modal', function() {
+
+                // reset form input
+                $('#form-editpegawai')[0].reset();
+
+                // reset semua select (biar kosong)
+                $('#form-editpegawai select').val(null).trigger('change');
+
+                // hapus highlight row
+                $('.pegawai-row').removeClass('highlight');
+
+                // reset id pegawai
+                pegawaiId = null;
+            });
+            function updateData(formData) {
+                $.ajax({
+                    url: `pegawai/update`, // Adjust this URL to your update endpoint
+                    method: 'PUT',
+                    data: formData,
+                    dataType: 'json',
+                    success: function(response) {
+                        // Check if the update was successful
+                        if (response.success) {
+                            // If successful, fetch updated data
+                            $('#modal-edit-pegawai').modal('hide');
+                            loadData();
+                            // Optionally, you can reset the form here
+                            $('#form-editpegawai')[0]
+                                .reset(); // Assuming your form has the ID 'form-editpegawai'
+
+                            Swal.fire({
+                                title: "Success",
+                                text: "Data pegawai berhasil diperbarui!",
+                                icon: "success",
+                                confirmButtonText: "OK"
+                            });
+                        } else {
+                            Swal.fire({
+                                title: "Error",
+                                text: "Gagal memperbarui data pegawai!",
+                                icon: "error",
+                                confirmButtonText: "OK"
+                            });
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error updating data:', error);
+                        Swal.fire({
+                            title: "Error",
+                            text: "Gagal memperbarui data pegawai!",
+                            icon: "error",
+                            confirmButtonText: "OK"
+                        });
+                    }
+                });
+            }
+            $('#form-editpegawai').on('submit', function(e) {
+                e.preventDefault(); // Prevent the default form submission
+
+                let formData = $(this).serialize(); // Serialize the form data
+
+                updateData(formData); // Call the updateData function
+            });
         });
     </script>
 @endsection

@@ -248,23 +248,61 @@ class adminController extends Controller
                 'jabatan_m.namajabatan as jabatan'
             )
             ->where('pegawai_m.statusenabled', true)
-
-            // 🔍 SEARCH
             ->when($keyword, function ($query, $keyword) {
                 $query->where(function ($q) use ($keyword) {
                     $q->where('pegawai_m.nip', 'ILIKE', "%{$keyword}%")
                         ->orWhere('pegawai_m.nama_lengkap', 'ILIKE', "%{$keyword}%");
                 });
             })
-
             ->orderBy('pegawai_m.id', 'asc')
             ->paginate(10)
-            ->withQueryString(); // ⭐ penting agar pagination search tidak hilang
+            ->withQueryString();
 
         return response()->json([
             'datas' => $pegawai->items(),
             'pagination' => (string) $pegawai->links()
         ]);
+    }
+    //function edit_pegawai
+    public function edit_pegawai($pegawaiId)
+    {
+        $pegawai = DB::table('pegawai_m')
+            ->leftJoin('status_kerja_m', 'status_kerja_m.id', '=', 'pegawai_m.status_pegawaifk')
+            ->leftJoin('statuskawin_m', 'statuskawin_m.id', '=', 'pegawai_m.status_kawinfk')
+            ->leftJoin('ruangan_m', 'ruangan_m.id_ruangan', '=', 'pegawai_m.unitkerja')
+            ->leftJoin('jabatan_fungsional_m', 'jabatan_fungsional_m.id', '=', 'pegawai_m.tunjangan_fungsional_fk')
+            ->leftJoin('jenispegawai_m', 'jenispegawai_m.id', '=', 'pegawai_m.jenispegawai_fk')
+            ->leftJoin('formasi_m', 'formasi_m.id', '=', 'pegawai_m.formasi_fk')
+            ->leftJoin('pendidikan_m', 'pendidikan_m.id', '=', 'pegawai_m.pendidikan_fk')
+            ->leftJoin('jabatan_m', 'jabatan_m.id', '=', 'pegawai_m.jabatan_fk')
+            ->select(
+                'pegawai_m.*',
+                DB::raw("
+                CASE 
+                    WHEN pegawai_m.jenis_kelamin = 1 THEN 'Laki-laki'
+                    WHEN pegawai_m.jenis_kelamin = 2 THEN 'Perempuan'
+                    ELSE '-'
+                END AS jenis_kelamin_text
+            "),
+                DB::raw("TO_CHAR(pegawai_m.tgl_lahir, 'DD-MM-YYYY') AS tgl_lahir_formatted"),
+                DB::raw("TO_CHAR(pegawai_m.awal_masuk, 'DD-MM-YYYY') AS awal_masuk_formatted"),
+                DB::raw("TO_CHAR(pegawai_m.tmt, 'DD-MM-YYYY') AS tmt_formatted"),
+                DB::raw("TO_CHAR(pegawai_m.sk_pt, 'DD-MM-YYYY') AS sk_pt_formatted"),
+                DB::raw("EXTRACT(YEAR FROM AGE(CURRENT_DATE, pegawai_m.tgl_lahir)) AS usia"),
+                'status_kerja_m.status_kerja',
+                'statuskawin_m.status_kawin',
+                'ruangan_m.nama_ruangan as unitkerja',
+                'jabatan_fungsional_m.jabatan_fungsional',
+                'jenispegawai_m.jenispegawai',
+                'formasi_m.formasi',
+                'pendidikan_m.nama_pendidikan',
+                'jabatan_m.namajabatan as jabatan',
+                'ruangan_m.id_ruangan as unitkerja'
+            )
+            ->where('pegawai_m.statusenabled', true)
+            ->where('pegawai_m.id', $pegawaiId)
+            ->first();
+        return response()->json($pegawai);
     }
     //function ajax get-pegawai
     public function get_pegawai(Request $request)
@@ -277,6 +315,43 @@ class adminController extends Controller
             ->get();
 
         return response()->json($pegawai);
+    }
+
+    //function update_pegawai
+    public function update_pegawai(Request $request)
+    {
+        $pegawaiId = $request->input('id_pegawai');
+        $validatedData = $request->validate([
+            'nik' => 'required| unique:pegawai_m,nik,' . $pegawaiId,
+            'nip' => 'required|unique:pegawai_m,nip,' . $pegawaiId,
+            'nama_lengkap' => 'required|string|max:255',
+            'nama_panggilan' => 'required|string|max:100',
+            'tempat_lahir' => 'required|string|max:100',
+            'tgl_lahir' => 'required|date',
+            'gol_mk' => 'required|string|max:50',
+            'awal_masuk' => 'required|date',
+            'tmt' => 'nullable|date',
+            'sk_pt' => 'nullable|date',
+            'jenis_kelamin' => 'required|integer',
+            'alamat' => 'nullable|string',
+            'alumni' => 'nullable|string|max:255',
+            'nohp' => 'string|max:20',
+            'email' => 'nullable|max:255',
+            'pendidikan_fk' => 'required|integer',
+            'program_studi' => 'nullable|string|max:255',
+            'status_pegawaifk' => 'required|integer',
+            'tunjangan_fungsional_fk' => 'required|integer',
+            'status_kawinfk' => 'required|integer',
+            'unitkerja' => 'required|integer',
+            'formasi_fk' => 'required|integer',
+            'jabatan_fk' => 'required|integer',
+            'jenispegawai_fk' => 'required|integer',
+        ]);
+
+        $pegawai = pegawai::findOrFail($pegawaiId);
+        $pegawai->update($validatedData);
+
+        return response()->json(['success' => true, 'message' => "Data pegawai berhasil diperbarui."]);
     }
 
     //get data pegawai options
@@ -347,6 +422,7 @@ class adminController extends Controller
             ->leftJoin('pegawai_m', 'pegawai_m.id', '=', 'komponengaji_m.pegawai_fk')
             ->select(
                 'komponengaji_m.*',
+                'pegawai_m.id as id_pegawai',
                 'pegawai_m.nama_lengkap as nama_pegawai',
                 'pegawai_m.nip as nip_pegawai'
             )
