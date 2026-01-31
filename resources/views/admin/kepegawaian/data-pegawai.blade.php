@@ -98,10 +98,10 @@
                             entries
                         </div>
                         <div class="ms-auto text-secondary">
-                            <form action="{{ url('user') }}" method="GET">
+                            <form action="" method="GET">
                                 <div class="input-group">
-                                    <input type="search" value="{{ Request::get('search') }}" class="form-control"
-                                        placeholder="Search…" name="search" aria-label="Search in website">
+                                    <input type="search" value="" class="form-control"
+                                        placeholder="Search…" name="search" aria-label="Search in website" id="search">
                                     <button class="btn btn-primary" type="submit">
                                         <!-- Download SVG icon from http://tabler-icons.io/i/search -->
                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
@@ -249,12 +249,81 @@
                     }
                 });
             }
+
+            function searchData(keyword, page = 1) {
+                $.ajax({
+                    url: "get/data-pegawai",
+                    type: "GET",
+                    dataType: "json",
+                    data: {
+                        keyword: keyword,
+                        page: page
+                    },
+                    beforeSend: function() {
+                        $("#loading").show();
+                    },
+                    success: function(response) {
+                        var rows = '';
+                        var startIndex = (page - 1) * 10;
+
+                        $.each(response.datas, function(index, item) {
+                            var rowNumber = startIndex + index + 1;
+                            rows += `
+                    <tr class="pegawai-row">
+                        <td>${rowNumber}</td>
+                        <td>${item.nip}</td>
+                        <td>${item.nik}</td>
+                        <td>${item.nama_lengkap}</td>
+                        <td>${item.nama_panggilan}</td>
+                        <td>${item.gol_mk}</td>
+                        <td>${item.awal_masuk_formatted}</td>
+                        <td>${item.tmt_formatted}</td>
+                        <td>${item.sk_pt_formatted}</td>
+                        <td>${item.status_kerja}</td>
+                        <td>${item.jenis_kelamin_text}</td>
+                        <td>${item.formasi}</td>
+                        <td>${item.jabatan}</td>
+                        <td>${item.jenispegawai}</td>
+                        <td>${item.unitkerja}</td>
+                        <td>${item.nohp ?? '-'}</td>
+                        <td>${item.email ?? '-'}</td>
+                        <td>${item.tempat_lahir}, ${item.tgl_lahir_formatted}</td>
+                        <td>${item.alumni}</td>
+                        <td>${item.nama_pendidikan} / ${item.usia} th</td>
+                        <td>${item.program_studi}</td>
+                        <td>${item.status_kawin}</td>
+                        <td>${item.alamat}</td>
+                    </tr>
+                `;
+                        });
+
+                        $("#tablePegawai").html(rows);
+                        $("#pagination-links").html(response.pagination);
+                    },
+                    error: function() {
+                        Swal.fire("Error", "Gagal mencari data pegawai!", "error");
+                    },
+                    complete: function() {
+                        $("#loading").hide();
+                    }
+                });
+            }
+
             $(document).on('click', '.pagination a', function(e) {
                 e.preventDefault();
                 var page = $(this).attr('href').split('page=')[1];
                 loadData(page);
             });
             loadData();
+            $('#search').on('keyup', function() {
+                let keyword = $(this).val();
+
+                if (keyword.length > 0) {
+                    searchData(keyword);
+                } else {
+                    loadData();
+                }
+            });
 
             function updateNamaLengkap() {
                 let depan = $('#gelar_depan').val();

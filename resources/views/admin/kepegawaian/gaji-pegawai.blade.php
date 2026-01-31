@@ -93,10 +93,10 @@
                             entries
                         </div>
                         <div class="ms-auto text-secondary">
-                            <form action="{{ url('user') }}" method="GET">
+                            <form action="" method="GET">
                                 <div class="input-group">
-                                    <input type="search" value="{{ Request::get('search') }}" class="form-control"
-                                        placeholder="Search…" name="search" aria-label="Search in website">
+                                    <input type="search" value="" class="form-control"
+                                        placeholder="Search…" name="search" aria-label="Search in website" id="search">
                                     <button class="btn btn-primary" type="submit">
                                         <!-- Download SVG icon from http://tabler-icons.io/i/search -->
                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
@@ -130,7 +130,25 @@
                             {{-- diisi dengan ajax --}}
                         </tbody>
                     </table>
-                    {{-- {{ $userTable->withQueryString()->links() }} --}}
+                    <div id="loading" style="display:none;">
+                        <div class="container container-slim py-4">
+                            <div class="text-center">
+                                {{-- <div class="mb-3">
+                                    <a href="." class="navbar-brand navbar-brand-autodark"><img
+                                            src="./static/logo-small.svg" height="36" alt=""></a>
+                                </div> --}}
+                                <div class="text-secondary mb-3">Memuat Data</div>
+                                <div class="progress progress-sm">
+                                    <div class="progress-bar progress-bar-indeterminate"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="pagination-links" id="pagination-links">
+                        {{-- {{ $datas->links() }} <!-- Menampilkan link pagination --> --}}
+                    </div>
                 </div>
             </div>
         </div>
@@ -138,17 +156,25 @@
     @include('admin.layout.modal')
     <script>
         $(document).ready(function() {
-            function loadData() {
+            function loadData(page = 1) {
                 $.ajax({
-                    url: '{{ url('/get-data-gaji-pegawai') }}', // Adjust URL if needed
+                    url: '{{ url('/get-data-gaji-pegawai?page=') }}' + page,
                     method: 'GET',
                     dataType: 'json',
+                    beforeSend: function() {
+                        // Tampilkan loading atau indikator lainnya jika diperlukan
+                        $("#loading").show();
+                    },
                     success: function(response) {
-                        console.log(response);
-                        let html = '';
+                        // console.log(response);
+                        var html = '';
+                        var startIndex = (page - 1) *
+                            10;
+                        // let html = '';
                         response.datas.forEach(function(item, index) {
+                            var rowNumber = startIndex + index + 1;
                             html += '<tr>';
-                            html += '<td>' + (index + 1) + '</td>';
+                            html += '<td>' + rowNumber + '</td>';
                             html += '<td>' + item.nip_pegawai + '</td>';
                             html += '<td>' + item.nama_pegawai + '</td>';
                             html += '<td>' + item.pgpns + '</td>';
@@ -158,13 +184,61 @@
                             html += '</tr>';
                         });
                         $('#tablePegawai').html(html);
+                        $('#pagination-links').html(response.pagination);
                     },
                     error: function() {
                         console.error('Error fetching data');
+                    },
+                    complete: function() {
+                        // Sembunyikan loading setelah permintaan selesai
+                        $("#loading").hide();
                     }
                 });
             }
             loadData();
+
+            function searchData(keyword, page = 1) {
+                $.ajax({
+                    url: '{{ url('/get-data-gaji-pegawai') }}',
+                    method: 'GET',
+                    dataType: 'json',
+                    data: {
+                        keyword: keyword,
+                        page: page
+                    },
+                    beforeSend: function() {
+                        $("#loading").show();
+                    },
+                    success: function(response) {
+                        var html = '';
+                        var startIndex = (page - 1) * 10;
+
+                        response.datas.forEach(function(item, index) {
+                            var rowNumber = startIndex + index + 1;
+                            html += '<tr>';
+                            html += '<td>' + rowNumber + '</td>';
+                            html += '<td>' + item.nip_pegawai + '</td>';
+                            html += '<td>' + item.nama_pegawai + '</td>';
+                            html += '<td>' + item.pgpns + '</td>';
+                            html += '<td>' + item.tahunpgpns + '</td>';
+                            html += '<td>' + item.dasarbpjsks + '</td>';
+                            html += '<td>' + item.dasarbpjstk + '</td>';
+                            html += '</tr>';
+                        });
+
+                        $('#tablePegawai').html(html);
+                        $('#pagination-links').html(response.pagination);
+                    },
+                    error: function() {
+                        console.error('Error searching data');
+                    },
+                    complete: function() {
+                        $("#loading").hide();
+                    }
+                });
+            }
+
+
             function showSuggestions() {
                 $('#suggestionsList').show();
                 $('#modalBodyBottom').addClass('with-suggestion');
@@ -209,6 +283,23 @@
                     hideSuggestions(); // Hide suggestions if input is too short
                 }
             });
+
+            $(document).on('click', '.pagination a', function(e) {
+                e.preventDefault();
+                var page = $(this).attr('href').split('page=')[1];
+                loadData(page);
+            });
+
+            $('#search').on('keyup', function() {
+                let keyword = $(this).val();
+
+                if (keyword.length > 0) {
+                    searchData(keyword);
+                } else {
+                    loadData(); // balik ke data awal
+                }
+            });
+
 
             // Select a suggestion
             $(document).on('click', '#suggestionsList li', function() {

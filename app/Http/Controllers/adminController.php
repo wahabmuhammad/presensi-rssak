@@ -211,8 +211,10 @@ class adminController extends Controller
         // dd($datas);
         return view('admin.kepegawaian.data-pegawai');
     }
-    public function get_datapegawai()
+    public function get_datapegawai(Request $request)
     {
+        $keyword = $request->keyword;
+
         $pegawai = DB::table('pegawai_m')
             ->leftJoin('status_kerja_m', 'status_kerja_m.id', '=', 'pegawai_m.status_pegawaifk')
             ->leftJoin('statuskawin_m', 'statuskawin_m.id', '=', 'pegawai_m.status_kawinfk')
@@ -225,12 +227,12 @@ class adminController extends Controller
             ->select(
                 'pegawai_m.*',
                 DB::raw("
-                    CASE 
-                        WHEN pegawai_m.jenis_kelamin = 1 THEN 'Laki-laki'
-                        WHEN pegawai_m.jenis_kelamin = 2 THEN 'Perempuan'
-                        ELSE '-'
-                    END AS jenis_kelamin_text
-                "),
+                CASE 
+                    WHEN pegawai_m.jenis_kelamin = 1 THEN 'Laki-laki'
+                    WHEN pegawai_m.jenis_kelamin = 2 THEN 'Perempuan'
+                    ELSE '-'
+                END AS jenis_kelamin_text
+            "),
                 DB::raw("TO_CHAR(pegawai_m.tgl_lahir, 'DD-MM-YYYY') AS tgl_lahir_formatted"),
                 DB::raw("TO_CHAR(pegawai_m.awal_masuk, 'DD-MM-YYYY') AS awal_masuk_formatted"),
                 DB::raw("TO_CHAR(pegawai_m.tmt, 'DD-MM-YYYY') AS tmt_formatted"),
@@ -245,11 +247,20 @@ class adminController extends Controller
                 'pendidikan_m.nama_pendidikan',
                 'jabatan_m.namajabatan as jabatan'
             )
-            ->where('pegawai_m.statusenabled', '=', true)
+            ->where('pegawai_m.statusenabled', true)
+
+            // 🔍 SEARCH
+            ->when($keyword, function ($query, $keyword) {
+                $query->where(function ($q) use ($keyword) {
+                    $q->where('pegawai_m.nip', 'ILIKE', "%{$keyword}%")
+                        ->orWhere('pegawai_m.nama_lengkap', 'ILIKE', "%{$keyword}%");
+                });
+            })
+
             ->orderBy('pegawai_m.id', 'asc')
-            ->paginate(10);
-        // Jika request AJAX
-        // return view('user.pemeriksaan', compact('datas'))->render();
+            ->paginate(10)
+            ->withQueryString(); // ⭐ penting agar pagination search tidak hilang
+
         return response()->json([
             'datas' => $pegawai->items(),
             'pagination' => (string) $pegawai->links()
@@ -262,7 +273,7 @@ class adminController extends Controller
         $pegawai = DB::table('pegawai_m')
             ->where('nama_lengkap', 'ilike', "%$keyword%")
             // ->orWhere('nip', 'ilike', "%$keyword%")
-            ->select('id', 'nama_lengkap')
+            // ->select('id', 'nama_lengkap')
             ->get();
 
         return response()->json($pegawai);
@@ -330,6 +341,8 @@ class adminController extends Controller
     //function get_data_gaji_pegawai on index gaji-pegawai
     public function get_data_gaji_pegawai(Request $request)
     {
+        $keyword = $request->keyword;
+
         $data = DB::table('komponengaji_m')
             ->leftJoin('pegawai_m', 'pegawai_m.id', '=', 'komponengaji_m.pegawai_fk')
             ->select(
@@ -337,9 +350,18 @@ class adminController extends Controller
                 'pegawai_m.nama_lengkap as nama_pegawai',
                 'pegawai_m.nip as nip_pegawai'
             )
-            // ->where('komponengaji_m.statusenabled', true)
+            ->when($keyword, function ($query, $keyword) {
+                $query->where(function ($q) use ($keyword) {
+                    $q->where('pegawai_m.nip', 'ILIKE', "%{$keyword}%")
+                        ->orWhere('pegawai_m.nama_lengkap', 'ILIKE', "%{$keyword}%")
+                        ->orWhere('komponengaji_m.pgpns', 'ILIKE', "%{$keyword}%")
+                        ->orWhere('komponengaji_m.tahunpgpns', 'ILIKE', "%{$keyword}%");
+                });
+            })
             ->orderBy('komponengaji_m.id_komponengaji', 'asc')
-            ->paginate(10);
+            ->paginate(10)
+            ->withQueryString(); // ⭐ penting buat pagination search
+
         return response()->json([
             'datas' => $data->items(),
             'pagination' => (string) $data->links()
