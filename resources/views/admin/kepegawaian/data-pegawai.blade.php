@@ -586,6 +586,7 @@
                         $('[name=alumni]').val(pegawai.alumni);
                         $('[name=program_studi]').val(pegawai.program_studi);
                         $('[name=nama_pegawai]').val(pegawai.nama_lengkap);
+                        $('[name=nama_panggilan]').val(pegawai.nama_panggilan);
                         $('#editnama_lengkap').val(pegawai.nama_lengkap);
                         $('[name=alamat]').val(pegawai.alamat);
 
