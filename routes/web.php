@@ -73,8 +73,10 @@ Route::middleware(['auth', 'cekAdmin'])->group(function(){
     Route::put('/pegawai/update', [adminController::class, 'update_pegawai'])->name('updatePegawai');
     Route::get('/pegawai/options', [adminController::class, 'options_datapegawai']);
     Route::post('/pegawai/store', [adminController::class, 'store_datapegawai'])->name('storeDatapegawai');
-    Route::post('/gaji-pegawai/komponen-gaji/save', [adminController::class, 'store_komponengaji'])->name('storeKomponengajiPegawai');
     Route::get('/get-data-gaji-pegawai', [adminController::class, 'get_data_gaji_pegawai'])->name('getDataGajiPegawai');
+    Route::post('/gaji-pegawai/komponen-gaji/save', [adminController::class, 'store_komponengaji'])->name('storeKomponengajiPegawai');
+    Route::get('/pegawai/{pegawaiId}/get-komponen-gaji', [adminController::class, 'edit_komponen_gaji'])->name('editKomponenGaji'); 
+    Route::put('/pegawai/komponen-gaji/update', [adminController::class, 'update_komponengaji'])->name('updateKomponenGaji');
     Route::get('/get-komponen-gaji/pegawai', [adminController::class, 'get_komponen_gaji'])->name('getKomponenGaji');
 
     //route komponen gaji

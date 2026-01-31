@@ -26,7 +26,24 @@
                     <!-- Page title actions -->
                     <div class="col-auto ms-auto d-print-none">
                         <div class="btn-list">
-                            <a href="" class="btn btn-primary d-none d-sm-inline-block" data-bs-toggle="modal"
+                            <button class="btn btn-primary d-none d-sm-inline-block" id="editKomponenGaji">
+                                <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    class="icon icon-tabler icons-tabler-outline icon-tabler-user-edit">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
+                                    <path d="M6 21v-2a4 4 0 0 1 4 -4h3.5" />
+                                    <path d="M18.42 15.61a2.1 2.1 0 0 1 2.97 2.97l-3.39 3.42h-3v-3l3.42 -3.39" />
+                                </svg>
+                                Edit Komponen Gaji
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-auto ms-auto d-print-none">
+                        <div class="btn-list">
+                            <button class="btn btn-primary d-none d-sm-inline-block" data-bs-toggle="modal"
                                 data-bs-target="#modal-komponen-gaji">
                                 <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -42,8 +59,8 @@
                                     <path d="M16 15l2 6l2 -6" />
                                 </svg>
                                 Tambah Komponen Gaji
-                            </a>
-                            <a href="" class="btn btn-primary d-sm-none btn-icon" data-bs-toggle="modal"
+                            </button>
+                            {{-- <a href="" class="btn btn-primary d-sm-none btn-icon" data-bs-toggle="modal"
                                 data-bs-target="#modal-komponen-gaji" aria-label="Buat User Baru">
                                 <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
@@ -53,7 +70,7 @@
                                     <path d="M12 5l0 14" />
                                     <path d="M5 12l14 0" />
                                 </svg>
-                            </a>
+                            </a> --}}
                         </div>
                     </div>
                 </div>
@@ -95,8 +112,8 @@
                         <div class="ms-auto text-secondary">
                             <form action="" method="GET">
                                 <div class="input-group">
-                                    <input type="search" value="" class="form-control"
-                                        placeholder="Search…" name="search" aria-label="Search in website" id="search">
+                                    <input type="search" value="" class="form-control" placeholder="Search…"
+                                        name="search" aria-label="Search in website" id="search">
                                     <button class="btn btn-primary" type="submit">
                                         <!-- Download SVG icon from http://tabler-icons.io/i/search -->
                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
@@ -173,14 +190,15 @@
                         // let html = '';
                         response.datas.forEach(function(item, index) {
                             var rowNumber = startIndex + index + 1;
-                            html += '<tr>';
+                            html += '<tr class="pegawai-row" data-id="' + item.id_komponengaji +
+                                '">';
                             html += '<td>' + rowNumber + '</td>';
                             html += '<td>' + item.nip_pegawai + '</td>';
                             html += '<td>' + item.nama_pegawai + '</td>';
                             html += '<td>' + item.pgpns + '</td>';
                             html += '<td>' + item.tahunpgpns + '</td>';
-                            html += '<td>' + item.dasarbpjsks + '</td>';
-                            html += '<td>' + item.dasarbpjstk + '</td>';
+                            html += '<td>' + (item.dasarbpjsks ?? '-') + '</td>';
+                            html += '<td>' + (item.dasarbpjstk ?? '-') + '</td>';
                             html += '</tr>';
                         });
                         $('#tablePegawai').html(html);
@@ -215,14 +233,15 @@
 
                         response.datas.forEach(function(item, index) {
                             var rowNumber = startIndex + index + 1;
-                            html += '<tr>';
+                            html += '<tr class="pegawai-row" data-id="' + item.id_komponengaji +
+                                '">';
                             html += '<td>' + rowNumber + '</td>';
                             html += '<td>' + item.nip_pegawai + '</td>';
                             html += '<td>' + item.nama_pegawai + '</td>';
                             html += '<td>' + item.pgpns + '</td>';
                             html += '<td>' + item.tahunpgpns + '</td>';
-                            html += '<td>' + item.dasarbpjsks + '</td>';
-                            html += '<td>' + item.dasarbpjstk + '</td>';
+                            html += '<td>' + (item.dasarbpjsks ?? '-') + '</td>';
+                            html += '<td>' + (item.dasarbpjstk ?? '-') + '</td>';
                             html += '</tr>';
                         });
 
@@ -237,7 +256,6 @@
                     }
                 });
             }
-
 
             function showSuggestions() {
                 $('#suggestionsList').show();
@@ -379,7 +397,126 @@
                 saveData(formData); // Call the saveData function
                 loadData();
             });
+            //selected komponen gaji pegawai untuk diedit
+            // Handle row click to select pegawai
+            let pegawaiId = null;
 
+            // Klik baris pegawai
+            $('.table').on('click', '.pegawai-row', function(e) {
+                e.stopPropagation(); // cegah event document
+
+                pegawaiId = $(this).data('id');
+                console.log(pegawaiId);
+
+                $('.pegawai-row').removeClass('highlight');
+                $(this).addClass('highlight');
+            });
+
+            // Klik di luar tabel → reset
+            $(document).on('click', function(e) {
+                if (!$(e.target).closest('.table').length) {
+                    $('.pegawai-row').removeClass('highlight');
+                    pegawaiId = null;
+                    console.log(pegawaiId);
+                }
+            });
+            //edit komponen gaji pegawai
+            $('#editKomponenGaji').on('click', function() {
+                if (!pegawaiId) {
+                    Swal.fire({
+                        title: "Error",
+                        text: "Pilih pegawai terlebih dahulu!",
+                        icon: "warning",
+                        confirmButtonText: "OK"
+                    });
+                    return;
+                }
+                // console.log(pegawaiId);
+                $.get(`pegawai/${pegawaiId}/get-komponen-gaji`, function(pegawai) {
+                    // Load options → setelah selesai baru set value
+                    $('[name=id_komponengaji]').val(pegawai.id_komponengaji);
+                    $('[name=pegawai_fk]').val(pegawai.id_pegawai);
+                    $('[name=namapegawai]').val(pegawai.nama_lengkap);
+                    $('[name=pgpns]').val(pegawai.pgpns);
+                    $('[name=tahunpgpns]').val(pegawai.tahunpgpns);
+                    $('[name=dasarbpjsks]').val(pegawai.dasarbpjsks);
+                    $('[name=dasarbpjstk]').val(pegawai.dasarbpjstk);
+                    $('#modal-editkomponen-gaji').modal('show');
+                });
+                // Isi data ke modal
+            });
+
+            function updateKomponenGaji(formData) {
+                $.ajax({
+                    url: '{{ url('pegawai/komponen-gaji/update') }}', // Adjust this URL to your update endpoint
+                    method: 'PUT',
+                    data: formData,
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response.success) {
+                            loadData();
+                            Swal.fire({
+                                title: "Success",
+                                text: response.message,
+                                icon: "success",
+                                confirmButtonText: "OK"
+                            });
+                        } else {
+                            Swal.fire({
+                                title: "Error",
+                                text: "Gagal memperbarui data komponen gaji!",
+                                icon: "error",
+                                confirmButtonText: "OK"
+                            });
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error updating data:', error);
+                        Swal.fire({
+                            title: "Error",
+                            text: "Gagal memperbarui data komponen gaji!",
+                            icon: "error",
+                            confirmButtonText: "OK"
+                        });
+                    }
+                });
+            }
+            $('#form-editgajipegawai').on('submit', function(e) {
+                e.preventDefault(); // Prevent the default form submission
+
+                let formData = $(this).serialize(); // Serialize the form data
+
+                updateKomponenGaji(formData); // Call the updateKomponenGaji function
+            });
+            //reset form ketika modal ditutup
+            $('#modal-komponen-gaji').on('hidden.bs.modal', function() {
+
+                // reset form input
+                $('#form-inputkomponen-gaji')[0].reset();
+
+                // reset semua select (biar kosong)
+                $('#form-inputkomponen-gaji select').val(null).trigger('change');
+
+                // hapus highlight row
+                $('.pegawai-row').removeClass('highlight');
+
+                // reset id pegawai
+                pegawaiId = null;
+            });
+            $('#modal-editkomponen-gaji').on('hidden.bs.modal', function() {
+
+                // reset form input
+                $('#form-editkomponen-gaji')[0].reset();
+
+                // reset semua select (biar kosong)
+                $('#form-editkomponen-gaji select').val(null).trigger('change');
+
+                // hapus highlight row
+                $('.pegawai-row').removeClass('highlight');
+
+                // reset id pegawai
+                pegawaiId = null;
+            });
         });
     </script>
 @endsection

@@ -436,7 +436,7 @@ class adminController extends Controller
             })
             ->orderBy('komponengaji_m.id_komponengaji', 'asc')
             ->paginate(10)
-            ->withQueryString(); // ⭐ penting buat pagination search
+            ->withQueryString();
 
         return response()->json([
             'datas' => $data->items(),
@@ -489,6 +489,37 @@ class adminController extends Controller
             ->first();
 
         return response()->json($komponenGaji);
+    }
+    //function edit_komponen_gaji
+    public function edit_komponen_gaji($pegawaiId){
+        $komponenGaji = DB::table('komponengaji_m')
+            ->leftJoin('pegawai_m', 'pegawai_m.id', '=', 'komponengaji_m.pegawai_fk')
+            ->select(
+                'komponengaji_m.*',
+                'pegawai_m.id as id_pegawai',
+                'pegawai_m.nama_lengkap',
+                'pegawai_m.nip as nip_pegawai'
+            )
+            ->where('komponengaji_m.id_komponengaji', $pegawaiId)
+            ->first();
+
+        return response()->json($komponenGaji);
+    }
+    //function update_komponengaji
+    public function update_komponengaji(Request $request){
+        // dd($request);
+        $komponenId = $request->input('id_komponengaji');
+        $validatedData = $request->validate([
+            'pegawai_fk' => 'required|integer',
+            'pgpns' => 'required|string|max:255',
+            'tahunpgpns' => 'required|numeric',
+            'dasarbpjsks' => 'nullable|string|max:50',
+            'dasarbpjstk' => 'nullable|string|max:50',
+        ]);
+
+        $komponenGaji = DB::table('komponengaji_m')->where('id_komponengaji', $komponenId)->update($validatedData);
+
+        return response()->json(['success' => true, 'message' => "Data komponen gaji berhasil diperbarui."]);
     }
     // function store_komponengaji
     public function store_komponengaji(Request $request)
