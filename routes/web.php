@@ -69,6 +69,8 @@ Route::middleware(['auth', 'cekAdmin'])->group(function(){
     //Route Data Pegawai
     Route::get('/data-pegawai', [adminController::class, 'dataPegawai'])->name('dataPegawai');
     Route::get('/get/data-pegawai', [adminController::class, 'get_datapegawai']);
+    Route::get('/pegawai/{pegawaiId}/get', [adminController::class, 'edit_pegawai'])->name('editPegawai');
+    Route::put('/pegawai/update', [adminController::class, 'update_pegawai'])->name('updatePegawai');
     Route::get('/pegawai/options', [adminController::class, 'options_datapegawai']);
     Route::post('/pegawai/store', [adminController::class, 'store_datapegawai'])->name('storeDatapegawai');
     Route::post('/gaji-pegawai/komponen-gaji/save', [adminController::class, 'store_komponengaji'])->name('storeKomponengajiPegawai');
