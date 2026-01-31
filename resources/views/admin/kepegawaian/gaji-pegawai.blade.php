@@ -248,7 +248,7 @@
                             // console.log(response);
                             // If successful, fetch updated data
                             // $('#modal-report').modal('hide');
-                            // loadData();
+                            loadData();
                             // Optionally, you can reset the form here
                             // $('#form-inputgajipegawai')[0]
                             //     .reset(); // Assuming your form has the ID 'form-inputpegawai'
