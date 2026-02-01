@@ -14,11 +14,15 @@ return new class extends Migration
         Schema::create('tunjangan_fungsional_m', function (Blueprint $table) {
             $table->id();
             $table->boolean('statusenabled')->default(true);
-            $table->integer('tunjangan_fungsional_fk');
-            $table->integer('tunjangan_fungsional_fk');
+            // $table->integer('tunjangan_fungsional_fk');
+            $table->integer('jabatan_fungsional_fk');
             $table->float('persentase_tunjangan');
             $table->float('indeks_tunjangan');
             $table->float('nilai_tunjangan');
+            $table->float('mkkurang5');
+            $table->float('mkkurangdari10');
+            $table->float('mklebihdari10');
+            $table->float('ifpegawaitetap')->nullable();
         });
     }
 
