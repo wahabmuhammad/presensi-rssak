@@ -491,7 +491,8 @@ class adminController extends Controller
         return response()->json($komponenGaji);
     }
     //function edit_komponen_gaji
-    public function edit_komponen_gaji($pegawaiId){
+    public function edit_komponen_gaji($pegawaiId)
+    {
         $komponenGaji = DB::table('komponengaji_m')
             ->leftJoin('pegawai_m', 'pegawai_m.id', '=', 'komponengaji_m.pegawai_fk')
             ->select(
@@ -506,7 +507,8 @@ class adminController extends Controller
         return response()->json($komponenGaji);
     }
     //function update_komponengaji
-    public function update_komponengaji(Request $request){
+    public function update_komponengaji(Request $request)
+    {
         // dd($request);
         $komponenId = $request->input('id_komponengaji');
         $validatedData = $request->validate([
@@ -541,5 +543,234 @@ class adminController extends Controller
     public function komponenGajiIndex()
     {
         return view('admin.kepegawaian.komponengaji_index');
+    }
+
+    public function get_data_kode_tunjangan_pangan(Request $request)
+    {
+        $keyword = $request->query('query');
+        $kode_tunjangan_pangan = DB::table('statuskawin_m')
+            ->where(function ($q) use ($keyword) {
+                $q->where('kode', 'ilike', "%$keyword%")
+                    ->orWhere('status_kawin', 'ilike', "%$keyword%");
+            })
+            ->where('statusenabled', true)
+            ->get();
+
+        return response()->json($kode_tunjangan_pangan);
+    }
+
+    public function get_data_tunjangan_pangan(Request $request)
+    {
+        $keyword = $request->keyword;
+
+        $data = DB::table('tunjangan_pangan_m')
+            ->leftJoin('statuskawin_m', 'statuskawin_m.id', '=', 'tunjangan_pangan_m.status_kawin_fk')
+            ->select(
+                'tunjangan_pangan_m.*',
+                'statuskawin_m.kode as kode_status_kawin',
+                'statuskawin_m.status_kawin as status_kawin'
+            )
+            ->when($keyword, function ($query, $keyword) {
+                $query->where(function ($q) use ($keyword) {
+                    $q->where('statuskawin_m.status_kawin', 'ILIKE', "%{$keyword}%")
+                        ->orWhere('tunjangan_pangan_m.tunjangan_pasangan', 'ILIKE', "%{$keyword}%")
+                        ->orWhere('tunjangan_pangan_m.tunjangan_anak', 'ILIKE', "%{$keyword}%")
+                        ->orWhere('tunjangan_pangan_m.tunjangan_pangan', 'ILIKE', "%{$keyword}%");
+                });
+            })
+            ->orderBy('tunjangan_pangan_m.id', 'asc')
+            ->paginate(5)
+            ->withQueryString();
+
+        return response()->json([
+            'datas' => $data->items(),
+            'pagination' => (string) $data->links()
+        ]);
+    }
+
+    public function store_status_tunjangan_pangan(Request $request)
+    {
+        // dd($request);
+        $validatedData = $request->validate([
+            // 'status_kawin_fk' => 'required|unique:statuskawin_m,kode',
+            'status_kawin_fk' => 'required|integer',
+            'tunjangan_pasangan' => 'nullable|numeric',
+            'tunjangan_anak' => 'nullable|numeric',
+            'tunjangan_pangan' => 'nullable|numeric',
+            'ptkp' => 'nullable|numeric',
+        ]);
+
+        $statusTunjanganPangan = DB::table('tunjangan_pangan_m')->insert($validatedData);
+
+        return response()->json(['success' => true, 'message' => 'Status tunjangan pangan berhasil disimpan.']);
+    }
+    //function get_data_tunjangan_fungsional
+    public function get_data_tunjangan_fungsional(Request $request)
+    {
+        $keyword = $request->keyword;
+
+        $data = DB::table('tunjangan_fungsional_m')
+            ->leftJoin('jabatan_fungsional_m', 'jabatan_fungsional_m.id', '=', 'tunjangan_fungsional_m.jabatan_fungsional_fk')
+            ->select(
+                'tunjangan_fungsional_m.*',
+                'jabatan_fungsional_m.kode_fungsional as kode_jabatan_fungsional',
+                'jabatan_fungsional_m.jabatan_fungsional as jabatan_fungsional'
+            )
+            ->when($keyword, function ($query, $keyword) {
+                $query->where(function ($q) use ($keyword) {
+                    $q->where('jabatan_fungsional_m.jabatan_fungsional', 'ILIKE', "%{$keyword}%")
+                        ->orWhere('tunjangan_fungsional_m.persentase_tunjangan', 'ILIKE', "%{$keyword}%")
+                        ->orWhere('tunjangan_fungsional_m.indeks_tunjangan', 'ILIKE', "%{$keyword}%")
+                        ->orWhere('tunjangan_fungsional_m.nilai_tunjangan', 'ILIKE', "%{$keyword}%");
+                });
+            })
+            ->orderBy('tunjangan_fungsional_m.id', 'asc')
+            ->paginate(10)
+            ->withQueryString();
+
+        return response()->json([
+            'datas' => $data->items(),
+            'pagination' => (string) $data->links()
+        ]);
+    }
+    //Function Tunjangan Fungsional
+    public function store_status_tunjangan_fungsional(Request $request)
+    {
+        // dd($request);
+        $validatedData = $request->validate([
+            'jabatan_fungsional_fk' => 'required|integer|unique:tunjangan_fungsional_m,jabatan_fungsional_fk',
+            'persentase_tunjangan' => 'required|numeric',
+            'indeks_tunjangan' => 'required|numeric',
+            'nilai_tunjangan' => 'required|numeric',
+            'mkkurang5' => 'required|numeric',
+            'mkkurang10' => 'required|numeric',
+            'mklebih10' => 'required|numeric',
+            'ifpegawaitetap' => 'nullable|numeric',
+        ]);
+
+        $statusTunjanganFungsional = DB::table('tunjangan_fungsional_m')->insert($validatedData);
+
+        return response()->json(['success' => true, 'message' => 'Tunjangan fungsional berhasil disimpan.']);
+    }
+
+    //function get_kode_tunjangan_fungsional
+    public function get_data_kode_tunjangan_fungsional(Request $request)
+    {
+        // dd($request->query('query'));
+        $keyword = $request->query('query');
+        $kode_tunjangan_fungsional = DB::table('jabatan_fungsional_m')
+            ->where(function ($q) use ($keyword) {
+                $q->where('kode_fungsional', 'ilike', "%$keyword%")
+                    ->orWhere('jabatan_fungsional', 'ilike', "%$keyword%");
+            })
+            ->where('statusenabled', true)
+            ->select('id', 'kode_fungsional', 'jabatan_fungsional')
+            ->get();
+
+        return response()->json($kode_tunjangan_fungsional);
+    }
+
+    //function tunjangan jabatan
+    public function get_data_tunjangan_jabatan(Request $request)
+    {
+        $keyword = $request->keyword;
+
+        $data = DB::table('tunjangan_jabatan_m')
+            ->leftJoin('jabatan_m', 'jabatan_m.id', '=', 'tunjangan_jabatan_m.jabatan_fk')
+            ->select(
+                'tunjangan_jabatan_m.*',
+                'jabatan_m.kode_jabatan as kode_jabatan',
+                'jabatan_m.namajabatan as nama_jabatan'
+            )
+            ->when($keyword, function ($query, $keyword) {
+                $query->where(function ($q) use ($keyword) {
+                    $q->where('jabatan_m.namajabatan', 'ILIKE', "%{$keyword}%")
+                        ->orWhere('tunjangan_jabatan_m.nominal', 'ILIKE', "%{$keyword}%")
+                        ->orWhere('tunjangan_jabatan_m.nominalpo', 'ILIKE', "%{$keyword}%")
+                        ->orWhere('tunjangan_jabatan_m.nominalcp', 'ILIKE', "%{$keyword}%");
+                });
+            })
+            ->orderBy('tunjangan_jabatan_m.id', 'asc')
+            ->paginate(5)
+            ->withQueryString();
+
+        return response()->json([
+            'datas' => $data->items(),
+            'pagination' => (string) $data->links()
+        ]);
+    }
+    //function get_data_kode_tunjangan_jabatan
+    public function get_data_kode_tunjangan_jabatan(Request $request){
+        // dd($request->query('query'));
+        $keyword = $request->query('query');
+        $kode_tunjangan_jabatan = DB::table('jabatan_m')
+            ->where(function ($q) use ($keyword) {
+                $q->where('kode_jabatan', 'ilike', "%$keyword%")
+                    ->orWhere('namajabatan', 'ilike', "%$keyword%");
+            })
+            ->where('statusenabled', true)
+            ->select('id', 'kode_jabatan', 'namajabatan')
+            ->get();
+
+        return response()->json($kode_tunjangan_jabatan);
+    }
+
+    //function store_status_tunjangan_jabatan
+    public function store_status_tunjangan_jabatan(Request $request)
+    {
+        // dd($request);
+        $validatedData = $request->validate([
+            'jabatan_fk' => 'required|integer|unique:tunjangan_jabatan_m,jabatan_fk',
+            'nominal' => 'required|numeric',
+            'nominalpo' => 'required|numeric',
+            'nominalcp' => 'required|numeric',
+        ]);
+
+        $statusTunjanganJabatan = DB::table('tunjangan_jabatan_m')->insert($validatedData);
+
+        return response()->json(['success' => true, 'message' => 'Tunjangan jabatan berhasil disimpan.']);
+    }
+    //function get_data_tunjangan_kinerja
+    public function get_data_tunjangan_kinerja(Request $request){
+        $keyword = $request->keyword;
+
+        $data = DB::table('tunjangan_kinerja_m')
+            ->leftJoin('jabatan_m', 'jabatan_m.id', '=', 'tunjangan_kinerja_m.jabatan_fk')
+            ->select(
+                'tunjangan_kinerja_m.*',
+                'jabatan_m.kode_jabatan as kode_jabatan',
+                'jabatan_m.namajabatan as nama_jabatan'
+            )
+            ->when($keyword, function ($query, $keyword) {
+                $query->where(function ($q) use ($keyword) {
+                    $q->where('jabatan_m.namajabatan', 'ILIKE', "%{$keyword}%")
+                        ->orWhere('tunjangan_kinerja_m.nominal', 'ILIKE', "%{$keyword}%")
+                        ->orWhere('tunjangan_kinerja_m.nominalpo', 'ILIKE', "%{$keyword}%")
+                        ->orWhere('tunjangan_kinerja_m.nominalcp', 'ILIKE', "%{$keyword}%");
+                });
+            })
+            ->orderBy('tunjangan_kinerja_m.id', 'asc')
+            ->paginate(5)
+            ->withQueryString();
+
+        return response()->json([
+            'datas' => $data->items(),
+            'pagination' => (string) $data->links()
+        ]);
+    }
+    //function store tunjangan kinerja
+    public function store_status_tunjangan_kinerja(Request $request)
+    {
+        // dd($request);
+        $validatedData = $request->validate([
+            'jabatan_fk' => 'required|integer|unique:tunjangan_kinerja_m,jabatan_fk',
+            'nominal' => 'required|numeric',
+            'nominalpo' => 'required|numeric',
+            'nominalcp' => 'required|numeric',
+        ]);
+
+        $statusTunjanganKinerja = DB::table('tunjangan_kinerja_m')->insert($validatedData);
+
+        return response()->json(['success' => true, 'message' => 'Tunjangan kinerja berhasil disimpan.']);
     }
 }

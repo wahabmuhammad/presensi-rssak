@@ -978,27 +978,35 @@
 
                                 <div class="col-md-4 mb-3">
                                     <label class="form-label">Kode</label>
-                                    <input type="text" name="kode" class="form-control">
+                                    <input type="text" name="kode" class="form-control"
+                                        id="kode_statustunjpangan">
+                                    <input type="hidden" name="status_kawin_fk" id="id_tunjanganpangan">
+                                    <!-- Suggestions will appear here -->
+                                    <div class="card">
+                                        <ul id="suggestionsListTunjanganPangan" class="list-group"
+                                            style="display: none;"></ul>
+                                    </div>
                                 </div>
 
                                 <div class="col-md-8 mb-3">
                                     <label class="form-label">Status</label>
-                                    <input type="text" name="status" class="form-control">
+                                    <input type="text" name="status_kawin" class="form-control"
+                                        id="status_kawin">
                                 </div>
 
                                 <div class="col-md-4 mb-3">
                                     <label class="form-label">Tunj. Suami / Istri</label>
-                                    <input type="number" name="tunj_suami" class="form-control">
+                                    <input type="number" name="tunjangan_pasangan" class="form-control">
                                 </div>
 
                                 <div class="col-md-4 mb-3">
                                     <label class="form-label">Tunj. Anak</label>
-                                    <input type="number" name="tunj_anak" class="form-control">
+                                    <input type="number" name="tunjangan_anak" class="form-control">
                                 </div>
 
                                 <div class="col-md-4 mb-3">
                                     <label class="form-label">Tunj. Pangan</label>
-                                    <input type="number" name="tunj_pangan" class="form-control">
+                                    <input type="number" name="tunjangan_pangan" class="form-control">
                                 </div>
 
                                 <div class="col-md-6 mb-3">
@@ -1010,8 +1018,7 @@
 
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-link" data-bs-dismiss="modal">Batal</button>
-                                <button type="button" class="btn btn-primary"
-                                    onclick="saveStatusPangan()">Simpan</button>
+                                <button type="submit" class="btn btn-primary">Simpan</button>
                             </div>
 
                         </form>
@@ -1021,88 +1028,96 @@
                     <div class="tab-pane" id="tab-fungsional">
                         <form id="formFungsional">
                             @csrf
-                            <input type="hidden" name="id" id="fungsional_id">
-
+                            <input type="hidden" name="jabatan_fungsional_fk" id="id_jabatanfungsional">
+                            <div class="modal-body row">
+                                <div class="col-md-3 mb-3">
+                                    <label>Tarif Tunjangan Fungsional</label>
+                                    <input type="text" name="kode" class="form-control"
+                                        id="tarif_tunjanganfungsional" disabled value="10000">
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <label>Indeks Tunjangan Fungsional</label>
+                                    <input type="text" name="kode" class="form-control"
+                                        id="indeks_tunjanganfungsional" disabled value="50">
+                                </div>
+                            </div>
                             <div class="modal-body row">
 
                                 <div class="col-md-3 mb-3">
                                     <label>Kode</label>
-                                    <input type="text" name="kode" class="form-control">
+                                    <input type="text" name="kode" class="form-control"
+                                        id="kode_tunjanganfungsional">
+                                    <!-- Suggestions will appear here -->
+                                    <div class="card">
+                                        <ul id="suggestionsListTunjanganFungsional" class="list-group suggestionsList"
+                                            style="display: none;"></ul>
+                                    </div>
                                 </div>
                                 <div class="col-md-3 mb-3">
                                     <label>Nama Tunjangan</label>
-                                    <input type="text" name="namatunjangan" class="form-control" readonly>
+                                    <input type="text" name="namatunjangan" id="jabatan_fungsional" class="form-control" readonly>
                                 </div>
                                 <div class="col-md-3 mb-3">
-                                    <label>%</label>
-                                    <input type="number" step="0.01" name="persen" class="form-control">
+                                    <label>Persentase Tunjangan</label>
+                                    <input type="number" step="0.01" name="persentase_tunjangan" class="form-control" id="persentase_tunjangan">
                                 </div>
 
                                 <div class="col-md-3 mb-3">
                                     <label>Indeks</label>
-                                    <input type="number" name="indeks" class="form-control">
+                                    <input type="number" name="indeks_tunjangan" class="form-control" id="indeks_tunjangan">
                                 </div>
 
                                 <div class="col-md-3 mb-3">
                                     <label>Nilai</label>
-                                    <input type="number" name="nilai" class="form-control">
-                                </div>
-
-                                <div class="col-md-3 mb-3">
-                                    <label>Pembulatan</label>
-                                    <select name="pembulatan" class="form-select">
-                                        <option value="0">Tidak</option>
-                                        <option value="1">Ya</option>
-                                    </select>
+                                    <input type="number" name="nilai_tunjangan" class="form-control" id="nilai_tunjangan">
                                 </div>
 
                                 <div class="col-md-3 mb-3">
                                     <label>MK &lt; 5</label>
-                                    <input type="number" name="mk_kurang_5" class="form-control">
+                                    <input type="number" name="mkkurang5" class="form-control" id="mkkurang5">
                                 </div>
 
                                 <div class="col-md-3 mb-3">
                                     <label>5 ≤ MK &lt; 10</label>
-                                    <input type="number" name="mk_5_10" class="form-control">
+                                    <input type="number" name="mkkurang10" class="form-control" id="mkkurang10">
                                 </div>
 
                                 <div class="col-md-3 mb-3">
                                     <label>MK ≥ 10</label>
-                                    <input type="number" name="mk_10" class="form-control">
+                                    <input type="number" name="mklebih10" class="form-control" id="mklebih10">
                                 </div>
 
                             </div>
 
                             <div class="modal-footer">
-                                <button class="btn btn-link" data-bs-dismiss="modal">Batal</button>
-                                <button type="button" class="btn btn-primary"
-                                    onclick="saveFungsional()">Simpan</button>
+                                <button type="button" class="btn btn-link" data-bs-dismiss="modal">Batal</button>
+                                <button type="submit" class="btn btn-primary">Simpan</button>
                             </div>
 
                         </form>
                     </div>
 
-                    {{-- TAB 3 --}}
+                    {{-- TAB 3 Tunjangan Jabatan --}}
                     <div class="tab-pane" id="tab-jabatan">
                         <form id="formJabatan">
                             @csrf
-                            <input type="hidden" name="id" id="jabatan_id">
+                            <input type="hidden" name="jabatan_fk" id="jabatan_id">
 
                             <div class="modal-body row">
 
                                 <div class="col-md-4 mb-3">
                                     <label>Kode</label>
-                                    <input type="text" name="kode" class="form-control">
+                                    <input type="text" name="kode_tunjangan_jabatan" class="form-control" id="kode_tunjangan_jabatan">
+                                    <!-- Suggestions will appear here -->
+                                    <div class="card">
+                                        <ul id="suggestionsListTunjanganJabatan" class="list-group suggestionsList"
+                                            style="display: none;"></ul>
+                                    </div>
                                 </div>
 
                                 <div class="col-md-8 mb-3">
                                     <label>Nama Jabatan</label>
-                                    <input type="text" name="nama_jabatan" class="form-control">
-                                </div>
-
-                                <div class="col-md-6 mb-3">
-                                    <label>Nama Lengkap</label>
-                                    <input type="text" name="nama_lengkap" class="form-control">
+                                    <input type="text" name="nama_jabatan" class="form-control" id="nama_jabatan">
                                 </div>
 
                                 <div class="col-md-6 mb-3">
@@ -1110,38 +1125,47 @@
                                     <input type="number" name="nominal" class="form-control">
                                 </div>
 
+                                <div class="col-md-6 mb-3">
+                                    <label>Nominal Tunjangan PO</label>
+                                    <input type="number" name="nominalpo" class="form-control" id="nominalpo">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label>Nominal Tunjangan CP</label>
+                                    <input type="number" name="nominalcp" class="form-control" id="nominalcp">
+                                </div>
+
                             </div>
 
                             <div class="modal-footer">
-                                <button class="btn btn-link" data-bs-dismiss="modal">Batal</button>
-                                <button type="button" class="btn btn-primary"
-                                    onclick="saveJabatan()">Simpan</button>
+                                <button type="button" class="btn btn-link" data-bs-dismiss="modal">Batal</button>
+                                <button type="submit" class="btn btn-primary">Simpan</button>
                             </div>
 
                         </form>
                     </div>
 
-                    {{-- TAB 4 --}}
+                    {{-- TAB 4 Tunjangan Kinerja --}}
                     <div class="tab-pane" id="tab-kinerja">
                         <form id="formKinerja">
                             @csrf
-                            <input type="hidden" name="id" id="kinerja_id">
+                            <input type="hidden" name="jabatan_fk" id="kinerja_id">
 
                             <div class="modal-body row">
 
                                 <div class="col-md-4 mb-3">
                                     <label>Kode</label>
-                                    <input type="text" name="kode" class="form-control">
+                                    <input type="text" name="kode_tunjangan_kinerja" class="form-control" id="kode_tunjangan_kinerja">
+                                    <!-- Suggestions will appear here -->
+                                    <div class="card">
+                                        <ul id="suggestionsListTunjanganKinerja" class="list-group suggestionsList"
+                                            style="display: none;"></ul>
+                                    </div>
                                 </div>
 
                                 <div class="col-md-8 mb-3">
                                     <label>Nama Jabatan</label>
-                                    <input type="text" name="nama_jabatan" class="form-control">
-                                </div>
-
-                                <div class="col-md-6 mb-3">
-                                    <label>Nama Lengkap</label>
-                                    <input type="text" name="nama_lengkap" class="form-control">
+                                    <input type="text" name="nama_jabatan" id="nama_jabatan_kinerja" class="form-control">
                                 </div>
 
                                 <div class="col-md-6 mb-3">
@@ -1149,12 +1173,21 @@
                                     <input type="number" name="nominal" class="form-control">
                                 </div>
 
+                                <div class="col-md-6 mb-3">
+                                    <label>Nominal Tunjangan PO</label>
+                                    <input type="number" name="nominalpo" class="form-control" id="nominalpo_kinerja">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label>Nominal Tunjangan CP</label>
+                                    <input type="number" name="nominalcp" class="form-control" id="nominalcp_kinerja">
+                                </div>
+
                             </div>
 
                             <div class="modal-footer">
-                                <button class="btn btn-link" data-bs-dismiss="modal">Batal</button>
-                                <button type="button" class="btn btn-primary"
-                                    onclick="saveKinerja()">Simpan</button>
+                                <button type="button" class="btn btn-link" data-bs-dismiss="modal">Batal</button>
+                                <button type="submit" class="btn btn-primary">Simpan</button>
                             </div>
 
                         </form>

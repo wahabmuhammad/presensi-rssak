@@ -81,12 +81,29 @@ Route::middleware(['auth', 'cekAdmin'])->group(function(){
 
     //route komponen gaji
     Route::get('/komponen-gaji-index', [adminController::class, 'komponenGajiIndex'])->name('komponenGajiIndex');
+    Route::get('/komponen-gaji/get-data-tunjangan-pangan', [adminController::class, 'get_data_tunjangan_pangan'])->name('getDataStatusTunjanganPangan'); //for ajax pagination dan search status tunjangan pangan
+    Route::get('/komponen-gaji/get-kode-tunjangan-pangan', [adminController::class, 'get_data_kode_tunjangan_pangan'])->name('getDataKodeTunjanganPangan'); //for ajax autocomplete kode tunjangan pangan
+    Route::post('/komponen-gaji/save-status-tunjangan-pangan', [adminController::class, 'store_status_tunjangan_pangan'])->name('storeStatusTunjanganPangan');
+
+    //route komponen gaji tunjangan fungsional
+    Route::get('/komponen-gaji/get-data-tunjangan-fungsional', [adminController::class, 'get_data_tunjangan_fungsional'])->name('getDataStatusTunjanganFungsional'); //for ajax pagination dan search status tunjangan fungsional
+    Route::post('/komponen-gaji/save-status-tunjangan-fungsional', [adminController::class, 'store_status_tunjangan_fungsional'])->name('storeStatusTunjanganFungsional');
+    Route::get('/komponen-gaji/get-kode-tunjangan-fungsional', [adminController::class, 'get_data_kode_tunjangan_fungsional'])->name('getDataKodeTunjanganFungsional'); //for ajax autocomplete kode tunjangan fungsional
+
+    //Route komponen gaji tunjangan jabatan
+    Route::get('/komponen-gaji/get-data-tunjangan-jabatan', [adminController::class, 'get_data_tunjangan_jabatan'])->name('getDataStatusTunjanganJabatan'); //for ajax pagination dan search status tunjangan jabatan
+    Route::get('/komponen-gaji/get-kode-tunjangan-jabatan', [adminController::class, 'get_data_kode_tunjangan_jabatan'])->name('getDataKodeTunjanganJabatan'); //for ajax autocomplete kode tunjangan jabatan
+    Route::post('/komponen-gaji/save-status-tunjangan-jabatan', [adminController::class, 'store_status_tunjangan_jabatan'])->name('storeStatusTunjanganJabatan');
+
+    //Route komponen gaji tunjangan kinerja
+    Route::get('/komponen-gaji/get-data-tunjangan-kinerja', [adminController::class, 'get_data_tunjangan_kinerja'])->name('getDataStatusTunjanganKinerja'); //for ajax pagination dan search status tunjangan kinerja
+    Route::post('/komponen-gaji/save-status-tunjangan-kinerja', [adminController::class, 'store_status_tunjangan_kinerja'])->name('storeStatusTunjanganKinerja');
     // Route::get('/login-page-new', [adminController::class, 'loginPageNew'])->name('loginPageNew');
 
     //route ajax get-pegawai
     Route::get('/get-pegawai', [adminController::class, 'get_pegawai'])->name('get-pegawai');
 
-    Route::get('/slip-gaji', [adminController::class, 'slipgaji'])->name('slip-gaji');
+    Route::get('/slip-gaji-index', [adminController::class, 'slipgajiIndex'])->name('slip-gaji-index');
 });
 
 // Route Login dan Logout

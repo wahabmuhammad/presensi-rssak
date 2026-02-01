@@ -332,7 +332,7 @@
                         data: selectedId,
                     },
                     success: function(response) {
-                        $('#hargaLayanan').val(response.harga);
+                        // $('#hargaLayanan').val(response.harga);
                     }
                 });
                 hideSuggestions();
