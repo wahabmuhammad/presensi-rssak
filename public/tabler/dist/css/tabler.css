@@ -29047,6 +29047,24 @@ td {
   display: none;
   background-color: #fff;
 }
+.suggestionsList {
+  position: absolute;
+  z-index: 1000;
+  width: 100%;
+  max-height: 135px;
+  /* kira-kira 3 item */
+  overflow-y: auto;
+  display: none;
+  background-color: #fff;
+}
+
+.suggestionsList li {
+  cursor: pointer;
+}
+
+.suggestionsList li:hover {
+  background-color: #f1f1f1;
+}
 
 #suggestionsList li {
   cursor: pointer;
