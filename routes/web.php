@@ -41,7 +41,7 @@ Route::middleware(['auth', 'cekRole'])->group(function () {
     // Route::get('/cuti', [cutiController::class, 'index'])->name('cuti');
     Route::get('/profil/{user}', [profilController::class, 'index'])->name('profil');
     Route::put('/update-profile{user}', [profilController::class, 'store'])->name('updateprofil');
-    Route::get('/slip-gaji{user}', [profilController::class, 'slipgaji'])->name('slipgaji');
+    // Route::get('/slip-gaji{user}', [profilController::class, 'slipgaji'])->name('slipgaji');
     Route::get('/masuk', [PresensiController::class, 'index'])->name('masuk');
     Route::get('/pulang', [presensiOut_Controller::class, 'index'])->name('pulang');
     Route::get('/dinas-luar', [PresensiController::class, 'dinasLuar'])->name('dinasLuar');
@@ -51,7 +51,11 @@ Route::middleware(['auth', 'cekRole'])->group(function () {
 });
 
 // Route Admin
-Route::middleware(['auth', 'cekAdmin'])->group(function(){
+Route::middleware(['auth', 'cekAdmin'])->group(function () {
+    //Route Slip Gaji Pegawai
+    Route::get('/slip-gaji', [adminController::class, 'slip_gaji_pegawai_index'])->name('slip-gaji');
+    Route::get('/slip-gaji-get-data', [adminController::class, 'get_data_slip_gaji'])->name('getDataSlipGaji');
+
     Route::get('/user', [adminController::class, 'user'])->name('kepegawaianUser');
     Route::get('/gaji-pegawai', [adminController::class, 'inputGaji'])->name('gajiPegawai');
     Route::post('/user/create-user', [adminController::class, 'create_user'])->name('createUser');
@@ -75,7 +79,7 @@ Route::middleware(['auth', 'cekAdmin'])->group(function(){
     Route::post('/pegawai/store', [adminController::class, 'store_datapegawai'])->name('storeDatapegawai');
     Route::get('/get-data-gaji-pegawai', [adminController::class, 'get_data_gaji_pegawai'])->name('getDataGajiPegawai');
     Route::post('/gaji-pegawai/komponen-gaji/save', [adminController::class, 'store_komponengaji'])->name('storeKomponengajiPegawai');
-    Route::get('/pegawai/{pegawaiId}/get-komponen-gaji', [adminController::class, 'edit_komponen_gaji'])->name('editKomponenGaji'); 
+    Route::get('/pegawai/{pegawaiId}/get-komponen-gaji', [adminController::class, 'edit_komponen_gaji'])->name('editKomponenGaji');
     Route::put('/pegawai/komponen-gaji/update', [adminController::class, 'update_komponengaji'])->name('updateKomponenGaji');
     Route::get('/get-komponen-gaji/pegawai', [adminController::class, 'get_komponen_gaji'])->name('getKomponenGaji');
 
@@ -100,10 +104,12 @@ Route::middleware(['auth', 'cekAdmin'])->group(function(){
     Route::post('/komponen-gaji/save-status-tunjangan-kinerja', [adminController::class, 'store_status_tunjangan_kinerja'])->name('storeStatusTunjanganKinerja');
     // Route::get('/login-page-new', [adminController::class, 'loginPageNew'])->name('loginPageNew');
 
+    //Route BPJS Pegawai
+    Route::get('/bpjs-pegawai', [adminController::class, 'bpjs_pegawai_index'])->name('bpjsPegawaiIndex');
+
     //route ajax get-pegawai
     Route::get('/get-pegawai', [adminController::class, 'get_pegawai'])->name('get-pegawai');
-
-    Route::get('/slip-gaji-index', [adminController::class, 'slipgajiIndex'])->name('slip-gaji-index');
+    // Route::get('/slip-gaji', [adminController::class, 'slipgaji'])->name('slip-gaji');
 });
 
 // Route Login dan Logout

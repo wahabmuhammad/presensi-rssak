@@ -700,7 +700,8 @@ class adminController extends Controller
         ]);
     }
     //function get_data_kode_tunjangan_jabatan
-    public function get_data_kode_tunjangan_jabatan(Request $request){
+    public function get_data_kode_tunjangan_jabatan(Request $request)
+    {
         // dd($request->query('query'));
         $keyword = $request->query('query');
         $kode_tunjangan_jabatan = DB::table('jabatan_m')
@@ -731,7 +732,8 @@ class adminController extends Controller
         return response()->json(['success' => true, 'message' => 'Tunjangan jabatan berhasil disimpan.']);
     }
     //function get_data_tunjangan_kinerja
-    public function get_data_tunjangan_kinerja(Request $request){
+    public function get_data_tunjangan_kinerja(Request $request)
+    {
         $keyword = $request->keyword;
 
         $data = DB::table('tunjangan_kinerja_m')
@@ -772,5 +774,142 @@ class adminController extends Controller
         $statusTunjanganKinerja = DB::table('tunjangan_kinerja_m')->insert($validatedData);
 
         return response()->json(['success' => true, 'message' => 'Tunjangan kinerja berhasil disimpan.']);
+    }
+
+    //BPJS function index
+    public function bpjs_pegawai_index()
+    {
+        return view('admin.kepegawaian.bpjs_pegawai_index');
+    }
+
+    //function slip gaji pegawai index
+    public function slip_gaji_pegawai_index()
+    {
+        // dd(auth()->user());
+        return view('admin.kepegawaian.slipgajipegawai_index');
+    }
+
+    //get daata slip gaji pegawai
+    public function get_data_slip_gaji(Request $request)
+    {
+        $data = DB::table('pegawai_m')
+            ->leftJoin('komponengaji_m', 'komponengaji_m.pegawai_fk', '=', 'pegawai_m.id')
+            ->leftJoin('status_kerja_m', 'status_kerja_m.id', '=', 'pegawai_m.status_pegawaifk')
+            ->leftJoin('jabatan_m', 'jabatan_m.id', '=', 'pegawai_m.jabatan_fk')
+            ->leftJoin('statuskawin_m', 'statuskawin_m.id', '=', 'pegawai_m.status_kawinfk')
+            ->leftJoin('jabatan_fungsional_m', 'jabatan_fungsional_m.id', '=', 'pegawai_m.tunjangan_fungsional_fk')
+            ->leftJoin('tunjangan_jabatan_m', 'tunjangan_jabatan_m.jabatan_fk', '=', 'pegawai_m.jabatan_fk')
+            ->leftJoin('tunjangan_pangan_m', 'tunjangan_pangan_m.status_kawin_fk', '=', 'pegawai_m.status_kawinfk')
+            ->leftJoin('tunjangan_kinerja_m', 'tunjangan_kinerja_m.jabatan_fk', '=', 'pegawai_m.jabatan_fk')
+            ->leftJoin('tunjangan_fungsional_m', 'tunjangan_fungsional_m.jabatan_fungsional_fk','=','pegawai_m.tunjangan_fungsional_fk')
+            ->select(
+                'pegawai_m.nip',
+                'pegawai_m.nama_lengkap',
+                'pegawai_m.gol_mk',
+                'statuskawin_m.kode as statuskawin',
+                'jabatan_fungsional_m.kode_fungsional',
+                DB::raw("
+                    CASE 
+                        WHEN pegawai_m.jenis_kelamin = 1 THEN 'L'
+                        WHEN pegawai_m.jenis_kelamin = 2 THEN 'P'
+                        ELSE '-'
+                    END AS jenis_kelamin_text
+                "),
+                DB::raw("TO_CHAR(pegawai_m.tmt, 'DD-MM-YYYY') AS tmt_formatted"),
+                DB::raw("TO_CHAR(pegawai_m.sk_pt, 'DD-MM-YYYY') AS sk_pt_formatted"),
+                DB::raw("EXTRACT(YEAR FROM AGE(CURRENT_DATE, pegawai_m.awal_masuk)) AS masakerja"),
+                'jabatan_m.namajabatan as nama_jabatan',
+                'status_kerja_m.status_kerja',
+                'komponengaji_m.pgpns',
+                DB::raw("
+                    CASE
+                        WHEN status_kerja_m.id = 1 THEN komponengaji_m.pgpns
+                        WHEN status_kerja_m.id IN (2,3,4,6) THEN komponengaji_m.pgpns * 0.8
+                        ELSE komponengaji_m.pgpns
+                    END AS gaji_pokok
+                "),
+                DB::raw("
+                    CASE
+                        WHEN status_kerja_m.id NOT IN (1,2,3,4,6) THEN 0
+                        WHEN pegawai_m.status_kawinfk = tunjangan_pangan_m.status_kawin_fk
+                            THEN COALESCE(komponengaji_m.pgpns,0) 
+                                * COALESCE(tunjangan_pangan_m.tunjangan_pasangan,0) / 100
+                        ELSE 0
+                    END AS tunjangan_pasangan
+                "),
+                DB::raw("
+                    CASE
+                        WHEN status_kerja_m.id NOT IN (1,2,3,4,6) THEN 0
+                        WHEN pegawai_m.status_kawinfk = tunjangan_pangan_m.status_kawin_fk
+                            THEN COALESCE(komponengaji_m.pgpns,0) 
+                                * COALESCE(tunjangan_pangan_m.tunjangan_anak,0) / 100
+                        ELSE 0
+                    END AS tunjangan_anak
+                "),
+                DB::raw("
+                    CASE
+                        WHEN status_kerja_m.id NOT IN (1,2,3,4,6) THEN 0
+                        WHEN pegawai_m.status_kawinfk = tunjangan_pangan_m.status_kawin_fk
+                            THEN COALESCE(tunjangan_pangan_m.tunjangan_pangan,0)
+                        ELSE 0
+                    END AS tunjangan_pangan
+                "),
+                DB::raw("
+                    CASE
+                        -- TIDAK DAPAT TUNJANGAN
+                        WHEN status_kerja_m.id NOT IN (1,2,3,4,6) OR jabatan_m.id IN(1,2,3) THEN 0
+
+                        -- KHUSUS jabatan_fungsional_fk = 1 DAN status PT
+                        WHEN pegawai_m.tunjangan_fungsional_fk = 1
+                            AND status_kerja_m.id = 1 THEN tunjangan_fungsional_m.ifpegawaitetap
+
+                        -- MASA KERJA < 5 TAHUN
+                        WHEN EXTRACT(YEAR FROM AGE(CURRENT_DATE, pegawai_m.awal_masuk)) < 5
+                            THEN COALESCE(tunjangan_fungsional_m.mkkurang5, 0)
+
+                        -- MASA KERJA 5 - <10 TAHUN
+                        WHEN EXTRACT(YEAR FROM AGE(CURRENT_DATE, pegawai_m.awal_masuk)) >= 5
+                        AND EXTRACT(YEAR FROM AGE(CURRENT_DATE, pegawai_m.awal_masuk)) < 10
+                            THEN COALESCE(tunjangan_fungsional_m.mkkurang10, 0)
+
+                        -- MASA KERJA >= 10 TAHUN
+                        WHEN EXTRACT(YEAR FROM AGE(CURRENT_DATE, pegawai_m.awal_masuk)) >= 10
+                            THEN COALESCE(tunjangan_fungsional_m.mklebih10, 0)
+
+                        ELSE 0
+                    END AS tunjangan_fungsional
+                "),
+                DB::raw("
+                    CASE
+                        WHEN status_kerja_m.id IN (2,3,4) THEN COALESCE(tunjangan_jabatan_m.nominalcp, 0)
+                        WHEN status_kerja_m.id = 6 THEN COALESCE(tunjangan_jabatan_m.nominalpo, 0)
+                        ELSE tunjangan_jabatan_m.nominal
+                    END AS tunjangan_jabatan
+                "),
+                'tunjangan_kinerja_m.nominal as tunjangan_kinerja',
+                DB::raw("
+                    CASE
+                        WHEN status_kerja_m.id NOT IN (1,2,3,4,6) THEN 0
+                        ELSE ROUND(COALESCE(komponengaji_m.dasarbpjsks, 0) * 0.04)
+                    END AS bpjs_kesehatan
+                "),
+                DB::raw("
+                    CASE
+                        WHEN status_kerja_m.id NOT IN (1,2,3,4,6) THEN 0
+                        ELSE ROUND(COALESCE(komponengaji_m.dasarbpjstk, 0) * 0.0624)
+                    END AS bpjs_ketenagakerjaan
+                "),
+            )
+            ->where('pegawai_m.statusenabled', true)
+            ->orderBy('jabatan_m.id', 'asc')
+            ->get();
+        // ->paginate(10)
+        // ->withQueryString();
+
+        return response()->json([
+            'datas' => $data
+            // 'datas' => $data->items(),
+            // 'pagination' => (string) $data->links()
+        ]);
     }
 }

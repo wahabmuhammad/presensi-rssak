@@ -24,8 +24,8 @@
     <link href="{{ asset('tabler/dist/css/demo.min.css?1692870487') }}" rel="stylesheet" />
     <script src="{{ asset('assets/js/jquery-3.6.0.min.js') }}"></script>
     <script src="{{asset('assets/js/sweetalert2.min.js')}}"></script>
-    <script src="{{ asset('tabler/dist/libs/datatables.net/js/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('assets/js/dataTables.fixedColumns.min.js') }}"></script>
+    {{-- <script src="{{ asset('tabler/dist/libs/datatables.net/js/jquery.dataTables.min.js') }}"></script> --}}
+    {{-- <script src="{{ asset('assets/js/dataTables.fixedColumns.min.js') }}"></script> --}}
 
     <style>
         @import url('https://rsms.me/inter/inter.css');
@@ -84,14 +84,14 @@
 
 
     <!-- Libs JS -->
-    <script src="{{ asset('tabler/dist/libs/apexcharts/dist/apexcharts.min.js?1692870487') }}" defer></script>
-    <script src="{{ asset('tabler/dist/libs/jsvectormap/dist/js/jsvectormap.min.js?1692870487') }}" defer></script>
-    <script src="{{ asset('tabler/dist/libs/jsvectormap/dist/maps/world.js?1692870487') }}" defer></script>
-    <script src="{{ asset('tabler/dist/libs/jsvectormap/dist/maps/world-merc.js?1692870487') }}" defer></script>
+    {{-- <script src="{{ asset('tabler/dist/libs/apexcharts/dist/apexcharts.min.js?1692870487') }}" defer></script> --}}
+    {{-- <script src="{{ asset('tabler/dist/libs/jsvectormap/dist/js/jsvectormap.min.js?1692870487') }}" defer></script> --}}
+    {{-- <script src="{{ asset('tabler/dist/libs/jsvectormap/dist/maps/world.js?1692870487') }}" defer></script> --}}
+    {{-- <script src="{{ asset('tabler/dist/libs/jsvectormap/dist/maps/world-merc.js?1692870487') }}" defer></script> --}}
     <!-- Tabler Core -->
     <script src="{{ asset('tabler/dist/js/tabler.min.js?1692870487') }}" defer></script>
     <script src="{{ asset('tabler/dist/js/demo.min.js?1692870487') }}" defer></script>
-    <script>
+    {{-- <script>
         // @formatter:off
         document.addEventListener("DOMContentLoaded", function() {
             window.ApexCharts && (new ApexCharts(document.getElementById('chart-revenue-bg'), {
@@ -906,7 +906,7 @@
             })).render();
         });
         // @formatter:on
-    </script>
+    </script> --}}
     <x-notify::notify />
     @notifyJs
 </body>
