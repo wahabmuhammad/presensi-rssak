@@ -28,6 +28,7 @@ class PresensiController extends Controller
         // dd($request);
         $name = Auth::user()->name;
         $nip = Auth::user()->nip;
+        $user_fk = Auth::user()->id;
         $tgl_presensi = date("Y-m-d");
         $jam = date("H:i:s");
         $shift = $request->shift;
@@ -65,6 +66,7 @@ class PresensiController extends Controller
                             'foto_in' => $fileName,
                             'location_in' => $lokasi,
                             'jam_terlambat' => $terlambat,
+                            'user_fk' => $user_fk
                         ];
                         $simpan = DB::table('presensi')->insert($dataMasuk);
                         if ($simpan) {
@@ -78,25 +80,38 @@ class PresensiController extends Controller
                         $dataMasuk = [
                             'shift' => $shift,
                             'name' => $name,
-                            'nip' => $nip, 
+                            'nip' => $nip,
                             'tgl_presensi' => $tgl_presensi,
                             'jam_in' => $jam,
                             'foto_in' => $fileName,
-                            'location_in' => $lokasi
+                            'location_in' => $lokasi,
+                            'user_fk' => $user_fk
                         ];
                         $simpan = DB::table('presensi')->insert($dataMasuk);
-                        if($simpan){
+                        if ($simpan) {
                             Storage::put($file, $image_base64);
                             // dd($namaShift);
                             echo "success|Terimakasih Sudah Hadir. Semangat Bekerja ya. Semoga Allah SWT Mudahkan Urusan Hari Ini.|in";
-                        }else{
+                        } else {
                             echo "error|Silahkan Hubungi TIM IT";
                         }
                     }
-                } 
+                }
             }
         } elseif ($cek == 1) {
             echo "error|Maaf Anda Sudah melakukan Presensi Masuk Hari ini";
         }
+    }
+
+    public function dinasluar(Request $request)
+    {
+        //dd($request);
+        return view('absensi.dinasLuar');
+    }
+
+    public function indexcuti(Request $request)
+    {
+        //dd($request);
+        return view('absensi.cuti');
     }
 }
