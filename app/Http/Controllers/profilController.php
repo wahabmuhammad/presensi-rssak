@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 
@@ -18,32 +19,49 @@ class profilController extends Controller
 
     public function store(Request $request, $id)
     {
+        // dd($request);
         $request->validate(
             [
                 'nama' => 'required',
-                'jabatan' => 'required',
+                'jabatan' => 'nullable',
                 'password' => 'confirmed'
             ]
         );
         $password = $request->password;
         $data = User::find($id);
+        // dd($data);
         if ($request->password  == null) {
             $data->update([
                 'name'     => $request->nama,
-                'jabatan'  => $request->jabatan
+                'pegawaifk'=> $request->pegawai_fk,
+                // 'jabatan'  => $request->jabatan
             ]);
         } else {
             $data->update([
                 'name'     => $request->nama,
-                'jabatan'     => $request->jabatan,
-                'password'   => $request->password
+                // 'jabatan'     => $request->jabatan,
+                'password'   => Hash::make($password),
+                'pegawaifk'=> $request->pegawai_fk,
             ]);
         }
         return back()->with('success', 'Update Data berhasil');
         // dd($request);
     }
 
-    public function slipgaji($id){
+    public function get_data_pegawai(Request $request)
+    {
+        $keyword = $request->query('query');
+        $pegawai = DB::table('pegawai_m')
+            ->whereRaw('LOWER(nip) = LOWER(?)', [$keyword])
+            ->select('id', 'nip', 'nama_lengkap')
+            ->get();
+
+
+        return response()->json($pegawai);
+    }
+
+    public function slipgaji($id)
+    {
         $data = User::findOrFail($id);
         return view('absensi.slipGaji', compact('data'));
     }

@@ -10,7 +10,9 @@ use App\Http\Controllers\presensiOut_Controller;
 use App\Http\Controllers\profilController;
 use App\Http\Controllers\RecruitmentController;
 use App\Http\Controllers\registerController;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Auth\Notifications\ResetPassword;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\URL;
@@ -41,6 +43,7 @@ Route::middleware(['auth', 'cekRole'])->group(function () {
     // Route::get('/cuti', [cutiController::class, 'index'])->name('cuti');
     Route::get('/profil/{user}', [profilController::class, 'index'])->name('profil');
     Route::put('/update-profile{user}', [profilController::class, 'store'])->name('updateprofil');
+    Route::get('/get-data-pegawai', [profilController::class, 'get_data_pegawai'])->name('pegawai.search'); //for ajax edit profile
     // Route::get('/slip-gaji{user}', [profilController::class, 'slipgaji'])->name('slipgaji');
     Route::get('/masuk', [PresensiController::class, 'index'])->name('masuk');
     Route::get('/pulang', [presensiOut_Controller::class, 'index'])->name('pulang');
@@ -105,11 +108,19 @@ Route::middleware(['auth', 'cekAdmin'])->group(function () {
     // Route::get('/login-page-new', [adminController::class, 'loginPageNew'])->name('loginPageNew');
 
     //Route BPJS Pegawai
-    Route::get('/bpjs-pegawai', [adminController::class, 'bpjs_pegawai_index'])->name('bpjsPegawaiIndex');
+    // Route::get('/bpjs-pegawai', [adminController::class, 'bpjs_pegawai_index'])->name('bpjsPegawaiIndex');
+    Route::get('/bpjs-kesehatan', [adminController::class, 'bpjs_kesehatan_index'])->name('bpjsKesehatan');
+    Route::get('/bpjs-ketenagakerjaan', [adminController::class, 'bpjs_ketenagakerjaan_index'])->name('bpjsKetenagakerjaan');
+    Route::get('/potongan-pegawai', [adminController::class, 'potongan_pegawai_index'])->name('potonganPegawaiIndex');
+    Route::get('/tunjangan-pegawai', [adminController::class, 'tunjangan_pegawai_index'])->name('tunjanganPegawaiIndex');
 
     //route ajax get-pegawai
     Route::get('/get-pegawai', [adminController::class, 'get_pegawai'])->name('get-pegawai');
-    // Route::get('/slip-gaji', [adminController::class, 'slipgaji'])->name('slip-gaji');
+    Route::get('/slip-gaji-pegawai', function(){
+        $pdf = App::make('dompdf.wrapper');
+        $pdf->loadView('admin.kepegawaian.slipgajiIndex');
+        return $pdf->stream();
+    });
 });
 
 // Route Login dan Logout
