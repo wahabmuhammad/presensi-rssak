@@ -777,9 +777,159 @@ class adminController extends Controller
     }
 
     //BPJS function index
-    public function bpjs_pegawai_index()
+    public function bpjs_kesehatan_index()
     {
-        return view('admin.kepegawaian.bpjs_pegawai_index');
+        return view('admin.kepegawaian.bpjs_kesehatan_index');
+    }
+    //function get_data_bpjs_kesehatan
+    public function get_data_bpjs_kesehatan(Request $request)
+    {
+        $keyword = $request->keyword;
+
+        $data = DB::table('komponengaji_m')
+            ->leftJoin('pegawai_m', 'pegawai_m.id', '=', 'komponengaji_m.pegawai_fk')
+            ->leftJoin('status_kerja_m', 'status_kerja_m.id', '=', 'pegawai_m.status_pegawaifk')
+            ->select(
+                'komponengaji_m.*',
+                'pegawai_m.id as id_pegawai',
+                'pegawai_m.nama_lengkap as nama_pegawai',
+                'pegawai_m.nip as nip_pegawai',
+                'status_kerja_m.status_kerja',
+                DB::raw("
+                    ROUND(COALESCE(komponengaji_m.dasarbpjsks, 0) * 0.04)
+                    AS bpjs_kesehatan
+                "),
+                DB::raw("
+                    ROUND(COALESCE(komponengaji_m.dasarbpjstk, 0) * 0.037)
+                    AS jht
+                "),
+                DB::raw("
+                    ROUND(COALESCE(komponengaji_m.dasarbpjstk, 0) * 0.0024)
+                    AS jkk
+                "),
+                DB::raw("
+                    ROUND(COALESCE(komponengaji_m.dasarbpjstk, 0) * 0.003)
+                    AS jkm
+                "),
+                DB::raw("
+                    ROUND(COALESCE(komponengaji_m.dasarbpjstk, 0) * 0.02)
+                    AS jp
+                "),
+                DB::raw("
+                    ROUND(
+                        COALESCE(komponengaji_m.dasarbpjstk, 0) * 0.037 +
+                        COALESCE(komponengaji_m.dasarbpjstk, 0) * 0.0024 +
+                        COALESCE(komponengaji_m.dasarbpjstk, 0) * 0.003 +
+                        COALESCE(komponengaji_m.dasarbpjstk, 0) * 0.02
+                    )
+                    AS total_bpjs_tk
+                "),
+            )
+            ->where(function ($q) {
+                $q->whereNotNull('komponengaji_m.dasarbpjsks')
+                    ->orWhereNotNull('komponengaji_m.dasarbpjstk');
+            })
+            ->when($keyword, function ($query, $keyword) {
+                $query->where(function ($q) use ($keyword) {
+                    $q->where('pegawai_m.nip', 'ILIKE', "%{$keyword}%")
+                        ->orWhere('pegawai_m.nama_lengkap', 'ILIKE', "%{$keyword}%")
+                        ->orWhere('komponengaji_m.pgpns', 'ILIKE', "%{$keyword}%");
+                    // ->orWhere('komponengaji_m.tahunpgpns', 'ILIKE', "%{$keyword}%");
+                });
+            })
+            ->orderBy('komponengaji_m.id_komponengaji', 'asc')
+            ->paginate(10)
+            ->withQueryString();
+
+        return response()->json([
+            'datas' => $data->items(),
+            'pagination' => (string) $data->links()
+        ]);
+    }
+    //BPJS TK function index
+    public function bpjs_ketenagakerjaan_index()
+    {
+        return view('admin.kepegawaian.bpjs_tenagakerja_index');
+    }
+
+    public function get_data_bpjs_ketenagakerjaan(Request $request)
+    {
+        $keyword = $request->keyword;
+
+        $data = DB::table('komponengaji_m')
+            ->leftJoin('pegawai_m', 'pegawai_m.id', '=', 'komponengaji_m.pegawai_fk')
+            ->leftJoin('status_kerja_m', 'status_kerja_m.id', '=', 'pegawai_m.status_pegawaifk')
+            ->select(
+                'komponengaji_m.*',
+                'pegawai_m.id as id_pegawai',
+                'pegawai_m.nama_lengkap as nama_pegawai',
+                'pegawai_m.nip as nip_pegawai',
+                'status_kerja_m.status_kerja',
+                DB::raw("
+                    ROUND(COALESCE(komponengaji_m.dasarbpjsks, 0) * 0.01)
+                    AS bpjsks_pegawai
+                "),
+                DB::raw("
+                    ROUND(
+                        COALESCE(komponengaji_m.dasarbpjsks, 0) * 0.01 *
+                        COALESCE(pegawai_m.anakyangditanggung, 0)
+                    )
+                    AS bpjsks_anak
+                "),
+                DB::raw("
+                    ROUND(
+                        COALESCE(komponengaji_m.dasarbpjsks, 0) * 0.01 *
+                        COALESCE(pegawai_m.ortuyangditanggung, 0)
+                    )
+                    AS bpjsks_ortu
+                "),
+                DB::raw("
+                    ROUND(
+                        COALESCE(komponengaji_m.dasarbpjsks, 0) * 0.01 *
+                        (
+                            1 +
+                            COALESCE(pegawai_m.anakyangditanggung, 0) +
+                            COALESCE(pegawai_m.ortuyangditanggung, 0)
+                        )
+                    )
+                    AS total_bpjsks
+                "),
+                DB::raw("
+                    ROUND(COALESCE(komponengaji_m.dasarbpjstk, 0) * 0.02)
+                    AS jht
+                "),
+                DB::raw("
+                    ROUND(COALESCE(komponengaji_m.dasarbpjstk, 0) * 0.01)
+                    AS jp
+                "),
+                DB::raw("
+                    ROUND(
+                        COALESCE(komponengaji_m.dasarbpjstk, 0) * 0.02 +
+                        COALESCE(komponengaji_m.dasarbpjstk, 0) * 0.01 
+                    )
+                    AS total_bpjs_tk
+                "),
+            )
+            ->where(function ($q) {
+                $q->whereNotNull('komponengaji_m.dasarbpjsks')
+                    ->orWhereNotNull('komponengaji_m.dasarbpjstk');
+            })
+            ->when($keyword, function ($query, $keyword) {
+                $query->where(function ($q) use ($keyword) {
+                    $q->where('pegawai_m.nip', 'ILIKE', "%{$keyword}%")
+                        ->orWhere('pegawai_m.nama_lengkap', 'ILIKE', "%{$keyword}%")
+                        ->orWhere('komponengaji_m.pgpns', 'ILIKE', "%{$keyword}%");
+                    // ->orWhere('komponengaji_m.tahunpgpns', 'ILIKE', "%{$keyword}%");
+                });
+            })
+            ->orderBy('komponengaji_m.id_komponengaji', 'asc')
+            ->paginate(10)
+            ->withQueryString();
+
+        return response()->json([
+            'datas' => $data->items(),
+            'pagination' => (string) $data->links()
+        ]);
     }
 
     //function slip gaji pegawai index
@@ -801,7 +951,7 @@ class adminController extends Controller
             ->leftJoin('tunjangan_jabatan_m', 'tunjangan_jabatan_m.jabatan_fk', '=', 'pegawai_m.jabatan_fk')
             ->leftJoin('tunjangan_pangan_m', 'tunjangan_pangan_m.status_kawin_fk', '=', 'pegawai_m.status_kawinfk')
             ->leftJoin('tunjangan_kinerja_m', 'tunjangan_kinerja_m.jabatan_fk', '=', 'pegawai_m.jabatan_fk')
-            ->leftJoin('tunjangan_fungsional_m', 'tunjangan_fungsional_m.jabatan_fungsional_fk','=','pegawai_m.tunjangan_fungsional_fk')
+            ->leftJoin('tunjangan_fungsional_m', 'tunjangan_fungsional_m.jabatan_fungsional_fk', '=', 'pegawai_m.tunjangan_fungsional_fk')
             ->select(
                 'pegawai_m.nip',
                 'pegawai_m.nama_lengkap',
@@ -886,7 +1036,13 @@ class adminController extends Controller
                         ELSE tunjangan_jabatan_m.nominal
                     END AS tunjangan_jabatan
                 "),
-                'tunjangan_kinerja_m.nominal as tunjangan_kinerja',
+                DB::raw("
+                    CASE
+                        WHEN status_kerja_m.id NOT IN (1,2,3,4,6) THEN 0
+                        ELSE tunjangan_kinerja_m.nominal 
+                    END as tunjangan_kinerja
+                "),
+                // 'tunjangan_kinerja_m.nominal as tunjangan_kinerja',
                 DB::raw("
                     CASE
                         WHEN status_kerja_m.id NOT IN (1,2,3,4,6) THEN 0
@@ -902,6 +1058,7 @@ class adminController extends Controller
             )
             ->where('pegawai_m.statusenabled', true)
             ->orderBy('jabatan_m.id', 'asc')
+            ->orderBy('status_kerja_m.id', 'asc')
             ->get();
         // ->paginate(10)
         // ->withQueryString();

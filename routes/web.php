@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\cutiController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\historiPresensi_Controller;
+use App\Http\Controllers\potonganGajiController;
 use App\Http\Controllers\PresensiController;
 use App\Http\Controllers\presensiOut_Controller;
 use App\Http\Controllers\profilController;
@@ -44,7 +45,7 @@ Route::middleware(['auth', 'cekRole'])->group(function () {
     Route::get('/profil/{user}', [profilController::class, 'index'])->name('profil');
     Route::put('/update-profile{user}', [profilController::class, 'store'])->name('updateprofil');
     Route::get('/get-data-pegawai', [profilController::class, 'get_data_pegawai'])->name('pegawai.search'); //for ajax edit profile
-    // Route::get('/slip-gaji{user}', [profilController::class, 'slipgaji'])->name('slipgaji');
+    Route::get('/slip-gaji-pegawai/{user}', [profilController::class, 'slipgaji'])->name('slipgajipegawai');
     Route::get('/masuk', [PresensiController::class, 'index'])->name('masuk');
     Route::get('/pulang', [presensiOut_Controller::class, 'index'])->name('pulang');
     Route::get('/dinas-luar', [PresensiController::class, 'dinasLuar'])->name('dinasLuar');
@@ -80,6 +81,7 @@ Route::middleware(['auth', 'cekAdmin'])->group(function () {
     Route::put('/pegawai/update', [adminController::class, 'update_pegawai'])->name('updatePegawai');
     Route::get('/pegawai/options', [adminController::class, 'options_datapegawai']);
     Route::post('/pegawai/store', [adminController::class, 'store_datapegawai'])->name('storeDatapegawai');
+
     Route::get('/get-data-gaji-pegawai', [adminController::class, 'get_data_gaji_pegawai'])->name('getDataGajiPegawai');
     Route::post('/gaji-pegawai/komponen-gaji/save', [adminController::class, 'store_komponengaji'])->name('storeKomponengajiPegawai');
     Route::get('/pegawai/{pegawaiId}/get-komponen-gaji', [adminController::class, 'edit_komponen_gaji'])->name('editKomponenGaji');
@@ -109,14 +111,26 @@ Route::middleware(['auth', 'cekAdmin'])->group(function () {
 
     //Route BPJS Pegawai
     // Route::get('/bpjs-pegawai', [adminController::class, 'bpjs_pegawai_index'])->name('bpjsPegawaiIndex');
-    Route::get('/bpjs-kesehatan', [adminController::class, 'bpjs_kesehatan_index'])->name('bpjsKesehatan');
-    Route::get('/bpjs-ketenagakerjaan', [adminController::class, 'bpjs_ketenagakerjaan_index'])->name('bpjsKetenagakerjaan');
-    Route::get('/potongan-pegawai', [adminController::class, 'potongan_pegawai_index'])->name('potonganPegawaiIndex');
+    Route::get('/bpjs-ditanggung-rsa', [adminController::class, 'bpjs_kesehatan_index'])->name('bpjsditanggungRSA');
+    Route::get('/bpjs-ditanggung-rsa/get-data-bpjs-kesehatan', [adminController::class, 'get_data_bpjs_kesehatan'])->name('getDataBpjsKesehatan'); //for ajax pagination dan search bpjs kesehatan
+    Route::get('/bpjs-ketenagakerjaan', [adminController::class, 'bpjs_ketenagakerjaan_index'])->name('bpjsditanggungPegawai');
+    Route::get('/bpjs-ketenagakerjaan/get-data-bpjs-ketenagakerjaan', [adminController::class, 'get_data_bpjs_ketenagakerjaan'])->name('getDataBpjsKetenagakerjaan'); //for ajax pagination dan search bpjs ketenagakerjaan
+
+    //Group Route Potongan Gaji
+    Route::controller(potonganGajiController::class)->group(function () {
+        Route::get('/potongan/obat-periksa-pegawai', 'obatperiksa_pegawai_index')->name('obatPeriksaPegawaiIndex');
+        Route::get('/potongan/kretab-pegawai', 'kretab_pegawai_index')->name('kretabPegawaiIndex');
+        Route::get('/potongan/koperasi-pegawai', 'koperasi_pegawai_index')->name('koperasiPegawaiIndex');
+        Route::get('/potongan/potongan-lain-pegawai', 'potongan_lain_pegawai_index')->name('potonganLainPegawaiIndex');
+    });
+
+
+    // Route Tunjangan Pegawai
     Route::get('/tunjangan-pegawai', [adminController::class, 'tunjangan_pegawai_index'])->name('tunjanganPegawaiIndex');
 
     //route ajax get-pegawai
     Route::get('/get-pegawai', [adminController::class, 'get_pegawai'])->name('get-pegawai');
-    Route::get('/slip-gaji-pegawai', function(){
+    Route::get('/slip-gaji-pegawai', function () {
         $pdf = App::make('dompdf.wrapper');
         $pdf->loadView('admin.kepegawaian.slipgajiIndex');
         return $pdf->stream();

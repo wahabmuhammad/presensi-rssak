@@ -19,7 +19,7 @@
                             Administrator
                         </div>
                         <h2 class="page-title">
-                            Data Slip Gaji Pegawai
+                            Data BPJS Ditanggung Rumah Sakit
                         </h2>
                     </div>
                     <!-- Page title actions -->
@@ -116,73 +116,27 @@
                             <tr>
                                 <th rowspan="3">No</th>
                                 <th rowspan="3">NIP</th>
-                                <th rowspan="3">Nama Lengkap</th>
-                                <th rowspan="3">Jabatan</th>
-                                <th colspan="1">Awal Masuk Kerja</th>
+                                <th rowspan="3">Nama Pegawai</th>
                                 <th rowspan="3">Status Pegawai</th>
-                                <th colspan="2">SK Terakhir</th>
-                                <th rowspan="3">Jenis Kelamin</th>
-                                <th colspan="3">Status & Jabatan</th>
-                                <th rowspan="3">PGPNS</th>
-                                <th colspan="1">PGPNS 2024</th>
-                                <th rowspan="3">Gaji Pokok</th>
-                                <th rowspan="3">Tunjangan Pasangan</th>
-                                <th rowspan="3">Tunjangan Anak</th>
-                                <th rowspan="3">Tunjangan Pangan</th>
-                                <th rowspan="3">Tunjangan Fungsional</th>
-                                <th rowspan="3">Tunjangan Jabatan</th>
-                                <th rowspan="3">Tunjangan Kinerja</th>
-                                <th rowspan="3">Hari Masuk</th>
-                                <th rowspan="3">Total Tunjangan Kinerja</th>
+                                <th rowspan="3">Dasar iur BPJS KS</th>
                                 <th colspan="1">BPJS KS</th>
+                                <th rowspan="3">Dasar iur BPJS TK</th>
+                                <th colspan="5">BPJS TK</th>
+                            </tr>
+                            <tr>
+                                <th rowspan="3">4%</th>
+                                <th colspan="1">JHT</th>
+                                <th colspan="1">JKK</th>
+                                <th colspan="1">JKM</th>
+                                <th colspan="1">JP</th>
                                 <th colspan="1">BPJS TK</th>
-                                <th rowspan="3">Jumlah</th>
-                                <th colspan="2">Lembur Biasa</th>
-                                <th colspan="2">Lembur Hari Raya</th>
-                                <th rowspan="3">Jumlah Lembur</th>
-                                <th rowspan="3">Jumlah Gaji</th>
-                                <th rowspan="3">Jumlah Gaji yang Dipotong Lazismu</th>
-                                <th colspan="15">Potongan</th>
-                                <th rowspan="3">Jumlah Potongan</th>
-                                <th colspan="2">Sisa Gaji</th>
-                                <th rowspan="3">Penerimaan Rekening</th>
                             </tr>
                             <tr>
-                                <th rowspan="2">TMT</th>
-                                <th rowspan="2">Gol & Masa Kerja</th>
-                                <th rowspan="2">TMT</th>
-                                <th rowspan="2">ST</th>
-                                <th rowspan="2">FS</th>
-                                <th rowspan="2">MK Ke</th>
-                                <th rowspan="2">100%</th>
-                                <th rowspan="2">4%</th>
-                                <th rowspan="2">6,24%</th>
-                                <th rowspan="2">Jam</th>
-                                <th rowspan="2">Tarif</th>
-                                <th rowspan="2">Jam</th>
-                                <th rowspan="2">Tarif</th>
-                                <th colspan="1">Lazismu</th>
-                                <th rowspan="2">Obat dan Periksa</th>
-                                <th rowspan="2">Koperasi</th>
-                                <th rowspan="2">Aisyiyah</th>
-                                <th rowspan="2">PAY</th>
-                                <th rowspan="2">Kas Unit</th>
-                                <th rowspan="2">PPNI</th>
-                                <th rowspan="2">IBI</th>
-                                <th rowspan="2">Lain-Lain</th>
-                                <th colspan="2">BPJS KS</th>
-                                <th colspan="2">BPJS TK</th>
-                                <th rowspan="2">PPH 21</th>
-                                <th rowspan="2">Kretab</th>
-                                <th rowspan="2">Sisa Gaji</th>
-                                <th rowspan="2">Pembulatan</th>
-                            </tr>
-                            <tr>
-                                <th rowspan="3">TMP</th>
-                                <th> BPJS KS-RSSA</th>
-                                <th> BPJS KS-Pegawai</th>
-                                <th> BPJS KS-RSSA</th>
-                                <th> BPJS KS-Pegawai</th>
+                                <th rowspan="3">3,7%</th>
+                                <th rowspan="3">0,24%</th>
+                                <th rowspan="3">0,3%</th>
+                                <th rowspan="3">2%</th>
+                                <th rowspan="3">6,24%</th>
                             </tr>
                         </thead>
                         <tbody id="tablePegawai">
@@ -212,19 +166,12 @@
             </div>
         </div>
     </div>
+    @include('admin.layout.modal')
     <script>
         $(document).ready(function() {
-            function inputNumber(className, value, readonly = false) {
-                return '<td class="col-angka">' +
-                    '<input type="text" name="' + className + '" class="form-control ' + className +
-                    '" value="' + (value ?? 0) + '" ' + (readonly ? 'readonly' : '') + '>' +
-                    '</td>';
-            }
-
-
             function loadData(page = 1) {
                 $.ajax({
-                    url: '{{ url('/slip-gaji-get-data?page=') }}' + page,
+                    url: '{{ url('/bpjs-ditanggung-rsa/get-data-bpjs-kesehatan?page=') }}' + page,
                     method: 'GET',
                     dataType: 'json',
                     beforeSend: function() {
@@ -232,7 +179,7 @@
                         $("#loading").show();
                     },
                     success: function(response) {
-                        console.log(response);
+                        // console.log(response);
                         var html = '';
                         var startIndex = (page - 1) *
                             10;
@@ -241,56 +188,18 @@
                             var rowNumber = startIndex + index + 1;
                             html += '<tr class="pegawai-row" data-id="' + item.id_komponengaji +
                                 '">';
-
                             html += '<td>' + rowNumber + '</td>';
-                            html += '<td>' + item.nip + '</td>';
-                            html += '<td>' + item.nama_lengkap + '</td>';
-                            html += '<td>' + item.nama_jabatan + '</td>';
-                            html += '<td>' + item.tmt_formatted + '</td>';
-                            html += '<td>' + (item.status_kerja ?? '-') + '</td>';
-                            html += '<td>' + (item.gol_mk ?? '-') + '</td>';
-                            html += '<td>' + (item.sk_pt_formatted ?? '-') + '</td>';
-                            html += '<td>' + (item.jenis_kelamin_text ?? '-') + '</td>';
-                            html += '<td>' + (item.statuskawin ?? '-') + '</td>';
-                            html += '<td>' + (item.kode_fungsional ?? '-') + '</td>';
-                            html += '<td>' + (item.masakerja ?? '-') + '</td>';
-
-                            // GAJI POKOK
-                            html += inputNumber('pgpns', item.pgpns, true);
-                            html += inputNumber('pgpns', item.pgpns, true);
-                            html += inputNumber('gaji_pokok', item.gaji_pokok);
-
-                            // TUNJANGAN LAIN
-                            html += inputNumber('tunjangan_pasangan', item.tunjangan_pasangan);
-                            html += inputNumber('tunjangan_anak', item.tunjangan_anak);
-                            html += inputNumber('tunjangan_pangan', item.tunjangan_pangan);
-                            html += inputNumber('tunjangan_fungsional', item
-                                .tunjangan_fungsional);
-                            html += inputNumber('tunjangan_jabatan', item.tunjangan_jabatan);
-
-                            // TARIF TUKIN (dari backend, readonly)
-                            html += inputNumber('tarif_tukin', item.tunjangan_kinerja,
-                                true);
-
-                            // INPUT HARI
-                            html += inputNumber('hari_tukin', 0);
-
-                            // HASIL TUKIN
-                            html += inputNumber('tunjangan_kinerja', 0, true);
-
-                            // BPJS
-                            html += inputNumber('bpjs_kesehatan', item.bpjs_kesehatan);
-                            html += inputNumber('bpjs_ketenagakerjaan', item
-                                .bpjs_ketenagakerjaan);
-
-                            // TOTAL GAJI
-                            html += inputNumber('total_gaji', 0, true);
-                            // Lembur
-                            html += inputNumber('jam_lembur_biasa', 0);
-                            html += inputNumber('tarif_lembur_biasa', 0, true);
-                            html += inputNumber('jam_lembur_raya', 0);
-                            html += inputNumber('tarif_lembur_raya', 0, true);
-
+                            html += '<td>' + item.nip_pegawai + '</td>';
+                            html += '<td>' + item.nama_pegawai + '</td>';
+                            html += '<td>' + item.status_kerja + '</td>';
+                            html += '<td>' + (item.dasarbpjsks ?? '-') + '</td>';
+                            html += '<td>' + (item.bpjs_kesehatan ?? '-') + '</td>';
+                            html += '<td>' + (item.dasarbpjstk ?? '-') + '</td>';
+                            html += '<td>' + (item.jht ?? '-') + '</td>';
+                            html += '<td>' + (item.jkk ?? '-') + '</td>';
+                            html += '<td>' + (item.jkm ?? '-') + '</td>';
+                            html += '<td>' + (item.jp ?? '-') + '</td>';
+                            html += '<td>' + (item.total_bpjs_tk ?? '-') + '</td>';
                             html += '</tr>';
                         });
                         $('#tablePegawai').html(html);
@@ -306,55 +215,63 @@
                 });
             }
             loadData();
-        });
-        // Trigger jika ada perubahan input dalam table
-        $(document).on('input',
-            '.hari_tukin, .gaji_pokok, .tunjangan_pasangan, .tunjangan_anak, .tunjangan_pangan, .tunjangan_fungsional, .tunjangan_jabatan, .bpjs_kesehatan, .bpjs_ketenagakerjaan, .jam_lembur_biasa, .jam_lembur_raya',
-            function() {
 
-                let row = $(this).closest('tr');
+            function searchData(keyword, page = 1) {
+                $.ajax({
+                    url: '{{ url('/get-data-gaji-pegawai') }}',
+                    method: 'GET',
+                    dataType: 'json',
+                    data: {
+                        keyword: keyword,
+                        page: page
+                    },
+                    beforeSend: function() {
+                        $("#loading").show();
+                    },
+                    success: function(response) {
+                        var html = '';
+                        var startIndex = (page - 1) * 10;
 
-                // ======================
-                // HITUNG TUNJANGAN KINERJA
-                // ======================
-                let hari = parseFloat(row.find('.hari_tukin').val()) || 0;
-                let tarif = parseFloat(row.find('.tarif_tukin').val()) || 0;
+                        response.datas.forEach(function(item, index) {
+                            var rowNumber = startIndex + index + 1;
+                            html += '<tr class="pegawai-row" data-id="' + item.id_komponengaji +
+                                '">';
+                            html += '<td>' + rowNumber + '</td>';
+                            html += '<td>' + item.nip_pegawai + '</td>';
+                            html += '<td>' + item.nama_pegawai + '</td>';
+                            html += '<td>' + item.pgpns + '</td>';
+                            html += '<td>' + item.tahunpgpns + '</td>';
+                            html += '<td>' + (item.dasarbpjsks ?? '-') + '</td>';
+                            html += '<td>' + (item.dasarbpjstk ?? '-') + '</td>';
+                            html += '</tr>';
+                        });
 
-                let totalTukin = hari * tarif;
-
-                row.find('.tunjangan_kinerja').val(totalTukin);
-
-                // ======================
-                // HITUNG TOTAL GAJI
-                // ======================
-
-                let gajiPokok = parseFloat(row.find('.gaji_pokok').val()) || 0;
-                let pasangan = parseFloat(row.find('.tunjangan_pasangan').val()) || 0;
-                let anak = parseFloat(row.find('.tunjangan_anak').val()) || 0;
-                let pangan = parseFloat(row.find('.tunjangan_pangan').val()) || 0;
-                let fungsional = parseFloat(row.find('.tunjangan_fungsional').val()) || 0;
-                let jabatan = parseFloat(row.find('.tunjangan_jabatan').val()) || 0;
-
-                let bpjsKes = parseFloat(row.find('.bpjs_kesehatan').val()) || 0;
-                let bpjsKet = parseFloat(row.find('.bpjs_ketenagakerjaan').val()) || 0;
-
-                let jamlemburbiasa = parseFloat(row.find('.jam_lembur_biasa').val()) || 0;
-                let tariflemburBiasa = jamlemburbiasa * 2 * 1 / 173 * gajiPokok;
-                parseFloat(row.find('.tarif_lembur_biasa').val(tariflemburBiasa)) || 0;
-
-
-                let totalGaji =
-                    gajiPokok +
-                    pasangan +
-                    anak +
-                    pangan +
-                    fungsional +
-                    jabatan +
-                    totalTukin +
-                    bpjsKes +
-                    bpjsKet;
-
-                row.find('.total_gaji').val(totalGaji);
+                        $('#tablePegawai').html(html);
+                        $('#pagination-links').html(response.pagination);
+                    },
+                    error: function() {
+                        console.error('Error searching data');
+                    },
+                    complete: function() {
+                        $("#loading").hide();
+                    }
+                });
+            }
+            $(document).on('click', '.pagination a', function(e) {
+                e.preventDefault();
+                var page = $(this).attr('href').split('page=')[1];
+                loadData(page);
             });
+
+            $('#search').on('keyup', function() {
+                let keyword = $(this).val();
+
+                if (keyword.length > 0) {
+                    searchData(keyword);
+                } else {
+                    loadData(); // balik ke data awal
+                }
+            });
+        });
     </script>
 @endsection

@@ -19,7 +19,6 @@ class profilController extends Controller
 
     public function store(Request $request, $id)
     {
-        // dd($request);
         $request->validate(
             [
                 'nama' => 'required',
@@ -32,6 +31,7 @@ class profilController extends Controller
         // dd($data);
         if ($request->password  == null) {
             $data->update([
+                'nip'      => $request->nip,
                 'name'     => $request->nama,
                 'pegawaifk'=> $request->pegawai_fk,
                 // 'jabatan'  => $request->jabatan
@@ -39,13 +39,12 @@ class profilController extends Controller
         } else {
             $data->update([
                 'name'     => $request->nama,
-                // 'jabatan'     => $request->jabatan,
+                'nip'      => $request->nip,
                 'password'   => Hash::make($password),
                 'pegawaifk'=> $request->pegawai_fk,
             ]);
         }
         return back()->with('success', 'Update Data berhasil');
-        // dd($request);
     }
 
     public function get_data_pegawai(Request $request)
