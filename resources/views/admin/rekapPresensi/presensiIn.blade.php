@@ -43,7 +43,7 @@
                 <div class="card-header">
                     <h3 class="card-tittle">Daftar User</h3>
                     <div class="col-auto ms-auto">
-                        <a href="{{ 'rekap_Presensi_in/export/excel' }}" class="btn btn-cyan">Export ke Excel</a>
+                        <button id="exportExcelBtn" class="btn btn-cyan">Export ke Excel</button>
                     </div>
                 </div>
                 <div class="card-body border-bottom py-3">
@@ -60,8 +60,8 @@
                             <div class="col ms-auto text-secondary">
                                 <label class="form-label" for="date_start">Tanggal Awal</label>
                                 <div class="input-group">
-                                    <input type="date" value="{{ Request::get('date_start') }}" class="form-control"
-                                        placeholder="{{ $today }}" name="date_start" aria-label="Search in website">
+                                    <input type="date" value="{{ Request::get('tglAwal') }}" class="form-control"
+                                        placeholder="{{ $today }}" name="tglAwal" id="tglAwal" aria-label="Search in website">
                                     <span class="input-group-text" id="basic-addon1">
                                         <!-- Download SVG icon from http://tabler-icons.io/i/search -->
                                         <svg xmlns="http://www.w3.org/2000/svg"
@@ -82,8 +82,8 @@
                             <div class="col ms-auto text-secondary">
                                 <label class="form-label" for="date_to">Tanggal Akhir</label>
                                 <div class="input-group">
-                                    <input type="date" value="{{ Request::get('date_to') }}" class="form-control"
-                                        placeholder="{{ $today }}" name="date_to" aria-label="Search in website">
+                                    <input type="date" value="{{ Request::get('tglAkhir') }}" class="form-control"
+                                        placeholder="{{ $today }}" id="tglAkhir" name="tglAkhir" aria-label="Search in website">
                                     <span class="input-group-text" id="basic-addon1">
                                         <!-- Download SVG icon from http://tabler-icons.io/i/search -->
                                         <svg xmlns="http://www.w3.org/2000/svg"
@@ -108,9 +108,9 @@
                                         placeholder="Search…" name="search" aria-label="Search in website">
                                     <button class="btn btn-primary" type="submit">
                                         <!-- Download SVG icon from http://tabler-icons.io/i/search -->
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
-                                            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                                            stroke-linecap="round" stroke-linejoin="round">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24"
+                                            height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                                            fill="none" stroke-linecap="round" stroke-linejoin="round">
                                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                             <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
                                             <path d="M21 21l-6 -6" />
@@ -232,4 +232,51 @@
             </div>
         </div>
     </div>
+    <script>
+        document.getElementById('exportExcelBtn').addEventListener('click', function() {
+            // Ambil tanggal dari input
+            let tglAwal = document.getElementById('tglAwal').value;
+            let tglAkhir = document.getElementById('tglAkhir').value;
+
+            // Validasi input tanggal
+            if (!tglAwal || !tglAkhir) {
+                alert('Silakan pilih tanggal awal dan akhir!');
+                return;
+            }
+
+            // Tampilkan loading spinner atau sesuatu
+            let btn = this;
+            btn.disabled = true;
+            btn.innerHTML = 'Exporting...';
+
+            // Kirim request AJAX ke controller dengan tanggal yang dipilih
+            fetch("{{ route('export.excel') }}?tglAwal=" + tglAwal + "&tglAkhir=" + tglAkhir)
+                .then(response => {
+                    // Jika responsenya sukses, kita download file Excel
+                    if (response.ok) {
+                        return response.blob(); // Ambil file sebagai blob
+                    }
+                    throw new Error('Download failed');
+                })
+                .then(blob => {
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.style.display = 'none';
+                    a.href = url;
+                    a.download = 'Rekap_Presensi_Masuk.xlsx'; // Nama file download
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                })
+                .catch(error => {
+                    alert('Gagal mendownload file');
+                    console.error(error);
+                })
+                .finally(() => {
+                    // Reset button state
+                    btn.disabled = false;
+                    btn.innerHTML = 'Export ke Excel';
+                });
+        });
+    </script>
 @endsection

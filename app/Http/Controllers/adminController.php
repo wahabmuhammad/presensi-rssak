@@ -105,14 +105,15 @@ class adminController extends Controller
         $today = date("Y-m-d");
         $bulanIni = date("m", strtotime($today));
         $keyword = $request->search;
-        $start_to = $request->date_start;
-        $end_to = $request->date_to;
+        $start_to = $request->tglAwal;
+        $end_to = $request->tglAkhir;
 
         if ($start_to != null && $end_to != null) {
             if (strlen($keyword)) {
                 $rekapMasuk = presensiIn::where('nip', 'ilike', "%$keyword%")
                     ->orWhere('name', 'ilike', "%$keyword%")
                     ->whereBetween('tgl_presensi', [$start_to, $end_to])
+                    ->orderBy('tgl_presensi', 'asc')
                     ->paginate(15);
 
                 $jumlahMasuk = presensiIn::where('nip', 'ilike', "%$keyword%")
@@ -128,7 +129,7 @@ class adminController extends Controller
                     ->count();
                 // dd($totalTerlambat);
             } else {
-                $rekapMasuk = presensiIn::whereBetween('tgl_presensi', [$start_to, $end_to])->paginate(15);
+                $rekapMasuk = presensiIn::whereBetween('tgl_presensi', [$start_to, $end_to])->orderBy('tgl_presensi', 'asc')->paginate(15);
 
                 $jumlahMasuk = presensiIn::where('nip', 'ilike', "%$keyword%")
                     ->orWhere('name', 'ilike', "%$keyword%")
@@ -144,7 +145,7 @@ class adminController extends Controller
         } else {
             $rekapMasuk = presensiIn::whereYear('tgl_presensi', date("Y"))
                 ->whereMonth('tgl_presensi', $bulanIni)
-                ->orderBy('tgl_presensi')
+                ->orderBy('tgl_presensi', 'asc')
                 ->paginate('15');
 
             $jumlahMasuk = presensiIn::whereBetween('tgl_presensi', [$start_to, $end_to])
@@ -159,9 +160,23 @@ class adminController extends Controller
         return view('admin.rekapPresensi.presensiIn', compact('rekapMasuk', 'today', 'jumlahMasuk', 'totalTerlambat'));
     }
 
-    public function exportMasuk()
+    public function exportMasuk(Request $request)
     {
-        return Excel::download(new ExportMasuk, "Rekap_Presensi_Masuk.xlsx");
+        $tglAwal = $request->input('tglAwal');
+        $tglAkhir = $request->input('tglAkhir');
+
+        // Validasi input tanggal
+        if (!$tglAwal || !$tglAkhir) {
+            return response()->json(['error' => 'Tanggal awal dan akhir harus dipilih'], 400);
+        }
+
+        // Ambil data berdasarkan rentang tanggal
+        $data = PresensiIn::whereBetween('tgl_presensi', [$tglAwal, $tglAkhir])
+            ->orderBy('tgl_presensi')
+            ->get();
+
+        // Kirim data ke ExportMasuk
+        return Excel::download(new ExportMasuk($data), "Rekap_Presensi_Masuk.xlsx");
     }
 
     public function rekapOut(Request $request)
