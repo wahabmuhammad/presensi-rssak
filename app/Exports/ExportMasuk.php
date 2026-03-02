@@ -63,7 +63,7 @@ class  ExportMasuk implements FromCollection, WithHeadings, WithDrawings
         foreach ($this->data as $item) {
 
             // FOTO MASUK (kolom F)
-            if ($item->foto_masuk && file_exists(public_path('storage/' . $item->foto_in))) {
+            if ($item->foto_in && file_exists(public_path('storage/' . $item->foto_in))) {
 
                 $drawingMasuk = new Drawing();
                 $drawingMasuk->setName('Foto Masuk');
@@ -76,7 +76,7 @@ class  ExportMasuk implements FromCollection, WithHeadings, WithDrawings
             }
 
             // FOTO PULANG (kolom G)
-            if ($item->foto_pulang && file_exists(public_path('storage/' . $item->foto_out))) {
+            if ($item->foto_out && file_exists(public_path('storage/' . $item->foto_out))) {
 
                 $drawingPulang = new Drawing();
                 $drawingPulang->setName('Foto Pulang');
