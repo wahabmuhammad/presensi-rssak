@@ -65,7 +65,7 @@ Route::middleware(['auth', 'cekAdmin'])->group(function () {
     Route::post('/user/create-user', [adminController::class, 'create_user'])->name('createUser');
     Route::get('/admin', [adminController::class, 'index'])->name('adminDashboard')->name('admin');
     Route::get('/rekap_Presensi_in', [adminController::class, 'rekap'])->name('rekapPresensi_In');
-    Route::get('/rekap_Presensi_in/export/excel', [adminController::class, 'exportMasuk']);
+    Route::get('/rekap_Presensi_in/export/excel', [adminController::class, 'exportMasuk'])->name('export.excel');
     Route::get('/rekap_Presensi_out/export/excel', [adminController::class, 'exportPulang']);
     Route::get('/rekap_Presensi_out', [adminController::class, 'rekapOut'])->name('rekapPresensi_Out');
     Route::get('/user/{user}/edit', [adminController::class, 'edit'])->name('user.edit');
@@ -119,7 +119,11 @@ Route::middleware(['auth', 'cekAdmin'])->group(function () {
     //Group Route Potongan Gaji
     Route::controller(potonganGajiController::class)->group(function () {
         Route::get('/potongan/obat-periksa-pegawai', 'obatperiksa_pegawai_index')->name('obatPeriksaPegawaiIndex');
+        Route::get('/potongan/obat-periksa-pegawai/get-data-obat-periksa', 'get_data_obat_periksa')->name('getDataObatPeriksa'); //for ajax pagination dan search obat periksa
+        Route::post('/potongan/obat-periksa-pegawai/simpan', 'simpanObatPeriksa')->name('simpanObatPeriksa');
         Route::get('/potongan/kretab-pegawai', 'kretab_pegawai_index')->name('kretabPegawaiIndex');
+        Route::get('/potongan/kretab-pegawai/get-data-kretab', 'get_data_kretab')->name('getDataKretab'); //for ajax pagination dan search kretab
+        Route::post('/potongan/kretab-pegawai/simpan', 'simpanKretab')->name('simpanKretab');
         Route::get('/potongan/koperasi-pegawai', 'koperasi_pegawai_index')->name('koperasiPegawaiIndex');
         Route::get('/potongan/potongan-lain-pegawai', 'potongan_lain_pegawai_index')->name('potonganLainPegawaiIndex');
     });
