@@ -13,9 +13,9 @@ class logwa extends Model
     
     protected $fillable = [
         'nama',
-        'nohp',
         'tgl_kirim',
         'jam_kirim',
         'pesan',
+        'nohp',
     ];
 }

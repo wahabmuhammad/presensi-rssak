@@ -172,6 +172,9 @@
     @include('admin.layout.modal')
     <script>
         $(document).ready(function() {
+            function formatRupiah(value) {
+                return value ? 'Rp ' + parseFloat(value).toLocaleString('id-ID') : '-';
+            }
             function loadData(page = 1) {
                 $.ajax({
                     url: '{{ url('/bpjs-ketenagakerjaan/get-data-bpjs-ketenagakerjaan?page=') }}' + page,
@@ -195,15 +198,15 @@
                             html += '<td>' + item.nip_pegawai + '</td>';
                             html += '<td>' + item.nama_pegawai + '</td>';
                             html += '<td>' + item.status_kerja + '</td>';
-                            html += '<td>' + (item.dasarbpjsks ?? '-') + '</td>';
-                            html += '<td>' + (item.bpjsks_pegawai ?? '-') + '</td>';
-                            html += '<td>' + (item.bpjsks_anak ?? '-') + '</td>';
-                            html += '<td>' + (item.bpjsks_ortu ?? '-') + '</td>';
-                            html += '<td>' + (item.total_bpjsks ?? '-') + '</td>';
-                            html += '<td>' + (item.dasarbpjstk   ?? '-') + '</td>';
-                            html += '<td>' + (item.jht ?? '-') + '</td>';
-                            html += '<td>' + (item.jp ?? '-') + '</td>';
-                            html += '<td>' + (item.total_bpjs_tk ?? '-') + '</td>';
+                            html += '<td>' + formatRupiah(item.dasarbpjsks ?? '-') + '</td>';
+                            html += '<td>' + formatRupiah(item.bpjsks_pegawai ?? '-') + '</td>';
+                            html += '<td>' + formatRupiah(item.bpjsks_anak ?? '-') + '</td>';
+                            html += '<td>' + formatRupiah(item.bpjsks_ortu ?? '-') + '</td>';
+                            html += '<td>' + formatRupiah(item.total_bpjsks ?? '-') + '</td>';
+                            html += '<td>' + formatRupiah(item.dasarbpjstk   ?? '-') + '</td>';
+                            html += '<td>' + formatRupiah(item.jht ?? '-') + '</td>';
+                            html += '<td>' + formatRupiah(item.jp ?? '-') + '</td>';
+                            html += '<td>' + formatRupiah(item.total_bpjs_tk ?? '-') + '</td>';
                             html += '</tr>';
                         });
                         $('#tablePegawai').html(html);
@@ -222,7 +225,7 @@
 
             function searchData(keyword, page = 1) {
                 $.ajax({
-                    url: '{{ url('/bpjs-ketenagakerjaan/get-data-bpjs-ketenagakerjaan') }}',
+                    url: '{{ url('/bpjs-ketenagakerjaan/get-data-bpjs-ketenagakerjaan?page=') }}' + page,
                     method: 'GET',
                     dataType: 'json',
                     data: {
@@ -244,15 +247,15 @@
                             html += '<td>' + item.nip_pegawai + '</td>';
                             html += '<td>' + item.nama_pegawai + '</td>';
                             html += '<td>' + item.status_kerja + '</td>';
-                            html += '<td>' + (item.dasarbpjsks ?? '-') + '</td>';
-                            html += '<td>' + (item.bpjsks_pegawai ?? '-') + '</td>';
-                            html += '<td>' + (item.bpjsks_anak ?? '-') + '</td>';
-                            html += '<td>' + (item.bpjsks_ortu ?? '-') + '</td>';
-                            html += '<td>' + (item.total_bpjsks ?? '-') + '</td>';
-                            html += '<td>' + (item.dasarbpjstk   ?? '-') + '</td>';
-                            html += '<td>' + (item.jht ?? '-') + '</td>';
-                            html += '<td>' + (item.jp ?? '-') + '</td>';
-                            html += '<td>' + (item.total_bpjs_tk ?? '-') + '</td>';
+                            html += '<td>' + formatRupiah(item.dasarbpjsks ?? '-') + '</td>';
+                            html += '<td>' + formatRupiah(item.bpjsks_pegawai ?? '-') + '</td>';
+                            html += '<td>' + formatRupiah(item.bpjsks_anak ?? '-') + '</td>';
+                            html += '<td>' + formatRupiah(item.bpjsks_ortu ?? '-') + '</td>';
+                            html += '<td>' + formatRupiah(item.total_bpjsks ?? '-') + '</td>';
+                            html += '<td>' + formatRupiah(item.dasarbpjstk   ?? '-') + '</td>';
+                            html += '<td>' + formatRupiah(item.jht ?? '-') + '</td>';
+                            html += '<td>' + formatRupiah(item.jp ?? '-') + '</td>';
+                            html += '<td>' + formatRupiah(item.total_bpjs_tk ?? '-') + '</td>';
                             html += '</tr>';
                         });
 

@@ -22,5 +22,9 @@ class Recruitment extends Model
         'nohp',
         'Rekomendasi',
         'Sertifikat',
+        'tanggal',
+        'sesi',
     ];
+
+    public $timestamps = false;
 }

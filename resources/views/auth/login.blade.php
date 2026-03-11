@@ -56,7 +56,7 @@
                 <img src="assets/img/logo_rssak.png" alt="image" class="form-image">
             </div>
             <div class="section mt-1">
-                <h1>E-PRESENSI</h1>
+                <h1>E-SDI<br>RS Sarkies 'Aisyiyah</h1>
                 <h4>Silahkan Login</h4>
             </div>
             <div class="section mt-1 mb-5">
@@ -104,7 +104,7 @@
                     <footer>
                         <div class="text-center mt-5">
                             <p class="foter-down" id="copyright"></p>
-                            <p class="foter-down">Version 1.0.0</p>
+                            <p class="foter-down">Version 1.5.0</p>
                             <p class="foter-down">
                                 <i>Development by Muhammad Abdul Wahab</i>
                             </p>

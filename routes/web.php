@@ -125,6 +125,8 @@ Route::middleware(['auth', 'cekAdmin'])->group(function () {
         Route::get('/potongan/kretab-pegawai/get-data-kretab', 'get_data_kretab')->name('getDataKretab'); //for ajax pagination dan search kretab
         Route::post('/potongan/kretab-pegawai/simpan', 'simpanKretab')->name('simpanKretab');
         Route::get('/potongan/koperasi-pegawai', 'koperasi_pegawai_index')->name('koperasiPegawaiIndex');
+        Route::get('/potongan/koperasi-pegawai/get-data-koperasi', 'get_data_koperasi')->name('getDataKoperasi'); //for ajax pagination dan search koperasi
+        Route::post('/potongan/koperasi-pegawai/simpan', 'simpanKoperasi')->name('simpanKoperasi');
         Route::get('/potongan/potongan-lain-pegawai', 'potongan_lain_pegawai_index')->name('potonganLainPegawaiIndex');
     });
 

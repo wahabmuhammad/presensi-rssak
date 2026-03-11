@@ -40,9 +40,9 @@ Kepada Yth. *".trim($recruitment->Nama)."*
 
 RS Sarkies 'Aisyiyah Kudus mengundang Bapak/Ibu untuk hadir dalam kegiatan *Rekrutmen Pegawai Tahap II (Tes Tertulis & Wawancara)* dengan formasi *".trim($recruitment->Formasi)."* yang akan dilaksanakan pada:
 
-Hari, tgl  : Senin, 8 Desember 2025
-Jam        : 08.00 wib - Selesai
-Tempat  : Lantai Ground RS Sarkies 'Aisyiyah Kudus
+Hari, tgl  : Jumat, 20 Februari 2026
+Jam        : 07.30 wib - Selesai
+Tempat  : Convention Hall Lt 8 RS Sarkies 'Aisyiyah Kudus
 
 Perlengkapan yang harus dibawa:
 1. Alat tulis
@@ -53,7 +53,7 @@ Harap memperhatikan hal-hal berikut ini:
 1. Harap datang 15 menit sebelum jadwal
 2. Memakai pakaian rapih, sopan dan bersepatu (perempuan wajib berjilbab)
 
-**Mohon konfirmasi kesediaan Bapak/Ibu untuk menerima ataupun menolak undangan kami.*
+Mohon konfirmasi kesediaan Bapak/Ibu untuk menerima ataupun menolak undangan kami. 
 
 Demikian informasi yang dapat kami sampaikan, atas perhatiannya kami sampaikan terimakasih. 
 

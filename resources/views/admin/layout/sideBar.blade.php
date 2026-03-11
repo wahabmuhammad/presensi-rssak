@@ -4,9 +4,9 @@
             aria-controls="sidebar-menu" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <h1 class="navbar-brand navbar-brand-autodark">
+        <h1 class="navbar-brand navbar-brand">
             <a href="{{ route('adminDashboardadmin') }}">
-                <img src="{{ asset('tabler/static/logo-small.svg') }}" width="110" height="32"
+                <img src="{{ asset('assets/img/Logo_RSSA.svg') }}" width="110" height="32"
                     class="navbar-brand-image">
                 <span>RSSAK</span>
             </a>

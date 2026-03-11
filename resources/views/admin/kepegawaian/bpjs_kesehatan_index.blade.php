@@ -169,6 +169,9 @@
     @include('admin.layout.modal')
     <script>
         $(document).ready(function() {
+            function formatRupiah(value) {
+                return value ? 'Rp ' + parseFloat(value).toLocaleString('id-ID') : '-';
+            }
             function loadData(page = 1) {
                 $.ajax({
                     url: '{{ url('/bpjs-ditanggung-rsa/get-data-bpjs-kesehatan?page=') }}' + page,
@@ -192,14 +195,14 @@
                             html += '<td>' + item.nip_pegawai + '</td>';
                             html += '<td>' + item.nama_pegawai + '</td>';
                             html += '<td>' + item.status_kerja + '</td>';
-                            html += '<td>' + (item.dasarbpjsks ?? '-') + '</td>';
-                            html += '<td>' + (item.bpjs_kesehatan ?? '-') + '</td>';
-                            html += '<td>' + (item.dasarbpjstk ?? '-') + '</td>';
-                            html += '<td>' + (item.jht ?? '-') + '</td>';
-                            html += '<td>' + (item.jkk ?? '-') + '</td>';
-                            html += '<td>' + (item.jkm ?? '-') + '</td>';
-                            html += '<td>' + (item.jp ?? '-') + '</td>';
-                            html += '<td>' + (item.total_bpjs_tk ?? '-') + '</td>';
+                            html += '<td>' + formatRupiah(item.dasarbpjsks) + '</td>';
+                            html += '<td>' + formatRupiah(item.bpjs_kesehatan) + '</td>';
+                            html += '<td>' + formatRupiah(item.dasarbpjstk) + '</td>';
+                            html += '<td>' + formatRupiah(item.jht) + '</td>';
+                            html += '<td>' + formatRupiah(item.jkk) + '</td>';
+                            html += '<td>' + formatRupiah(item.jkm) + '</td>';
+                            html += '<td>' + formatRupiah(item.jp ?? '-') + '</td>';
+                            html += '<td>' + formatRupiah(item.total_bpjs_tk ?? '-') + '</td>';
                             html += '</tr>';
                         });
                         $('#tablePegawai').html(html);
@@ -218,7 +221,7 @@
 
             function searchData(keyword, page = 1) {
                 $.ajax({
-                    url: '{{ url('/get-data-gaji-pegawai') }}',
+                    url: '{{ url('/bpjs-ditanggung-rsa/get-data-bpjs-kesehatan?page=') }}' + page,
                     method: 'GET',
                     dataType: 'json',
                     data: {
@@ -239,10 +242,15 @@
                             html += '<td>' + rowNumber + '</td>';
                             html += '<td>' + item.nip_pegawai + '</td>';
                             html += '<td>' + item.nama_pegawai + '</td>';
-                            html += '<td>' + item.pgpns + '</td>';
-                            html += '<td>' + item.tahunpgpns + '</td>';
-                            html += '<td>' + (item.dasarbpjsks ?? '-') + '</td>';
-                            html += '<td>' + (item.dasarbpjstk ?? '-') + '</td>';
+                            html += '<td>' + item.status_kerja + '</td>';
+                            html += '<td>' + formatRupiah(item.dasarbpjsks) + '</td>';
+                            html += '<td>' + formatRupiah(item.bpjs_kesehatan) + '</td>';
+                            html += '<td>' + formatRupiah(item.dasarbpjstk) + '</td>';
+                            html += '<td>' + formatRupiah(item.jht) + '</td>';
+                            html += '<td>' + formatRupiah(item.jkk) + '</td>';
+                            html += '<td>' + formatRupiah(item.jkm) + '</td>';
+                            html += '<td>' + formatRupiah(item.jp ?? '-') + '</td>';
+                            html += '<td>' + formatRupiah(item.total_bpjs_tk ?? '-') + '</td>';
                             html += '</tr>';
                         });
 

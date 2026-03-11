@@ -33,7 +33,7 @@
                     <div class="list-menu">
                         <div class="item-menu text-center">
                             <div class="menu-icon">
-                                <a href="{{ route('slip-gaji', $profil->id) }}" class="green" style="font-size: 40px;">
+                                <a href="{{ route('slipgajipegawai', $profil->id) }}" class="green" style="font-size: 40px;">
                                     <ion-icon name="wallet-outline"></ion-icon>
                                 </a>
                             </div>
@@ -43,12 +43,23 @@
                         </div>
                         <div class="item-menu text-center">
                             <div class="menu-icon">
-                                <a href="" class="danger" style="font-size: 40px;">
+                                <a href="{{route('cuti')}}" class="danger" style="font-size: 40px;">
                                     <ion-icon name="calendar-number-outline"></ion-icon>
                                 </a>
                             </div>
                             <div class="menu-name">
                                 <span class="text-center">Cuti</span>
+                            </div>
+                        </div>
+                        <div class="item-menu text-center">
+                            <div class="menu-icon">
+                                <a href="{{route('dinasLuar')}}" class="primary" style="font-size: 40px;">
+                                    <ion-icon name="camera-outline" id="camera-icon" role="img" class="md hydrated"
+                                        aria-label="add outline"></ion-icon>
+                                </a>
+                            </div>
+                            <div class="menu-name">
+                                <span class="text-center">Dinas Luar</span>
                             </div>
                         </div>
                         <div class="item-menu text-center">
@@ -116,7 +127,7 @@
                                                         <h4 class="presencetitle">
                                                             {{ $PresensiMasuk != null ? $PresensiMasuk->tgl_presensi : '' }}
                                                         </h4>
-                                                        <span>{{ $PresensiMasuk != null ? $PresensiMasuk->jam_in : 'Belum Absen' }}</span>
+                                                        <span>{{ $PresensiMasuk != null ? $PresensiMasuk->jam_in : '-' }}</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -136,7 +147,7 @@
                                                         <h4 class="presencetitle">
                                                             {{ $PresensiPulang != null && $PresensiPulang->tgl_presensi_out != null ? $PresensiPulang->tgl_presensi_out : '' }}
                                                         </h4>
-                                                        <span>{{ $PresensiPulang != null && $PresensiPulang->jam_out != null ? $PresensiPulang->jam_out : 'Belum Absen' }}</span>
+                                                        <span>{{ $PresensiPulang != null && $PresensiPulang->jam_out != null ? $PresensiPulang->jam_out : '-' }}</span>
                                                     </div>
                                                 </div>
                                             </div>

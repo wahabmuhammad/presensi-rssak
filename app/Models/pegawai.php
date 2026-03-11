@@ -12,6 +12,7 @@ class pegawai extends Model
     use HasFactory, Notifiable;
 
     protected $table = 'pegawai_m';
+    protected $primaryKey = 'id';
 
     protected $fillable = [
         'statusenabled',
@@ -42,14 +43,13 @@ class pegawai extends Model
     ];
 
     public $timestamps = false;
-    // protected $hidden = [
-    //     'password',
-    //     'remember_token',
-    // ];
 
-    
-    // protected $casts = [
-    //     'email_verified_at' => 'datetime',
-    //     'password' => 'hashed',
-    // ];
+    public function obatDanPeriksa()
+    {
+        return $this->hasMany(obatdanperiksa::class, 'pegawai_fk');
+    }
+    public function user()
+    {
+        return $this->hasOne(User::class, 'pegawai_fk');
+    }
 }

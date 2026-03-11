@@ -49,6 +49,15 @@ class UsersSeeder extends Seeder
                 'role' => 'pegawai',
                 'password'=>bcrypt('sarkies123')
             ],
+
+            [
+                'name' => 'Muhammad Abdul Wahab',
+                'nip' => 'admin',
+                'email' => 'xtkj2.abdulwahab.2018@gmail.com',
+                'jabatan' => 'TIM IT',
+                'role' => 'admin',
+                'password'=>bcrypt('sarkies1234')
+            ],
         ];
 
         foreach ($userData as $Key => $val){
