@@ -1370,6 +1370,19 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-lg-3">
+                            <div class="mb-3 position-relative">
+                                <label class="form-label">Periode Gaji</label>
+                                <input type="month" name="periodegaji" id="periodegajikopkar"
+                                    class="form-control @error('periodegaji') is-invalid @enderror"
+                                    placeholder="Periode Gaji">
+                                <!-- Suggestions will appear here -->
+                                <div class="card">
+                                    <ul id="suggestionsListKopkar" class="list-group suggestionsList"
+                                        style="display: none;"></ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-body" id="modalBodyBottom">
@@ -1418,32 +1431,32 @@
 
                                                 <div class="col-lg-2 mb-3">
                                                     <label class="form-label">Pokok</label>
-                                                    <input type="text" name="simpananpokok"
+                                                    <input type="text" name="simpananpokok" id="simpananpokok"
                                                         class="form-control">
                                                 </div>
 
                                                 <div class="col-lg-2 mb-3">
                                                     <label class="form-label">Wajib</label>
-                                                    <input type="text" name="simpananwajib"
+                                                    <input type="text" name="simpananwajib" id="simpananwajib"
                                                         class="form-control">
                                                 </div>
 
                                                 <div class="col-lg-2 mb-3">
                                                     <label class="form-label">Sukarela</label>
-                                                    <input type="text" name="simpanansukarela"
+                                                    <input type="text" name="simpanansukarela" id="simpanansukarela"
                                                         class="form-control">
                                                 </div>
 
                                                 <div class="col-lg-2 mb-3">
                                                     <label class="form-label">Idul Fitri</label>
-                                                    <input type="text" name="simpananidulfitri"
+                                                    <input type="text" name="simpananidulfitri" id="simpananidulfitri"
                                                         class="form-control">
                                                 </div>
 
                                                 {{-- Nama --}}
                                                 <div class="col-lg-2 mb-3">
                                                     <label class="form-label">Idul Adha</label>
-                                                    <input type="text" id="iduladha" name="simpananiduladha"
+                                                    <input type="text" id="simpananiduladha" name="simpananiduladha"
                                                         class="form-control">
                                                 </div>
 
@@ -1476,28 +1489,29 @@
 
                                                 <div class="col-lg-2 mb-3">
                                                     <label class="form-label">Angsuran Ke</label>
-                                                    <input type="text" name="angsuranke" class="form-control">
+                                                    <input type="text" name="angsuranke" id="angsuranke" class="form-control">
                                                 </div>
 
                                                 <div class="col-lg-2 mb-3">
                                                     <label class="form-label">Angsuran Pokok</label>
-                                                    <input type="text" name="angsuranpokok"
+                                                    <input type="text" name="angsuranpokok" id="angsuranpokok"
                                                         class="form-control">
                                                 </div>
 
                                                 <div class="col-lg-2 mb-3">
                                                     <label class="form-label">Jasa</label>
-                                                    <input type="text" name="angsuranjasa" class="form-control">
+                                                    <input type="text" name="angsuranjasa" id="angsuranjasa"
+                                                        class="form-control">
                                                 </div>
 
                                                 <div class="col-lg-2 mb-3">
                                                     <label class="form-label">Jumlah Angsuran</label>
-                                                    <input type="text" name="jumlahangsuran"
+                                                    <input type="text" name="jumlahangsuran" id="jumlahangsuran"
                                                         class="form-control">
                                                 </div>
                                                 <div class="col-lg-2 mb-3">
                                                     <label class="form-label">Total Simpan Pinjam</label>
-                                                    <input type="text" name="totalsimpanpinjam"
+                                                    <input type="text" name="totalsimpanpinjam" id="totalsimpanpinjam"
                                                         class="form-control">
                                                 </div>
                                             </div>
@@ -1524,17 +1538,17 @@
 
                                                 <div class="col-lg-2 mb-3">
                                                     <label class="form-label">Voucher</label>
-                                                    <input type="text" name="vouchertoko" class="form-control">
+                                                    <input type="text" name="vouchertoko" id="vouchertoko" class="form-control">
                                                 </div>
 
                                                 <div class="col-lg-2 mb-3">
                                                     <label class="form-label">Bon</label>
-                                                    <input type="text" name="bontoko" class="form-control">
+                                                    <input type="text" name="bontoko" id="bontoko" class="form-control">
                                                 </div>
 
                                                 <div class="col-lg-2 mb-3">
                                                     <label class="form-label">Jumlah Toko</label>
-                                                    <input type="text" name="jumlahtoko" class="form-control">
+                                                    <input type="text" name="jumlahtoko" id="jumlahtoko" class="form-control">
                                                 </div>
                                             </div>
                                         </div>
@@ -1560,28 +1574,28 @@
 
                                                 <div class="col-lg-2 mb-3">
                                                     <label class="form-label">Angsuran Ke</label>
-                                                    <input type="text" name="angsurankreditke" class="form-control">
+                                                    <input type="text" name="angsurankreditke" id="angsurankreditke" class="form-control">
                                                 </div>
 
                                                 <div class="col-lg-2 mb-3">
                                                     <label class="form-label">Angsuran Pokok</label>
-                                                    <input type="text" name="angsurankreditpokok"
+                                                    <input type="text" name="angsurankreditpokok" id="angsurankreditpokok"
                                                         class="form-control">
                                                 </div>
 
                                                 <div class="col-lg-2 mb-3">
                                                     <label class="form-label">Jasa</label>
-                                                    <input type="text" name="angsurankreditjasa" class="form-control">
+                                                    <input type="text" name="angsurankreditjasa" id="angsurankreditjasa" class="form-control">
                                                 </div>
 
                                                 <div class="col-lg-2 mb-3">
                                                     <label class="form-label">Jumlah Angsuran</label>
-                                                    <input type="text" name="angsurankreditjumlah"
+                                                    <input type="text" name="jumlahangsurankredit" id="jumlahangsurankredit"
                                                         class="form-control">
                                                 </div>
                                                 <div class="col-lg-2 mb-3">
                                                     <label class="form-label">Total Simpan Pinjam</label>
-                                                    <input type="text" name="totalsemua"
+                                                    <input type="text" name="totalsemua" id="totalsemuakoperasi"
                                                         class="form-control">
                                                 </div>
                                             </div>
