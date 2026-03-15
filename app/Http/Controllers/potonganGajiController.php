@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\kopkarpegawai;
 use App\Models\kretabpegawai;
 use App\Models\obatdanperiksa;
+use App\Models\potonganLain;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -291,6 +292,98 @@ class potonganGajiController extends Controller
 
     public function potongan_lain_pegawai_index()
     {
-        return view('admin.penggajian.potonganLain');
+        return view('admin.penggajian.potonganlain');
     }
+
+    public function get_data_potongan_lain(Request $request)
+    {
+        $keyword  = $request->keyword;
+        $periodegaji = $request->periodegaji;
+
+        $query = DB::table('potonganlain_t as k')
+            ->join('pegawai_m as p', 'p.id', '=', 'k.pegawai_fk')
+            ->select(
+                'k.id',
+                'p.nip as nip_pegawai',
+                'p.nama_lengkap as nama_pegawai',
+                'k.periodegaji',
+                'k.bukopin',
+                'k.btcls',
+                'k.lainnya',
+                'k.gajiproporsi',
+                'k.diklat',
+                'k.seragam',
+                'k.kasunit',
+                'k.jumlah',
+                'k.keterangan'
+            );
+
+        // FILTER KEYWORD
+        if ($keyword) {
+            $query->where(function ($q) use ($keyword) {
+                $q->where('p.nip', 'ilike', "%$keyword%")
+                ->orWhere('p.nama_lengkap', 'ilike', "%$keyword%");
+            });
+        }
+
+        // FILTER PERIODE GAJI
+        if ($periodegaji) {
+            $query->whereRaw("TO_CHAR(k.periodegaji,'YYYY-MM') = ?", [$periodegaji]);
+        }
+
+        $data = $query->orderBy('k.created_at', 'asc')
+            ->paginate(10)
+            ->withQueryString();
+
+        return response()->json([
+            'datas' => $data->items(),
+            'pagination' => (string) $data->links()
+        ]);
+    }
+
+    public function simpanPotonganLain(Request $request)
+    {
+        // dd($request->all());
+        $validated = $request->validate([
+            'pegawai_fk'        => 'required|integer|exists:pegawai_m,id',
+            'periodegaji'       => 'required',
+            'bukopin'          => 'nullable|numeric|min:0',
+            'btcls'            => 'nullable|numeric|min:0',
+            'lainnya'          => 'nullable|numeric|min:0',
+            'gajiproporsi'      => 'nullable|numeric|min:0',
+            'diklat'           => 'nullable|numeric|min:0',
+            'seragam'          => 'nullable|numeric|min:0',
+            'kasunit'         => 'nullable|numeric|min:0',
+            'jumlah'          => 'required|numeric|min:0',
+            'keterangan'       => 'nullable|string',
+        ]);
+
+        try {
+            // Convert YYYY-MM menjadi YYYY-MM-01
+            $periodeGaji = $validated['periodegaji'] . '-01';
+            $data = potonganLain::create([
+                'pegawai_fk'   => $validated['pegawai_fk'],
+                'periodegaji'  => $periodeGaji,
+                'bukopin'      => $validated['bukopin'] ?? 0,
+                'btcls'        => $validated['btcls'] ?? 0,
+                'lainnya'      => $validated['lainnya'] ?? 0,
+                'gajiproporsi'  => $validated['gajiproporsi'] ?? 0,
+                'diklat'       => $validated['diklat'] ?? 0,
+                'seragam'      => $validated['seragam'] ?? 0,
+                'kasunit'     => $validated['kasunit'] ?? 0,
+                'jumlah'      => $validated['jumlah'],
+                'keterangan'   => $validated['keterangan'] ?? null,
+            ]);
+            return response()->json([
+                'success' => true,
+                'message' => 'Data berhasil disimpan',
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Gagal menyimpan data',
+                'error'   => $e->getMessage(),
+            ], 500);
+        }
+    }   
 }

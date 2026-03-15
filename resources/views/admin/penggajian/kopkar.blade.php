@@ -610,12 +610,12 @@
                 pegawaiId = null;
             });
 
-            function toNumber(val){
-                if(val == "") return 0;
-                return parseFloat(val.toString().replace(/,/g,'')) || 0;
+            function toNumber(val) {
+                if (val == "") return 0;
+                return parseFloat(val.toString().replace(/,/g, '')) || 0;
             }
 
-            function hitungSimpanan(){
+            function hitungSimpanan() {
                 let pokok = toNumber($("#simpananpokok").val());
                 let wajib = toNumber($("#simpananwajib").val());
                 let sukarela = toNumber($("#simpanansukarela").val());
@@ -629,7 +629,7 @@
                 hitungTotalSemua();
             }
 
-            function hitungPinjaman(){
+            function hitungPinjaman() {
                 let pokok = toNumber($("#angsuranpokok").val());
                 let jasa = toNumber($("#angsuranjasa").val());
 
@@ -640,7 +640,7 @@
                 hitungTotalSemua();
             }
 
-            function hitungToko(){
+            function hitungToko() {
                 let voucher = toNumber($("#vouchertoko").val());
                 let bon = toNumber($("#bontoko").val());
 
@@ -651,7 +651,7 @@
                 hitungTotalSemua();
             }
 
-            function hitungKredit(){
+            function hitungKredit() {
                 let pokok = toNumber($("#angsurankreditpokok").val());
                 let jasa = toNumber($("#angsurankreditjasa").val());
 
@@ -662,7 +662,7 @@
                 hitungTotalSemua();
             }
 
-            function hitungTotalSemua(){
+            function hitungTotalSemua() {
                 let simpanan = toNumber($("#jumlahsimpanan").val());
                 let pinjaman = toNumber($("#jumlahangsuran").val());
                 let toko = toNumber($("#jumlahtoko").val());
@@ -674,22 +674,24 @@
                 $("#totalsemuakoperasi").val(total);
             }
             // Event Simpanan
-            $("#simpananpokok, #simpananwajib, #simpanansukarela, #simpananidulfitri, #simpananiduladha").on("keyup change", function(){
-                hitungSimpanan();
-            });
+            $("#simpananpokok, #simpananwajib, #simpanansukarela, #simpananidulfitri, #simpananiduladha").on(
+                "keyup change",
+                function() {
+                    hitungSimpanan();
+                });
 
             // Event Pinjaman
-            $("#angsuranpokok, #angsuranjasa").on("keyup change", function(){
+            $("#angsuranpokok, #angsuranjasa").on("keyup change", function() {
                 hitungPinjaman();
             });
 
             // Event Toko
-            $("#vouchertoko, #bontoko").on("keyup change", function(){
+            $("#vouchertoko, #bontoko").on("keyup change", function() {
                 hitungToko();
             });
 
             // Event Kredit Barang
-            $("#angsurankreditpokok, #angsurankreditjasa").on("keyup change", function(){
+            $("#angsurankreditpokok, #angsurankreditjasa").on("keyup change", function() {
                 hitungKredit();
             });
         });

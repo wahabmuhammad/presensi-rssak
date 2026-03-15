@@ -111,10 +111,10 @@ Route::middleware(['auth', 'cekAdmin'])->group(function () {
 
     //Route BPJS Pegawai
     // Route::get('/bpjs-pegawai', [adminController::class, 'bpjs_pegawai_index'])->name('bpjsPegawaiIndex');
-    Route::get('/bpjs-ditanggung-rsa', [adminController::class, 'bpjs_kesehatan_index'])->name('bpjsditanggungRSA');
-    Route::get('/bpjs-ditanggung-rsa/get-data-bpjs-kesehatan', [adminController::class, 'get_data_bpjs_kesehatan'])->name('getDataBpjsKesehatan'); //for ajax pagination dan search bpjs kesehatan
-    Route::get('/bpjs-ketenagakerjaan', [adminController::class, 'bpjs_ketenagakerjaan_index'])->name('bpjsditanggungPegawai');
-    Route::get('/bpjs-ketenagakerjaan/get-data-bpjs-ketenagakerjaan', [adminController::class, 'get_data_bpjs_ketenagakerjaan'])->name('getDataBpjsKetenagakerjaan'); //for ajax pagination dan search bpjs ketenagakerjaan
+    Route::get('/bpjs-ditanggung-rsa', [adminController::class, 'bpjs_ditanggung_rsa_index'])->name('bpjsditanggungRSA');
+    Route::get('/bpjs-ditanggung-rsa/get-data-bpjs-ditanggung-rsa', [adminController::class, 'get_data_bpjs_ditanggung_rsa'])->name('getDataBpjsKesehatan'); //for ajax pagination dan search bpjs kesehatan
+    Route::get('/bpjs-ditanggung-pegawai', [adminController::class, 'bpjs_ditanggung_pegawai_index'])->name('bpjsditanggungPegawai');
+    Route::get('/bpjs-ditanggung-pegawai/get-data-bpjs-ditanggung-pegawai', [adminController::class, 'get_data_bpjs_ditanggung_pegawai'])->name('getDataBpjsKetenagakerjaan'); //for ajax pagination dan search bpjs ketenagakerjaan
 
     //Group Route Potongan Gaji
     Route::controller(potonganGajiController::class)->group(function () {
@@ -128,6 +128,8 @@ Route::middleware(['auth', 'cekAdmin'])->group(function () {
         Route::get('/potongan/koperasi-pegawai/get-data-koperasi', 'get_data_koperasi')->name('getDataKoperasi'); //for ajax pagination dan search koperasi
         Route::post('/potongan/koperasi-pegawai/simpan', 'simpanKoperasi')->name('simpanKoperasi');
         Route::get('/potongan/potongan-lain-pegawai', 'potongan_lain_pegawai_index')->name('potonganLainPegawaiIndex');
+        Route::get('/potongan/potongan-lain-pegawai/get-data-potongan-lain', 'get_data_potongan_lain')->name('getDataPotonganLain'); //for ajax pagination dan search potongan lain
+        Route::post('/potongan/potongan-lain-pegawai/simpan', 'simpanPotonganLain')->name('simpanPotonganLain');
     });
 
 
