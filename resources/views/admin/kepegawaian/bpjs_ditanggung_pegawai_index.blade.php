@@ -177,7 +177,7 @@
             }
             function loadData(page = 1) {
                 $.ajax({
-                    url: '{{ url('/bpjs-ketenagakerjaan/get-data-bpjs-ketenagakerjaan?page=') }}' + page,
+                    url: '{{ url('/bpjs-ditanggung-pegawai/get-data-bpjs-ditanggung-pegawai?page=') }}' + page,
                     method: 'GET',
                     dataType: 'json',
                     beforeSend: function() {
@@ -225,7 +225,7 @@
 
             function searchData(keyword, page = 1) {
                 $.ajax({
-                    url: '{{ url('/bpjs-ketenagakerjaan/get-data-bpjs-ketenagakerjaan?page=') }}' + page,
+                    url: '{{ url('/bpjs-ditanggung-pegawai/get-data-bpjs-ditanggung-pegawai?page=') }}' + page,
                     method: 'GET',
                     dataType: 'json',
                     data: {
@@ -273,7 +273,11 @@
             $(document).on('click', '.pagination a', function(e) {
                 e.preventDefault();
                 var page = $(this).attr('href').split('page=')[1];
-                loadData(page);
+                if ($('#search').val().length > 0) {
+                    searchData($('#search').val(), page);
+                } else {
+                    loadData(page);
+                }
             });
 
             $('#search').on('keyup', function() {

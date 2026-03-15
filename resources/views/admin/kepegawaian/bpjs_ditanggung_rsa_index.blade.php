@@ -174,7 +174,7 @@
             }
             function loadData(page = 1) {
                 $.ajax({
-                    url: '{{ url('/bpjs-ditanggung-rsa/get-data-bpjs-kesehatan?page=') }}' + page,
+                    url: '{{ url('/bpjs-ditanggung-rsa/get-data-bpjs-ditanggung-rsa?page=') }}' + page,
                     method: 'GET',
                     dataType: 'json',
                     beforeSend: function() {
@@ -221,7 +221,7 @@
 
             function searchData(keyword, page = 1) {
                 $.ajax({
-                    url: '{{ url('/bpjs-ditanggung-rsa/get-data-bpjs-kesehatan?page=') }}' + page,
+                    url: '{{ url('/bpjs-ditanggung-rsa/get-data-bpjs-ditanggung-rsa?page=') }}' + page,
                     method: 'GET',
                     dataType: 'json',
                     data: {
@@ -268,7 +268,11 @@
             $(document).on('click', '.pagination a', function(e) {
                 e.preventDefault();
                 var page = $(this).attr('href').split('page=')[1];
-                loadData(page);
+                if ($('#search').val().length > 0) {
+                    searchData($('#search').val(), page);
+                } else {
+                    loadData(page);
+                }
             });
 
             $('#search').on('keyup', function() {

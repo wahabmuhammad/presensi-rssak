@@ -792,12 +792,12 @@ class adminController extends Controller
     }
 
     //BPJS function index
-    public function bpjs_kesehatan_index()
+    public function bpjs_ditanggung_rsa_index()
     {
-        return view('admin.kepegawaian.bpjs_kesehatan_index');
+        return view('admin.kepegawaian.bpjs_ditanggung_rsa_index');
     }
-    //function get_data_bpjs_kesehatan
-    public function get_data_bpjs_kesehatan(Request $request)
+    //function get_data_bpjs_ditanggung_rsa
+    public function get_data_bpjs_ditanggung_rsa(Request $request)
     {
         $keyword = $request->keyword;
 
@@ -862,12 +862,12 @@ class adminController extends Controller
         ]);
     }
     //BPJS TK function index
-    public function bpjs_ketenagakerjaan_index()
+    public function bpjs_ditanggung_pegawai_index()
     {
-        return view('admin.kepegawaian.bpjs_tenagakerja_index');
+        return view('admin.kepegawaian.bpjs_ditanggung_pegawai_index');
     }
 
-    public function get_data_bpjs_ketenagakerjaan(Request $request)
+    public function get_data_bpjs_ditanggung_pegawai(Request $request)
     {
         $keyword = $request->keyword;
 
