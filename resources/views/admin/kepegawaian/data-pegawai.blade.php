@@ -589,6 +589,8 @@
                         $('[name=nama_panggilan]').val(pegawai.nama_panggilan);
                         $('#editnama_lengkap').val(pegawai.nama_lengkap);
                         $('[name=alamat]').val(pegawai.alamat);
+                        $('[name=anakditanggung_bpjs]').val(pegawai.anakyangditanggung);
+                        $('[name=ortuditanggung_bpjs]').val(pegawai.ortuyangditanggung);
 
                         $('#modal-edit-pegawai').modal('show');
                     });

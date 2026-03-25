@@ -81,9 +81,6 @@
                             <label class="form-label">Golongan / MK</label>
                             <input type="text" name="gol_mk" class="form-control">
                         </div>
-
-
-
                     </div>
                 </div>
                 <div class="modal-body">
@@ -171,6 +168,18 @@
                         </div>
 
                         <input type="hidden" name="statusenabled" value="true">
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-6 mb-3">
+                            <label class="form-label">Anak yang Ditanggung BPJS</label>
+                            <input type="number" name="anakyangditanggung" class="form-control">
+                        </div>
+                        <div class="col-lg-6 mb-3">
+                            <label class="form-label">Ortu yang Ditanggung BPJS</label>
+                            <input type="number" name="ortuyangditanggung" class="form-control">
+                        </div>
                     </div>
                 </div>
 
@@ -363,6 +372,18 @@
                         <input type="hidden" name="statusenabled" value="true">
                     </div>
                 </div>
+                <div class="modal-body">
+                        <div class="row">
+                            <div class="col-lg-6 mb-3">
+                                <label class="form-label">Anak yang Ditanggung BPJS</label>
+                                <input type="number" name="anakyangditanggung" class="form-control">
+                            </div>
+                            <div class="col-lg-6 mb-3">
+                                <label class="form-label">Ortu yang Ditanggung BPJS</label>
+                                <input type="number" name="ortuyangditanggung" class="form-control">
+                            </div>
+                        </div>
+                    </div>
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-link" data-bs-dismiss="modal">Batal</button>
@@ -1264,7 +1285,7 @@
                         {{-- Nama --}}
                         <div class="col-lg-2 mb-3">
                             <label class="form-label">Nominal Debit</label>
-                            <input type="text" id="nominaldebit" name="debit" class="form-control">
+                            <input type="text" id="nominaldebit" name="nominaldebit" class="form-control">
                         </div>
                     </div>
                 </div>

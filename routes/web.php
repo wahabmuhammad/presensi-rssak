@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\cutiController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\historiPresensi_Controller;
+use App\Http\Controllers\lemburController;
 use App\Http\Controllers\potonganGajiController;
 use App\Http\Controllers\PresensiController;
 use App\Http\Controllers\presensiOut_Controller;
@@ -59,7 +60,7 @@ Route::middleware(['auth', 'cekAdmin'])->group(function () {
     //Route Slip Gaji Pegawai
     Route::get('/slip-gaji', [adminController::class, 'slip_gaji_pegawai_index'])->name('slip-gaji');
     Route::get('/slip-gaji-get-data', [adminController::class, 'get_data_slip_gaji'])->name('getDataSlipGaji');
-
+    
     Route::get('/user', [adminController::class, 'user'])->name('kepegawaianUser');
     Route::get('/gaji-pegawai', [adminController::class, 'inputGaji'])->name('gajiPegawai');
     Route::post('/user/create-user', [adminController::class, 'create_user'])->name('createUser');
@@ -131,7 +132,11 @@ Route::middleware(['auth', 'cekAdmin'])->group(function () {
         Route::get('/potongan/potongan-lain-pegawai/get-data-potongan-lain', 'get_data_potongan_lain')->name('getDataPotonganLain'); //for ajax pagination dan search potongan lain
         Route::post('/potongan/potongan-lain-pegawai/simpan', 'simpanPotonganLain')->name('simpanPotonganLain');
     });
-
+    
+    Route::controller(lemburController::class)->group(function () {
+        Route::get('/lembur/daftar-pengajuan-lembur', 'daftarpengajuanLemburIndex')->name('daftarPengajuanLemburIndex');
+        Route::get('/lembur/lembur-disetujui', 'lemburDisetujuiIndex')->name('lemburDisetujuiIndex');
+    });
 
     // Route Tunjangan Pegawai
     Route::get('/tunjangan-pegawai', [adminController::class, 'tunjangan_pegawai_index'])->name('tunjanganPegawaiIndex');

@@ -260,15 +260,15 @@
                                     Komponen Gaji Pegawai
                                 </a>
                                 <div class="dropend">
-                                    <a class="dropdown-item dropdown-toggle" href="#" data-bs-toggle="dropdown"
+                                    <a class="dropdown-item dropdown-toggle nav-link-title" href="#" data-bs-toggle="dropdown"
                                         data-bs-auto-close="outside">
                                         Lembur Pegawai
                                     </a>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="{{ route('bpjsditanggungRSA') }}">
+                                        <a class="dropdown-item" href="{{ route('daftarPengajuanLemburIndex') }}">
                                             Pengajuan Lembur
                                         </a>
-                                        <a class="dropdown-item" href="{{ route('bpjsditanggungPegawai') }}">
+                                        <a class="dropdown-item" href="{{ route('lemburDisetujuiIndex') }}">
                                             Lembur Disetujui
                                         </a>
                                     </div>
