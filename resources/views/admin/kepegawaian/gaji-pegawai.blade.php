@@ -155,6 +155,10 @@
     @include('admin.layout.modal')
     <script>
         $(document).ready(function() {
+            function formatRupiah(value) {
+                return value ? 'Rp ' + parseFloat(value).toLocaleString('id-ID') : '-';
+            }
+
             function loadData(page = 1) {
                 $.ajax({
                     url: '{{ url('/get-data-gaji-pegawai?page=') }}' + page,
@@ -177,10 +181,10 @@
                             html += '<td>' + rowNumber + '</td>';
                             html += '<td>' + item.nip_pegawai + '</td>';
                             html += '<td>' + item.nama_pegawai + '</td>';
-                            html += '<td>' + item.pgpns + '</td>';
+                            html += '<td>' + formatRupiah(item.pgpns) + '</td>';
                             html += '<td>' + item.tahunpgpns + '</td>';
-                            html += '<td>' + (item.dasarbpjsks ?? '-') + '</td>';
-                            html += '<td>' + (item.dasarbpjstk ?? '-') + '</td>';
+                            html += '<td>' + formatRupiah(item.dasarbpjsks) + '</td>';
+                            html += '<td>' + formatRupiah(item.dasarbpjstk) + '</td>';
                             html += '</tr>';
                         });
                         $('#tablePegawai').html(html);
@@ -220,10 +224,10 @@
                             html += '<td>' + rowNumber + '</td>';
                             html += '<td>' + item.nip_pegawai + '</td>';
                             html += '<td>' + item.nama_pegawai + '</td>';
-                            html += '<td>' + item.pgpns + '</td>';
+                            html += '<td>' + formatRupiah(item.pgpns) + '</td>';
                             html += '<td>' + item.tahunpgpns + '</td>';
-                            html += '<td>' + (item.dasarbpjsks ?? '-') + '</td>';
-                            html += '<td>' + (item.dasarbpjstk ?? '-') + '</td>';
+                            html += '<td>' + formatRupiah(item.dasarbpjsks) + '</td>';
+                            html += '<td>' + formatRupiah(item.dasarbpjstk) + '</td>';
                             html += '</tr>';
                         });
 

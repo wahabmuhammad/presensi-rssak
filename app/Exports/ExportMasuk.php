@@ -70,7 +70,7 @@ class  ExportMasuk implements FromCollection, WithHeadings, WithDrawings
                 $drawingMasuk->setDescription('Foto Masuk');
                 $drawingMasuk->setPath(public_path('storage/' . $item->foto_in));
                 $drawingMasuk->setHeight(70);
-                $drawingMasuk->setCoordinates('F' . $row);
+                $drawingMasuk->setCoordinates('D' . $row);
 
                 $drawings[] = $drawingMasuk;
             }

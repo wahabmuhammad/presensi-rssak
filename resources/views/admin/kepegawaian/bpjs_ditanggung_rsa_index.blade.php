@@ -19,7 +19,7 @@
                             Administrator
                         </div>
                         <h2 class="page-title">
-                            Data BPJS Ditannggung Pegawai
+                            Data BPJS Ditanggung Rumah Sakit
                         </h2>
                     </div>
                     <!-- Page title actions -->
@@ -119,27 +119,24 @@
                                 <th rowspan="3">Nama Pegawai</th>
                                 <th rowspan="3">Status Pegawai</th>
                                 <th rowspan="3">Dasar iur BPJS KS</th>
-                                <th colspan="4">BPJS KS</th>
+                                <th colspan="1">BPJS KS</th>
                                 <th rowspan="3">Dasar iur BPJS TK</th>
                                 <th colspan="5">BPJS TK</th>
                             </tr>
                             <tr>
-                                <th colspan="1">Pegawai</th>
-                                <th colspan="1">Anak Ke-4</th>
-                                <th colspan="1">Ortu / Mertua</th>
-                                <th colspan="1">BPJS KS</th>
+                                <th rowspan="3">4%</th>
                                 <th colspan="1">JHT</th>
+                                <th colspan="1">JKK</th>
+                                <th colspan="1">JKM</th>
                                 <th colspan="1">JP</th>
                                 <th colspan="1">BPJS TK</th>
                             </tr>
                             <tr>
-                                <th rowspan="3">1%</th>
-                                <th rowspan="3">1%</th>
-                                <th rowspan="3">1%</th>
-                                <th rowspan="3">...</th>
+                                <th rowspan="3">3,7%</th>
+                                <th rowspan="3">0,24%</th>
+                                <th rowspan="3">0,3%</th>
                                 <th rowspan="3">2%</th>
-                                <th rowspan="3">1%</th>
-                                <th rowspan="3">3%</th>
+                                <th rowspan="3">6,24%</th>
                             </tr>
                         </thead>
                         <tbody id="tablePegawai">
@@ -172,9 +169,12 @@
     @include('admin.layout.modal')
     <script>
         $(document).ready(function() {
+            function formatRupiah(value) {
+                return value ? 'Rp ' + parseFloat(value).toLocaleString('id-ID') : '-';
+            }
             function loadData(page = 1) {
                 $.ajax({
-                    url: '{{ url('/bpjs-ketenagakerjaan/get-data-bpjs-ketenagakerjaan?page=') }}' + page,
+                    url: '{{ url('/bpjs-ditanggung-rsa/get-data-bpjs-ditanggung-rsa?page=') }}' + page,
                     method: 'GET',
                     dataType: 'json',
                     beforeSend: function() {
@@ -195,15 +195,14 @@
                             html += '<td>' + item.nip_pegawai + '</td>';
                             html += '<td>' + item.nama_pegawai + '</td>';
                             html += '<td>' + item.status_kerja + '</td>';
-                            html += '<td>' + (item.dasarbpjsks ?? '-') + '</td>';
-                            html += '<td>' + (item.bpjsks_pegawai ?? '-') + '</td>';
-                            html += '<td>' + (item.bpjsks_anak ?? '-') + '</td>';
-                            html += '<td>' + (item.bpjsks_ortu ?? '-') + '</td>';
-                            html += '<td>' + (item.total_bpjsks ?? '-') + '</td>';
-                            html += '<td>' + (item.dasarbpjstk   ?? '-') + '</td>';
-                            html += '<td>' + (item.jht ?? '-') + '</td>';
-                            html += '<td>' + (item.jp ?? '-') + '</td>';
-                            html += '<td>' + (item.total_bpjs_tk ?? '-') + '</td>';
+                            html += '<td>' + formatRupiah(item.dasarbpjsks) + '</td>';
+                            html += '<td>' + formatRupiah(item.bpjs_kesehatan) + '</td>';
+                            html += '<td>' + formatRupiah(item.dasarbpjstk) + '</td>';
+                            html += '<td>' + formatRupiah(item.jht) + '</td>';
+                            html += '<td>' + formatRupiah(item.jkk) + '</td>';
+                            html += '<td>' + formatRupiah(item.jkm) + '</td>';
+                            html += '<td>' + formatRupiah(item.jp ?? '-') + '</td>';
+                            html += '<td>' + formatRupiah(item.total_bpjs_tk ?? '-') + '</td>';
                             html += '</tr>';
                         });
                         $('#tablePegawai').html(html);
@@ -222,7 +221,7 @@
 
             function searchData(keyword, page = 1) {
                 $.ajax({
-                    url: '{{ url('/bpjs-ketenagakerjaan/get-data-bpjs-ketenagakerjaan') }}',
+                    url: '{{ url('/bpjs-ditanggung-rsa/get-data-bpjs-ditanggung-rsa?page=') }}' + page,
                     method: 'GET',
                     dataType: 'json',
                     data: {
@@ -244,15 +243,14 @@
                             html += '<td>' + item.nip_pegawai + '</td>';
                             html += '<td>' + item.nama_pegawai + '</td>';
                             html += '<td>' + item.status_kerja + '</td>';
-                            html += '<td>' + (item.dasarbpjsks ?? '-') + '</td>';
-                            html += '<td>' + (item.bpjsks_pegawai ?? '-') + '</td>';
-                            html += '<td>' + (item.bpjsks_anak ?? '-') + '</td>';
-                            html += '<td>' + (item.bpjsks_ortu ?? '-') + '</td>';
-                            html += '<td>' + (item.total_bpjsks ?? '-') + '</td>';
-                            html += '<td>' + (item.dasarbpjstk   ?? '-') + '</td>';
-                            html += '<td>' + (item.jht ?? '-') + '</td>';
-                            html += '<td>' + (item.jp ?? '-') + '</td>';
-                            html += '<td>' + (item.total_bpjs_tk ?? '-') + '</td>';
+                            html += '<td>' + formatRupiah(item.dasarbpjsks) + '</td>';
+                            html += '<td>' + formatRupiah(item.bpjs_kesehatan) + '</td>';
+                            html += '<td>' + formatRupiah(item.dasarbpjstk) + '</td>';
+                            html += '<td>' + formatRupiah(item.jht) + '</td>';
+                            html += '<td>' + formatRupiah(item.jkk) + '</td>';
+                            html += '<td>' + formatRupiah(item.jkm) + '</td>';
+                            html += '<td>' + formatRupiah(item.jp ?? '-') + '</td>';
+                            html += '<td>' + formatRupiah(item.total_bpjs_tk ?? '-') + '</td>';
                             html += '</tr>';
                         });
 
@@ -270,7 +268,11 @@
             $(document).on('click', '.pagination a', function(e) {
                 e.preventDefault();
                 var page = $(this).attr('href').split('page=')[1];
-                loadData(page);
+                if ($('#search').val().length > 0) {
+                    searchData($('#search').val(), page);
+                } else {
+                    loadData(page);
+                }
             });
 
             $('#search').on('keyup', function() {

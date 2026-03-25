@@ -1,5 +1,4 @@
 @extends('admin.layout.masterLayout')
-
 @section('content')
     <div class="container-xl">
         <div class="page-header d-print-none">
@@ -20,7 +19,7 @@
                             Administrator
                         </div>
                         <h2 class="page-title">
-                            Data Obat dan Periksa Pegawai
+                            Data Kretab Pegawai
                         </h2>
                     </div>
                     <!-- Page title actions -->
@@ -37,14 +36,14 @@
                                     <path d="M6 21v-2a4 4 0 0 1 4 -4h3.5" />
                                     <path d="M18.42 15.61a2.1 2.1 0 0 1 2.97 2.97l-3.39 3.42h-3v-3l3.42 -3.39" />
                                 </svg>
-                                Edit Obat dan Periksa Pegawai
+                                Edit Kretab Pegawai
                             </button>
                         </div>
                     </div>
                     <div class="col-auto ms-auto d-print-none">
                         <div class="btn-list">
                             <button class="btn btn-primary d-none d-sm-inline-block" data-bs-toggle="modal"
-                                data-bs-target="#modal-input-obat-periksa">
+                                data-bs-target="#modal-input-kretab">
                                 <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -58,7 +57,7 @@
                                         d="M10 20.25c0 .414 .336 .75 .75 .75h1.25a1 1 0 0 0 1 -1v-1a1 1 0 0 0 -1 -1h-1a1 1 0 0 1 -1 -1v-1a1 1 0 0 1 1 -1h1.25a.75 .75 0 0 1 .75 .75" />
                                     <path d="M16 15l2 6l2 -6" />
                                 </svg>
-                                Tambah Obat dan Periksa Pegawai
+                                Tambah Kretab Pegawai
                             </button>
                             {{-- <a href="" class="btn btn-primary d-sm-none btn-icon" data-bs-toggle="modal"
                                 data-bs-target="#modal-komponen-gaji" aria-label="Buat User Baru">
@@ -94,8 +93,8 @@
                         <div class="col ms-auto text-secondary">
                             <label class="form-label" for="date_start">Tanggal Awal</label>
                             <div class="input-group">
-                                <input type="date" id="tglAwal" value="{{ Request::get('date_start') }}" class="form-control"
-                                    placeholder="" name="date_start" aria-label="Search in website">
+                                <input type="date" id="tglAwal" value="{{ Request::get('date_start') }}"
+                                    class="form-control" placeholder="" name="date_start" aria-label="Search in website">
                                 <span class="input-group-text" id="basic-addon1">
                                     <!-- Download SVG icon from http://tabler-icons.io/i/search -->
                                     <svg xmlns="http://www.w3.org/2000/svg"
@@ -116,8 +115,8 @@
                         <div class="col ms-auto text-secondary">
                             <label class="form-label" for="date_to">Tanggal Akhir</label>
                             <div class="input-group">
-                                <input type="date" id="tglAkhir" value="{{ Request::get('date_to') }}" class="form-control"
-                                    placeholder="" name="date_to" aria-label="Search in website">
+                                <input type="date" id="tglAkhir" value="{{ Request::get('date_to') }}"
+                                    class="form-control" placeholder="" name="date_to" aria-label="Search in website">
                                 <span class="input-group-text" id="basic-addon1">
                                     <!-- Download SVG icon from http://tabler-icons.io/i/search -->
                                     <svg xmlns="http://www.w3.org/2000/svg"
@@ -164,8 +163,8 @@
                                 <th>NIP</th>
                                 <th>Nama Pegawai</th>
                                 <th>Periode Gaji</th>
-                                <th>Tanggal Transaksi</th>
-                                <th>Debit</th>
+                                <th>Periode Angsuran</th>
+                                <th>Nominal</th>
                                 <th>Keterangan</th>
                             </tr>
                         </thead>
@@ -205,7 +204,7 @@
 
             function loadData(page = 1) {
                 $.ajax({
-                    url: '{{ url('/potongan/obat-periksa-pegawai/get-data-obat-periksa?page=') }}' + page,
+                    url: '{{ url('/potongan/kretab-pegawai/get-data-kretab?page=') }}' + page,
                     method: 'GET',
                     data: {
                         keyword: $('#search').val(),
@@ -234,7 +233,7 @@
                                 <td>${item.nama_pegawai ?? '-'}</td>
                                 <td>${item.periodegaji ?? '-'}</td>
                                 <td>${item.tanggaltransaksi ?? '-'}</td>
-                                <td>Rp ${parseFloat(item.debit).toLocaleString('id-ID')}</td>
+                                <td>Rp ${parseFloat(item.nominal).toLocaleString('id-ID')}</td>
                                 <td>${item.keterangan ?? '-'}</td>
                             </tr>
                             `;
@@ -255,7 +254,7 @@
 
             function searchData(keyword, page = 1) {
                 $.ajax({
-                    url: '{{ url('/potongan/obat-periksa-pegawai/get-data-obat-periksa?page=') }}' + page,
+                    url: '{{ url('/potongan/kretab-pegawai/get-data-kretab?page=') }}' + page,
                     method: 'GET',
                     dataType: 'json',
                     data: {
@@ -282,7 +281,7 @@
                                 <td>${item.nama_pegawai ?? '-'}</td>
                                 <td>${item.periodegaji ?? '-'}</td>
                                 <td>${item.tanggaltransaksi ?? '-'}</td>
-                                <td>Rp ${parseFloat(item.debit).toLocaleString('id-ID')}</td>
+                                <td>Rp ${parseFloat(item.nominal).toLocaleString('id-ID')}</td>
                                 <td>${item.keterangan ?? '-'}</td>
                             </tr>
                             `;
@@ -301,16 +300,16 @@
             }
 
             function showSuggestions() {
-                $('#suggestionsListobatperiksa').show();
+                $('#suggestionsListkretab').show();
                 $('#modalBodyBottom').addClass('with-suggestion');
             }
 
             function hideSuggestions() {
-                $('#suggestionsListobatperiksa').hide();
+                $('#suggestionsListkretab').hide();
                 $('#modalBodyBottom').removeClass('with-suggestion');
             }
 
-            $('#namapegawaiobatperiksa').on('keyup', function() {
+            $('#namapegawaikretab').on('keyup', function() {
                 let query = $(this).val();
                 if (query.length > 1) { // Start searching after 1 characters
                     $.ajax({
@@ -321,7 +320,7 @@
                         },
                         success: function(response) {
                             // Show the suggestions
-                            let suggestionsList = $('#suggestionsListobatperiksa');
+                            let suggestionsList = $('#suggestionsListkretab');
                             suggestionsList.empty(); // Clear previous suggestions
                             if (response.length > 0) {
                                 response.forEach(function(item) {
@@ -371,11 +370,11 @@
 
 
             // Select a suggestion
-            $(document).on('click', '#suggestionsListobatperiksa li', function() {
+            $(document).on('click', '#suggestionsListkretab li', function() {
                 let selectedText = $(this).text();
                 let selectedId = $(this).data('id');
-                $('#namapegawaiobatperiksa').val(selectedText);
-                $('#idpegawaiobatperiksa').val(selectedId);
+                $('#namapegawaikretab').val(selectedText);
+                $('#idpegawaikretab').val(selectedId);
                 $.ajax({
                     url: '{{ url('/get-komponen-gaji/pegawai') }}', // Adjust URL if needed
                     method: 'GET',
@@ -391,14 +390,14 @@
 
             //ketika diklik di luar suggestionsList, maka suggestionsList hilang
             $(document).on('click', function(e) {
-                if (!$(e.target).closest('#namapegawaiobatperiksa, #suggestionsListobatperiksa').length) {
+                if (!$(e.target).closest('#namapegawaikretab, #suggestionsListkretab').length) {
                     hideSuggestions();
                 }
             });
 
             function saveData(formData) {
                 $.ajax({
-                    url: 'obat-periksa-pegawai/simpan', // Adjust this URL to your save endpoint
+                    url: '{{ url('/potongan/kretab-pegawai/simpan') }}', // Adjust this URL to your save endpoint
                     method: 'POST',
                     data: formData,
                     dataType: 'json',
@@ -440,7 +439,7 @@
                 });
             }
 
-            $('#form-inputobatperiksa').on('submit', function(e) {
+            $('#form-inputkretab').on('submit', function(e) {
                 e.preventDefault(); // Prevent the default form submission
 
                 let formData = $(this).serialize(); // Serialize the form data

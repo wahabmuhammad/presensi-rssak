@@ -4,9 +4,9 @@
             aria-controls="sidebar-menu" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <h1 class="navbar-brand navbar-brand-autodark">
+        <h1 class="navbar-brand navbar-brand">
             <a href="{{ route('adminDashboardadmin') }}">
-                <img src="{{ asset('tabler/static/logo-small.svg') }}" width="110" height="32"
+                <img src="{{ asset('assets/img/Logo_RSSA.svg') }}" width="110" height="32"
                     class="navbar-brand-image">
                 <span>RSSAK</span>
             </a>
@@ -260,15 +260,15 @@
                                     Komponen Gaji Pegawai
                                 </a>
                                 <div class="dropend">
-                                    <a class="dropdown-item dropdown-toggle" href="#" data-bs-toggle="dropdown"
+                                    <a class="dropdown-item dropdown-toggle nav-link-title" href="#" data-bs-toggle="dropdown"
                                         data-bs-auto-close="outside">
                                         Lembur Pegawai
                                     </a>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="{{ route('bpjsditanggungRSA') }}">
+                                        <a class="dropdown-item" href="{{ route('daftarPengajuanLemburIndex') }}">
                                             Pengajuan Lembur
                                         </a>
-                                        <a class="dropdown-item" href="{{ route('bpjsditanggungPegawai') }}">
+                                        <a class="dropdown-item" href="{{ route('lemburDisetujuiIndex') }}">
                                             Lembur Disetujui
                                         </a>
                                     </div>

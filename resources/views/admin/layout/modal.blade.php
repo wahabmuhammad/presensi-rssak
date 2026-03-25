@@ -81,9 +81,6 @@
                             <label class="form-label">Golongan / MK</label>
                             <input type="text" name="gol_mk" class="form-control">
                         </div>
-
-
-
                     </div>
                 </div>
                 <div class="modal-body">
@@ -171,6 +168,18 @@
                         </div>
 
                         <input type="hidden" name="statusenabled" value="true">
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-6 mb-3">
+                            <label class="form-label">Anak yang Ditanggung BPJS</label>
+                            <input type="number" name="anakyangditanggung" class="form-control">
+                        </div>
+                        <div class="col-lg-6 mb-3">
+                            <label class="form-label">Ortu yang Ditanggung BPJS</label>
+                            <input type="number" name="ortuyangditanggung" class="form-control">
+                        </div>
                     </div>
                 </div>
 
@@ -363,6 +372,18 @@
                         <input type="hidden" name="statusenabled" value="true">
                     </div>
                 </div>
+                <div class="modal-body">
+                        <div class="row">
+                            <div class="col-lg-6 mb-3">
+                                <label class="form-label">Anak yang Ditanggung BPJS</label>
+                                <input type="number" name="anakyangditanggung" class="form-control">
+                            </div>
+                            <div class="col-lg-6 mb-3">
+                                <label class="form-label">Ortu yang Ditanggung BPJS</label>
+                                <input type="number" name="ortuyangditanggung" class="form-control">
+                            </div>
+                        </div>
+                    </div>
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-link" data-bs-dismiss="modal">Batal</button>
@@ -1055,21 +1076,25 @@
                                 </div>
                                 <div class="col-md-3 mb-3">
                                     <label>Nama Tunjangan</label>
-                                    <input type="text" name="namatunjangan" id="jabatan_fungsional" class="form-control" readonly>
+                                    <input type="text" name="namatunjangan" id="jabatan_fungsional"
+                                        class="form-control" readonly>
                                 </div>
                                 <div class="col-md-3 mb-3">
                                     <label>Persentase Tunjangan</label>
-                                    <input type="number" step="0.01" name="persentase_tunjangan" class="form-control" id="persentase_tunjangan">
+                                    <input type="number" step="0.01" name="persentase_tunjangan"
+                                        class="form-control" id="persentase_tunjangan">
                                 </div>
 
                                 <div class="col-md-3 mb-3">
                                     <label>Indeks</label>
-                                    <input type="number" name="indeks_tunjangan" class="form-control" id="indeks_tunjangan">
+                                    <input type="number" name="indeks_tunjangan" class="form-control"
+                                        id="indeks_tunjangan">
                                 </div>
 
                                 <div class="col-md-3 mb-3">
                                     <label>Nilai</label>
-                                    <input type="number" name="nilai_tunjangan" class="form-control" id="nilai_tunjangan">
+                                    <input type="number" name="nilai_tunjangan" class="form-control"
+                                        id="nilai_tunjangan">
                                 </div>
 
                                 <div class="col-md-3 mb-3">
@@ -1107,7 +1132,8 @@
 
                                 <div class="col-md-4 mb-3">
                                     <label>Kode</label>
-                                    <input type="text" name="kode_tunjangan_jabatan" class="form-control" id="kode_tunjangan_jabatan">
+                                    <input type="text" name="kode_tunjangan_jabatan" class="form-control"
+                                        id="kode_tunjangan_jabatan">
                                     <!-- Suggestions will appear here -->
                                     <div class="card">
                                         <ul id="suggestionsListTunjanganJabatan" class="list-group suggestionsList"
@@ -1117,7 +1143,8 @@
 
                                 <div class="col-md-8 mb-3">
                                     <label>Nama Jabatan</label>
-                                    <input type="text" name="nama_jabatan" class="form-control" id="nama_jabatan">
+                                    <input type="text" name="nama_jabatan" class="form-control"
+                                        id="nama_jabatan">
                                 </div>
 
                                 <div class="col-md-6 mb-3">
@@ -1155,7 +1182,8 @@
 
                                 <div class="col-md-4 mb-3">
                                     <label>Kode</label>
-                                    <input type="text" name="kode_tunjangan_kinerja" class="form-control" id="kode_tunjangan_kinerja">
+                                    <input type="text" name="kode_tunjangan_kinerja" class="form-control"
+                                        id="kode_tunjangan_kinerja">
                                     <!-- Suggestions will appear here -->
                                     <div class="card">
                                         <ul id="suggestionsListTunjanganKinerja" class="list-group suggestionsList"
@@ -1165,7 +1193,8 @@
 
                                 <div class="col-md-8 mb-3">
                                     <label>Nama Jabatan</label>
-                                    <input type="text" name="nama_jabatan" id="nama_jabatan_kinerja" class="form-control">
+                                    <input type="text" name="nama_jabatan" id="nama_jabatan_kinerja"
+                                        class="form-control">
                                 </div>
 
                                 <div class="col-md-6 mb-3">
@@ -1175,12 +1204,14 @@
 
                                 <div class="col-md-6 mb-3">
                                     <label>Nominal Tunjangan PO</label>
-                                    <input type="number" name="nominalpo" class="form-control" id="nominalpo_kinerja">
+                                    <input type="number" name="nominalpo" class="form-control"
+                                        id="nominalpo_kinerja">
                                 </div>
 
                                 <div class="col-md-6 mb-3">
                                     <label>Nominal Tunjangan CP</label>
-                                    <input type="number" name="nominalcp" class="form-control" id="nominalcp_kinerja">
+                                    <input type="number" name="nominalcp" class="form-control"
+                                        id="nominalcp_kinerja">
                                 </div>
 
                             </div>
@@ -1199,5 +1230,556 @@
         </div>
     </div>
 </div>
+{{-- End Modal --}}
 
+{{-- Modal Input Obat dan Periksa --}}
+<div class="modal modal-blur fade" id="modal-input-obat-periksa" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-full-width modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Input Komponen Gaji Pegawai</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <form action="" method="POST" id="form-inputobatperiksa">
+                @csrf
+                <div class="modal-body" id="modalBodyTop">
+                    <div class="row">
+
+                        {{-- Identitas --}}
+                        {{-- <div class="col-lg-3 mb-3">
+                            <label class="form-label">Nama Pegawai</label>
+                            <input type="hidden" name="idpegawai" id="idpegawai">
+                            <input type="number" name="namapegawai" class="form-control" required>
+                        </div> --}}
+                        <div class="col-lg-3">
+                            <div class="mb-3 position-relative">
+                                <label class="form-label">Nama Pegawai</label>
+                                <input type="text" name="namapegawai" id="namapegawaiobatperiksa"
+                                    class="form-control @error('namapegawai') is-invalid @enderror"
+                                    placeholder="Nama Pegawai">
+                                <input type="hidden" name="pegawai_fk" id="idpegawaiobatperiksa">
+                                <!-- Suggestions will appear here -->
+                                <div class="card">
+                                    <ul id="suggestionsListobatperiksa" class="list-group suggestionsList"
+                                        style="display: none;"></ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-2 mb-3">
+                            <label class="form-label">Periode Gaji</label>
+                            <input type="month" name="periodegaji" class="form-control">
+                        </div>
+
+                        <div class="col-lg-2 mb-3">
+                            <label class="form-label">Tanggal Transaksi</label>
+                            <input type="date" name="tanggaltransaksi" class="form-control">
+                        </div>
+
+                        <div class="col-lg-2 mb-3">
+                            <label class="form-label">Keterangan</label>
+                            <input type="text" name="keterangan" class="form-control">
+                        </div>
+
+                        {{-- Nama --}}
+                        <div class="col-lg-2 mb-3">
+                            <label class="form-label">Nominal Debit</label>
+                            <input type="text" id="nominaldebit" name="nominaldebit" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{{-- End Modal --}}
+
+{{-- Modal Edit Obat dan Periksa --}}
+
+{{-- End Modal --}}
+
+{{-- Modal Input Kretab --}}
+<div class="modal modal-blur fade" id="modal-input-kretab" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-full-width modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Input Kretab Pegawai</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <form action="" method="POST" id="form-inputkretab">
+                @csrf
+                <div class="modal-body" id="modalBodyTop">
+                    <div class="row">
+
+                        {{-- Identitas --}}
+                        {{-- <div class="col-lg-3 mb-3">
+                            <label class="form-label">Nama Pegawai</label>
+                            <input type="hidden" name="idpegawai" id="idpegawai">
+                            <input type="number" name="namapegawai" class="form-control" required>
+                        </div> --}}
+                        <div class="col-lg-3">
+                            <div class="mb-3 position-relative">
+                                <label class="form-label">Nama Pegawai</label>
+                                <input type="text" name="namapegawai" id="namapegawaikretab"
+                                    class="form-control @error('namapegawai') is-invalid @enderror"
+                                    placeholder="Nama Pegawai">
+                                <input type="hidden" name="pegawai_fk" id="idpegawaikretab">
+                                <!-- Suggestions will appear here -->
+                                <div class="card">
+                                    <ul id="suggestionsListkretab" class="list-group suggestionsList"
+                                        style="display: none;"></ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-2 mb-3">
+                            <label class="form-label">Periode Gaji</label>
+                            <input type="month" name="periodegaji" class="form-control">
+                        </div>
+
+                        <div class="col-lg-2 mb-3">
+                            <label class="form-label">Tanggal Transaksi</label>
+                            <input type="date" name="tanggaltransaksi" class="form-control">
+                        </div>
+
+                        <div class="col-lg-2 mb-3">
+                            <label class="form-label">Nominal Kretab</label>
+                            <input type="text" id="nominalkretab" name="nominalkretab" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{{-- End Modal --}}
+
+{{-- Modal Input Koperasi --}}
+<div class="modal modal-blur fade" id="modal-input-koperasi" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-full-width modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Input Data Koperasi Karyawan</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <form action="" method="POST" id="form-inputkoperasipegawai">
+                @csrf
+                <div class="modal-body" id="modalBodyTop">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="mb-3 position-relative">
+                                <label class="form-label">Nama Pegawai</label>
+                                <input type="text" name="namapegawai" id="namapegawaikopkar"
+                                    class="form-control @error('namapegawai') is-invalid @enderror"
+                                    placeholder="Nama Pegawai">
+                                <input type="hidden" name="pegawai_fk" id="idpegawaikopkar">
+                                <!-- Suggestions will appear here -->
+                                <div class="card">
+                                    <ul id="suggestionsListKopkar" class="list-group suggestionsList"
+                                        style="display: none;"></ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="mb-3 position-relative">
+                                <label class="form-label">Periode Gaji</label>
+                                <input type="month" name="periodegaji" id="periodegajikopkar"
+                                    class="form-control @error('periodegaji') is-invalid @enderror"
+                                    placeholder="Periode Gaji">
+                                <!-- Suggestions will appear here -->
+                                <div class="card">
+                                    <ul id="suggestionsListKopkar" class="list-group suggestionsList"
+                                        style="display: none;"></ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body" id="modalBodyBottom">
+                    <div class="row">
+                        <div class="card">
+                            <div class="card-header">
+                                <ul class="nav nav-tabs card-header-tabs" data-bs-toggle="tabs" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <a href="#tabs-simpanan-1" class="nav-link active" data-bs-toggle="tab"
+                                            aria-selected="true" role="tab">Simpanan</a>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <a href="#tabs-pinjaman-1" class="nav-link" data-bs-toggle="tab"
+                                            aria-selected="false" tabindex="-1" role="tab">Pinjaman</a>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <a href="#tabs-toko-1" class="nav-link" data-bs-toggle="tab"
+                                            aria-selected="false" tabindex="-1" role="tab">Toko</a>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <a href="#tabs-kredit-barang-1" class="nav-link" data-bs-toggle="tab"
+                                            aria-selected="false" tabindex="-1" role="tab">Kredit Barang</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="card-body">
+                                <div class="tab-content">
+                                    <div class="tab-pane active show" id="tabs-simpanan-1" role="tabpanel">
+                                        <div class="card">
+                                            {{-- == Simpanan == --}}
+                                            <div class="row p-2">
+                                                {{-- <div class="col-lg-3">
+                                                    <div class="mb-3 position-relative">
+                                                        <label class="form-label">Nama Pegawai</label>
+                                                        <input type="text" name="namapegawai" id="namapegawai"
+                                                            class="form-control @error('namapegawai') is-invalid @enderror"
+                                                            placeholder="Nama Pegawai">
+                                                        <input type="hidden" name="pegawai_fk" id="idpegawai">
+                                                        <!-- Suggestions will appear here -->
+                                                        <div class="card">
+                                                            <ul id="suggestionsList" class="list-group"
+                                                                style="display: none;"></ul>
+                                                        </div>
+                                                    </div>
+                                                </div> --}}
+
+                                                <div class="col-lg-2 mb-3">
+                                                    <label class="form-label">Pokok</label>
+                                                    <input type="text" name="simpananpokok" id="simpananpokok"
+                                                        class="form-control">
+                                                </div>
+
+                                                <div class="col-lg-2 mb-3">
+                                                    <label class="form-label">Wajib</label>
+                                                    <input type="text" name="simpananwajib" id="simpananwajib"
+                                                        class="form-control">
+                                                </div>
+
+                                                <div class="col-lg-2 mb-3">
+                                                    <label class="form-label">Sukarela</label>
+                                                    <input type="text" name="simpanansukarela"
+                                                        id="simpanansukarela" class="form-control">
+                                                </div>
+
+                                                <div class="col-lg-2 mb-3">
+                                                    <label class="form-label">Idul Fitri</label>
+                                                    <input type="text" name="simpananidulfitri"
+                                                        id="simpananidulfitri" class="form-control">
+                                                </div>
+
+                                                {{-- Nama --}}
+                                                <div class="col-lg-2 mb-3">
+                                                    <label class="form-label">Idul Adha</label>
+                                                    <input type="text" id="simpananiduladha"
+                                                        name="simpananiduladha" class="form-control">
+                                                </div>
+
+                                                <div class="col-lg-2 mb-3">
+                                                    <label class="form-label">Jumlah Simpanan</label>
+                                                    <input type="text" id="jumlahsimpanan"
+                                                        name="jumlahsimpanan" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{-- Pinjaman --}}
+                                    <div class="tab-pane" id="tabs-pinjaman-1" role="tabpanel">
+                                        <div class="card">
+                                            <div class="row p-2">
+                                                {{-- <div class="col-lg-3">
+                                                    <div class="mb-3 position-relative">
+                                                        <label class="form-label">Nama Pegawai</label>
+                                                        <input type="text" name="namapegawai" id="namapegawai"
+                                                            class="form-control @error('namapegawai') is-invalid @enderror"
+                                                            placeholder="Nama Pegawai">
+                                                        <input type="hidden" name="pegawai_fk" id="idpegawai">
+                                                        <!-- Suggestions will appear here -->
+                                                        <div class="card">
+                                                            <ul id="suggestionsList" class="list-group"
+                                                                style="display: none;"></ul>
+                                                        </div>
+                                                    </div>
+                                                </div> --}}
+
+                                                <div class="col-lg-2 mb-3">
+                                                    <label class="form-label">Angsuran Ke</label>
+                                                    <input type="text" name="angsuranke" id="angsuranke"
+                                                        class="form-control">
+                                                </div>
+
+                                                <div class="col-lg-2 mb-3">
+                                                    <label class="form-label">Angsuran Pokok</label>
+                                                    <input type="text" name="angsuranpokok" id="angsuranpokok"
+                                                        class="form-control">
+                                                </div>
+
+                                                <div class="col-lg-2 mb-3">
+                                                    <label class="form-label">Jasa</label>
+                                                    <input type="text" name="angsuranjasa" id="angsuranjasa"
+                                                        class="form-control">
+                                                </div>
+
+                                                <div class="col-lg-2 mb-3">
+                                                    <label class="form-label">Jumlah Angsuran</label>
+                                                    <input type="text" name="jumlahangsuran"
+                                                        id="jumlahangsuran" class="form-control">
+                                                </div>
+                                                <div class="col-lg-2 mb-3">
+                                                    <label class="form-label">Total Simpan Pinjam</label>
+                                                    <input type="text" name="totalsimpanpinjam"
+                                                        id="totalsimpanpinjam" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{-- Toko --}}
+                                    <div class="tab-pane" id="tabs-toko-1" role="tabpanel">
+                                        <div class="card">
+                                            <div class="row p-2">
+                                                {{-- <div class="col-lg-3">
+                                                    <div class="mb-3 position-relative">
+                                                        <label class="form-label">Nama Pegawai</label>
+                                                        <input type="text" name="namapegawai" id="namapegawai"
+                                                            class="form-control @error('namapegawai') is-invalid @enderror"
+                                                            placeholder="Nama Pegawai">
+                                                        <input type="hidden" name="pegawai_fk" id="idpegawai">
+                                                        <!-- Suggestions will appear here -->
+                                                        <div class="card">
+                                                            <ul id="suggestionsList" class="list-group"
+                                                                style="display: none;"></ul>
+                                                        </div>
+                                                    </div>
+                                                </div> --}}
+
+                                                <div class="col-lg-2 mb-3">
+                                                    <label class="form-label">Voucher</label>
+                                                    <input type="text" name="vouchertoko" id="vouchertoko"
+                                                        class="form-control">
+                                                </div>
+
+                                                <div class="col-lg-2 mb-3">
+                                                    <label class="form-label">Bon</label>
+                                                    <input type="text" name="bontoko" id="bontoko"
+                                                        class="form-control">
+                                                </div>
+
+                                                <div class="col-lg-2 mb-3">
+                                                    <label class="form-label">Jumlah Toko</label>
+                                                    <input type="text" name="jumlahtoko" id="jumlahtoko"
+                                                        class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{-- kredit barang --}}
+                                    <div class="tab-pane" id="tabs-kredit-barang-1" role="tabpanel">
+                                        <div class="card">
+                                            <div class="row p-2">
+                                                {{-- <div class="col-lg-3">
+                                                    <div class="mb-3 position-relative">
+                                                        <label class="form-label">Nama Pegawai</label>
+                                                        <input type="text" name="namapegawai" id="namapegawai"
+                                                            class="form-control @error('namapegawai') is-invalid @enderror"
+                                                            placeholder="Nama Pegawai">
+                                                        <input type="hidden" name="pegawai_fk" id="idpegawai">
+                                                        <!-- Suggestions will appear here -->
+                                                        <div class="card">
+                                                            <ul id="suggestionsList" class="list-group"
+                                                                style="display: none;"></ul>
+                                                        </div>
+                                                    </div>
+                                                </div> --}}
+
+                                                <div class="col-lg-2 mb-3">
+                                                    <label class="form-label">Angsuran Ke</label>
+                                                    <input type="text" name="angsurankreditke"
+                                                        id="angsurankreditke" class="form-control">
+                                                </div>
+
+                                                <div class="col-lg-2 mb-3">
+                                                    <label class="form-label">Angsuran Pokok</label>
+                                                    <input type="text" name="angsurankreditpokok"
+                                                        id="angsurankreditpokok" class="form-control">
+                                                </div>
+
+                                                <div class="col-lg-2 mb-3">
+                                                    <label class="form-label">Jasa</label>
+                                                    <input type="text" name="angsurankreditjasa"
+                                                        id="angsurankreditjasa" class="form-control">
+                                                </div>
+
+                                                <div class="col-lg-2 mb-3">
+                                                    <label class="form-label">Jumlah Angsuran</label>
+                                                    <input type="text" name="jumlahangsurankredit"
+                                                        id="jumlahangsurankredit" class="form-control">
+                                                </div>
+                                                <div class="col-lg-2 mb-3">
+                                                    <label class="form-label">Total Simpan Pinjam</label>
+                                                    <input type="text" name="totalsemua"
+                                                        id="totalsemuakoperasi" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+{{-- End Modal --}}
+
+{{-- Modal Input Potongan lain --}}
+<div class="modal modal-blur fade" id="modal-input-potongan-lain" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-full-width modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Input Data Potongan Lain Pegawai</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <form action="" method="POST" id="form-inputpotonganlainpegawai">
+                @csrf
+                <div class="modal-body" id="modalBodyTop">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="mb-3 position-relative">
+                                <label class="form-label">Nama Pegawai</label>
+                                <input type="text" name="namapegawai" id="namapegawaipotlain"
+                                    class="form-control @error('namapegawai') is-invalid @enderror"
+                                    placeholder="Nama Pegawai">
+                                <input type="hidden" name="pegawai_fk" id="idpegawaipotlain">
+                                <!-- Suggestions will appear here -->
+                                <div class="card">
+                                    <ul id="suggestionsListPotlain" class="list-group suggestionsList"
+                                        style="display: none;"></ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="mb-3 position-relative">
+                                <label class="form-label">Periode Gaji</label>
+                                <input type="month" name="periodegaji" id="periodegajipotlain"
+                                    class="form-control @error('periodegaji') is-invalid @enderror"
+                                    placeholder="Periode Gaji">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body" id="modalBodyBottom">
+                    <div class="row">
+                        <div class="card">
+                            <div class="card-header">
+                                <ul class="nav nav-tabs card-header-tabs" data-bs-toggle="tabs" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <a href="#tabs-simpanan-1" class="nav-link active" data-bs-toggle="tab"
+                                            aria-selected="true" role="tab">Potongan Lain</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="card-body">
+                                <div class="tab-content">
+                                    <div class="tab-pane active show" id="tabs-simpanan-1" role="tabpanel">
+                                        <div class="card">
+                                            {{-- == Simpanan == --}}
+                                            <div class="row p-2">
+                                                {{-- <div class="col-lg-3">
+                                                    <div class="mb-3 position-relative">
+                                                        <label class="form-label">Nama Pegawai</label>
+                                                        <input type="text" name="namapegawai" id="namapegawai"
+                                                            class="form-control @error('namapegawai') is-invalid @enderror"
+                                                            placeholder="Nama Pegawai">
+                                                        <input type="hidden" name="pegawai_fk" id="idpegawai">
+                                                        <!-- Suggestions will appear here -->
+                                                        <div class="card">
+                                                            <ul id="suggestionsList" class="list-group"
+                                                                style="display: none;"></ul>
+                                                        </div>
+                                                    </div>
+                                                </div> --}}
+
+                                                <div class="col-lg-2 mb-3">
+                                                    <label class="form-label">Bukopin</label>
+                                                    <input type="text" name="bukopin" id="potlain-bukopin"
+                                                        class="form-control">
+                                                </div>
+
+                                                <div class="col-lg-2 mb-3">
+                                                    <label class="form-label">BTCLS</label>
+                                                    <input type="text" name="btcls" id="potlain-btcls"
+                                                        class="form-control">
+                                                </div>
+
+                                                <div class="col-lg-2 mb-3">
+                                                    <label class="form-label">Lainnya</label>
+                                                    <input type="text" name="lainnya"
+                                                        id="potlain-lainnya" class="form-control">
+                                                </div>
+
+                                                <div class="col-lg-2 mb-3">
+                                                    <label class="form-label">Gaji Proporsi</label>
+                                                    <input type="text" name="gajiproporsi" id="potlain-gajiproporsi"
+                                                        class="form-control">
+                                                </div>
+                                                <div class="col-lg-2 mb-3">
+                                                    <label class="form-label">Diklat</label>
+                                                    <input type="text" id="potlain-diklat"
+                                                        name="diklat" class="form-control">
+                                                </div>
+                                                <div class="col-lg-2 mb-3">
+                                                    <label class="form-label">Seragam</label>
+                                                    <input type="text" id="potlain-seragam"
+                                                        name="seragam" class="form-control">
+                                                </div>
+                                                <div class="col-lg-2 mb-3">
+                                                    <label class="form-label">Kas Unit</label>
+                                                    <input type="text" id="potlain-kasunit"
+                                                        name="kasunit" class="form-control">
+                                                </div>
+                                                <div class="col-lg-2 mb-3">
+                                                    <label class="form-label">Jumlah</label>
+                                                    <input type="text" id="jumlahpotonganlain"
+                                                        name="jumlah" class="form-control">
+                                                </div>
+                                                <div class="col-lg-5 mb-3">
+                                                    <label class="form-label">Keterangan</label>
+                                                    <input type="text" id="potlain-keterangan"
+                                                        name="keterangan" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
 {{-- End Modal --}}

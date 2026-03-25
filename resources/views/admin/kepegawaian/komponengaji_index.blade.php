@@ -411,6 +411,9 @@
 
     <script>
         $(document).ready(function() {
+            function formatRupiah(value) {
+                return value ? 'Rp ' + parseFloat(value).toLocaleString('id-ID') : '-';
+            }
             //function show suggestions tunjangan pangan
             function showSuggestionsTunjanganPangan() {
                 $('#suggestionsListTunjanganPangan').show();
@@ -444,10 +447,10 @@
                             html += '<td>' + rowNumber + '</td>';
                             html += '<td>' + item.kode_status_kawin + '</td>';
                             html += '<td>' + item.status_kawin + '</td>';
-                            html += '<td>' + (item.tunjangan_pasangan ?? '-') + '</td>';
-                            html += '<td>' + (item.tunjangan_anak ?? '-') + '</td>';
-                            html += '<td>' + (item.tunjangan_pangan ?? '-') + '</td>';
-                            html += '<td>' + (item.ptkp ?? '-') + '</td>';
+                            html += '<td>' + formatRupiah(item.tunjangan_pasangan ?? '-') + '</td>';
+                            html += '<td>' + formatRupiah(item.tunjangan_anak ?? '-') + '</td>';
+                            html += '<td>' + formatRupiah(item.tunjangan_pangan ?? '-') + '</td>';
+                            html += '<td>' + formatRupiah(item.ptkp ?? '-') + '</td>';
                             html += '</tr>';
                         });
                         $('#tableTunjanganPangan').html(html);
@@ -489,8 +492,8 @@
                             html += '<td>' + item.status_kawin + '</td>';
                             html += '<td>' + (item.tunjangan_pasangan ?? '-') + '</td>';
                             html += '<td>' + (item.tunjangan_anak ?? '-') + '</td>';
-                            html += '<td>' + (item.tunjangan_pangan ?? '-') + '</td>';
-                            html += '<td>' + (item.ptkp ?? '-') + '</td>';
+                            html += '<td>' + formatRupiah(item.tunjangan_pangan ?? '-') + '</td>';
+                            html += '<td>' + formatRupiah(item.ptkp ?? '-') + '</td>';
                             html += '</tr>';
                         });
 
@@ -668,11 +671,11 @@
                             html += '<td>' + item.jabatan_fungsional + '</td>';
                             html += '<td>' + (item.persentase_tunjangan ?? '-') + '</td>';
                             html += '<td>' + (item.indeks_tunjangan ?? '-') + '</td>';
-                            html += '<td>' + (item.nilai_tunjangan ?? '-') + '</td>';
-                            html += '<td>' + (item.mkkurang5 ?? '-') + '</td>';
-                            html += '<td>' + (item.mkkurang10 ?? '-') + '</td>';
-                            html += '<td>' + (item.mklebih10 ?? '-') + '</td>';
-                            html += '<td>' + (item.ifpegawaitetap ?? '-') + '</td>';
+                            html += '<td>' + formatRupiah(item.nilai_tunjangan ?? '-') + '</td>';
+                            html += '<td>' + formatRupiah(item.mkkurang5 ?? '-') + '</td>';
+                            html += '<td>' + formatRupiah(item.mkkurang10 ?? '-') + '</td>';
+                            html += '<td>' + formatRupiah(item.mklebih10 ?? '-') + '</td>';
+                            html += '<td>' + formatRupiah(item.ifpegawaitetap ?? '0') + '</td>';
                             html += '<td>' + (item.keterangan ?? '-') + '</td>';
                             html += '</tr>';
                         });
@@ -715,11 +718,11 @@
                             html += '<td>' + item.jabatan_fungsional + '</td>';
                             html += '<td>' + (item.persentase_tunjangan ?? '-') + '</td>';
                             html += '<td>' + (item.indeks_tunjangan ?? '-') + '</td>';
-                            html += '<td>' + (item.nilai_tunjangan ?? '-') + '</td>';
-                            html += '<td>' + (item.mkkurang5 ?? '-') + '</td>';
-                            html += '<td>' + (item.mkkurang10 ?? '-') + '</td>';
-                            html += '<td>' + (item.mklebih10 ?? '-') + '</td>';
-                            html += '<td>' + (item.ifpegawaitetap ?? '-') + '</td>';
+                            html += '<td>' + formatRupiah(item.nilai_tunjangan ?? '-') + '</td>';
+                            html += '<td>' + formatRupiah(item.mkkurang5 ?? '-') + '</td>';
+                            html += '<td>' + formatRupiah(item.mkkurang10 ?? '-') + '</td>';
+                            html += '<td>' + formatRupiah(item.mklebih10 ?? '-') + '</td>';
+                            html += '<td>' + formatRupiah(item.ifpegawaitetap ?? '0') + '</td>';
                             html += '<td>' + (item.keterangan ?? '-') + '</td>';
                             html += '</tr>';
                         });
@@ -923,9 +926,9 @@
                             html += '<td>' + rowNumber + '</td>';
                             html += '<td>' + item.kode_jabatan + '</td>';
                             html += '<td>' + item.nama_jabatan + '</td>';
-                            html += '<td>' + (item.nominal ?? '-') + '</td>';
-                            html += '<td>' + (item.nominalpo ?? '-') + '</td>';
-                            html += '<td>' + (item.nominalcp ?? '-') + '</td>';
+                            html += '<td>' + formatRupiah(item.nominal ?? '-') + '</td>';
+                            html += '<td>' + formatRupiah(item.nominalpo ?? '-') + '</td>';
+                            html += '<td>' + formatRupiah(item.nominalcp ?? '-') + '</td>';
                             html += '</tr>';
                         });
                         $('#tableTunjanganJabatan').html(html);
@@ -965,9 +968,9 @@
                             html += '<td>' + rowNumber + '</td>';
                             html += '<td>' + item.kode_jabatan + '</td>';
                             html += '<td>' + item.nama_jabatan + '</td>';
-                            html += '<td>' + (item.nominal ?? '-') + '</td>';
-                            html += '<td>' + (item.nominalpo ?? '-') + '</td>';
-                            html += '<td>' + (item.nominalcp ?? '-') + '</td>';
+                            html += '<td>' + formatRupiah(item.nominal ?? '-') + '</td>';
+                            html += '<td>' + formatRupiah(item.nominalpo ?? '-') + '</td>';
+                            html += '<td>' + formatRupiah(item.nominalcp ?? '-') + '</td>';
                             html += '</tr>';
                         });
 

@@ -29047,6 +29047,7 @@ td {
   display: none;
   background-color: #fff;
 }
+
 .suggestionsList {
   position: absolute;
   z-index: 1000;
@@ -29077,4 +29078,29 @@ td {
 .modal-body.with-suggestion {
   margin-top: 160px;
   /* sesuaikan tinggi suggestion */
+}
+
+#tablePegawai {
+  table-layout: fixed;
+  width: 100%;
+}
+
+#tablePegawai td,
+#tablePegawai th {
+  padding: 4px;
+  vertical-align: middle;
+  font-size: 13px;
+}
+
+#tablePegawai input.form-control {
+  width: 100%;
+  min-width: 80px;
+  padding: 2px 6px;
+  height: 24px;
+  font-size: 12px;
+  text-align: right;
+}
+
+.col-angka {
+  width: 90px;
 }

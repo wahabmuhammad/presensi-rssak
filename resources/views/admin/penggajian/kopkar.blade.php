@@ -1,5 +1,4 @@
 @extends('admin.layout.masterLayout')
-
 @section('content')
     <div class="container-xl">
         <div class="page-header d-print-none">
@@ -20,13 +19,13 @@
                             Administrator
                         </div>
                         <h2 class="page-title">
-                            Data Obat dan Periksa Pegawai
+                            Data Koperasi Pegawai
                         </h2>
                     </div>
                     <!-- Page title actions -->
                     <div class="col-auto ms-auto d-print-none">
                         <div class="btn-list">
-                            <button class="btn btn-primary d-none d-sm-inline-block" id="editKomponenGaji">
+                            <button class="btn btn-primary d-none d-sm-inline-block" id="editKoperasiPegawai">
                                 <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -37,14 +36,14 @@
                                     <path d="M6 21v-2a4 4 0 0 1 4 -4h3.5" />
                                     <path d="M18.42 15.61a2.1 2.1 0 0 1 2.97 2.97l-3.39 3.42h-3v-3l3.42 -3.39" />
                                 </svg>
-                                Edit Obat dan Periksa Pegawai
+                                Edit Kretab Pegawai
                             </button>
                         </div>
                     </div>
                     <div class="col-auto ms-auto d-print-none">
                         <div class="btn-list">
                             <button class="btn btn-primary d-none d-sm-inline-block" data-bs-toggle="modal"
-                                data-bs-target="#modal-input-obat-periksa">
+                                data-bs-target="#modal-input-koperasi">
                                 <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -58,7 +57,7 @@
                                         d="M10 20.25c0 .414 .336 .75 .75 .75h1.25a1 1 0 0 0 1 -1v-1a1 1 0 0 0 -1 -1h-1a1 1 0 0 1 -1 -1v-1a1 1 0 0 1 1 -1h1.25a.75 .75 0 0 1 .75 .75" />
                                     <path d="M16 15l2 6l2 -6" />
                                 </svg>
-                                Tambah Obat dan Periksa Pegawai
+                                Tambah Kretab Pegawai
                             </button>
                             {{-- <a href="" class="btn btn-primary d-sm-none btn-icon" data-bs-toggle="modal"
                                 data-bs-target="#modal-komponen-gaji" aria-label="Buat User Baru">
@@ -79,7 +78,7 @@
         <div class="col-12", style="margin-top: 30px">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-tittle">Daftar Pegawai</h3>
+                    <h3 class="card-tittle">DAFTAR PEMBAYARAN SIMPAN PINJAM & TOKO (RS. SARKIES AISYIYAH KUDUS)</h3>
                 </div>
                 <div class="card-body border-bottom py-3">
                     <div class="row d-flex">
@@ -91,11 +90,11 @@
                             </div>
                             entries
                         </div>
-                        <div class="col ms-auto text-secondary">
+                        {{-- <div class="col ms-auto text-secondary">
                             <label class="form-label" for="date_start">Tanggal Awal</label>
                             <div class="input-group">
-                                <input type="date" id="tglAwal" value="{{ Request::get('date_start') }}" class="form-control"
-                                    placeholder="" name="date_start" aria-label="Search in website">
+                                <input type="date" id="tglAwal" value="{{ Request::get('date_start') }}"
+                                    class="form-control" placeholder="" name="date_start" aria-label="Search in website">
                                 <span class="input-group-text" id="basic-addon1">
                                     <!-- Download SVG icon from http://tabler-icons.io/i/search -->
                                     <svg xmlns="http://www.w3.org/2000/svg"
@@ -112,12 +111,12 @@
                                     </svg>
                                 </span>
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="col ms-auto text-secondary">
-                            <label class="form-label" for="date_to">Tanggal Akhir</label>
+                            <label class="form-label" for="date_to">Periode Gaji</label>
                             <div class="input-group">
-                                <input type="date" id="tglAkhir" value="{{ Request::get('date_to') }}" class="form-control"
-                                    placeholder="" name="date_to" aria-label="Search in website">
+                                <input type="month" id="periodegaji" value="{{ Request::get('periodegaji') }}"
+                                    class="form-control" placeholder="" name="periodegaji" aria-label="Search in website">
                                 <span class="input-group-text" id="basic-addon1">
                                     <!-- Download SVG icon from http://tabler-icons.io/i/search -->
                                     <svg xmlns="http://www.w3.org/2000/svg"
@@ -160,13 +159,34 @@
                     <table class="table table-vcenter table-mobile-md card-table table-bordered table-sticky">
                         <thead>
                             <tr>
-                                <th>No</th>
-                                <th>NIP</th>
-                                <th>Nama Pegawai</th>
-                                <th>Periode Gaji</th>
-                                <th>Tanggal Transaksi</th>
-                                <th>Debit</th>
-                                <th>Keterangan</th>
+                                <th rowspan="2">No</th>
+                                <th rowspan="2">NIP</th>
+                                <th rowspan="2">Nama Pegawai</th>
+                                <th colspan="6">Simpanan</th>
+                                <th colspan="4">Pinjaman</th>
+                                <th rowspan="2">Jumlah Simpan Pinjam</th>
+                                <th colspan="3">Toko</th>
+                                <th colspan="4">Kredit Barang</th>
+                                <th rowspan="2">Total Toko dan Simpan Pinjam</th>
+                            </tr>
+                            <tr>
+                                <th rowspan="2">Pokok</th>
+                                <th rowspan="2">Wajib</th>
+                                <th rowspan="2">Sukarela</th>
+                                <th rowspan="2">Idul Fitri</th>
+                                <th rowspan="2">Idul Adha</th>
+                                <th rowspan="2">Jumlah Simpanan</th>
+                                <th rowspan="2">Angsuran Ke</th>
+                                <th rowspan="2">Angsuran Pokok</th>
+                                <th rowspan="2">Jasa</th>
+                                <th rowspan="2">Jumlah Angsuran</th>
+                                <th rowspan="2">Voucher</th>
+                                <th rowspan="2">Bon</th>
+                                <th rowspan="2">Jumlah Toko</th>
+                                <th rowspan="2">Angsuran Ke</th>
+                                <th rowspan="2">Pokok</th>
+                                <th rowspan="2">Jasa</th>
+                                <th rowspan="2">Jumlah Angsuran</th>
                             </tr>
                         </thead>
                         <tbody id="tablePegawai">
@@ -199,18 +219,24 @@
     @include('admin.layout.modal')
     <script>
         $(document).ready(function() {
-            let today = new Date().toISOString().split('T')[0];
-            $('#tglAwal').val(today);
-            $('#tglAkhir').val(today);
+            if ($('#periodegaji').val() === '') {
+
+                let now = new Date();
+                let year = now.getFullYear();
+                let month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+                let currentMonth = year + '-' + month;
+
+                $('#periodegaji').val(currentMonth);
+            }
 
             function loadData(page = 1) {
                 $.ajax({
-                    url: '{{ url('/potongan/obat-periksa-pegawai/get-data-obat-periksa?page=') }}' + page,
+                    url: '{{ url('/potongan/koperasi-pegawai/get-data-koperasi?page=') }}' + page,
                     method: 'GET',
                     data: {
                         keyword: $('#search').val(),
-                        tglAwal: $('#tglAwal').val(),
-                        tglAkhir: $('#tglAkhir').val(),
+                        periodegaji: $('#periodegaji').val(),
                         page: page
                     },
                     dataType: 'json',
@@ -228,14 +254,29 @@
                             let rowNumber = startIndex + index + 1;
 
                             html += `
-                            <tr>
+                            <tr class="pegawai-row" data-id="${item.id}">
                                 <td>${rowNumber}</td>
                                 <td>${item.nip_pegawai ?? '-'}</td>
                                 <td>${item.nama_pegawai ?? '-'}</td>
-                                <td>${item.periodegaji ?? '-'}</td>
-                                <td>${item.tanggaltransaksi ?? '-'}</td>
-                                <td>Rp ${parseFloat(item.debit).toLocaleString('id-ID')}</td>
-                                <td>${item.keterangan ?? '-'}</td>
+                                <td>Rp ${parseFloat(item.simpananpokok ?? 0).toLocaleString('id-ID')}</td>
+                                <td>Rp ${parseFloat(item.simpananwajib ?? 0).toLocaleString('id-ID')}</td>
+                                <td>Rp ${parseFloat(item.simpanansukarela ?? 0).toLocaleString('id-ID')}</td>
+                                <td>Rp ${parseFloat(item.simpananidulfitri ?? 0).toLocaleString('id-ID')}</td>
+                                <td>Rp ${parseFloat(item.simpananiduladha ?? 0).toLocaleString('id-ID')}</td>
+                                <td>Rp ${parseFloat(item.jumlahsimpanan ?? 0).toLocaleString('id-ID')}</td>
+                                <td>${item.angsuranke ?? '-'}</td>
+                                <td>Rp ${parseFloat(item.angsuranpokok ?? 0).toLocaleString('id-ID')}</td>
+                                <td>Rp ${parseFloat(item.angsuranjasa ?? 0).toLocaleString('id-ID')}</td>
+                                <td>Rp ${parseFloat(item.jumlahangsuran ?? 0).toLocaleString('id-ID')}</td>
+                                <td>Rp ${parseFloat(item.totalsimpanpinjam ?? 0).toLocaleString('id-ID')}</td>
+                                <td>Rp ${parseFloat(item.vouchertoko ?? 0).toLocaleString('id-ID')}</td>
+                                <td>Rp ${parseFloat(item.bontoko ?? 0).toLocaleString('id-ID')}</td>
+                                <td>Rp ${parseFloat(item.jumlahtoko ?? 0).toLocaleString('id-ID')}</td>
+                                <td>${item.angsurankreditke ?? '-'}</td>
+                                <td>Rp ${parseFloat(item.angsurankreditpokok ?? 0).toLocaleString('id-ID')}</td>
+                                <td>Rp ${parseFloat(item.angsurankreditjasa ?? 0).toLocaleString('id-ID')}</td>
+                                <td>Rp ${parseFloat(item.jumlahangsurankredit ?? 0).toLocaleString('id-ID')}</td>
+                                <td>Rp ${parseFloat(item.totalsemua ?? 0).toLocaleString('id-ID')}</td>
                             </tr>
                             `;
                         });
@@ -255,13 +296,12 @@
 
             function searchData(keyword, page = 1) {
                 $.ajax({
-                    url: '{{ url('/potongan/obat-periksa-pegawai/get-data-obat-periksa?page=') }}' + page,
+                    url: '{{ url('/potongan/koperasi-pegawai/get-data-koperasi?page=') }}' + page,
                     method: 'GET',
                     dataType: 'json',
                     data: {
                         keyword: $('#search').val(),
-                        tglAwal: $('#tglAwal').val(),
-                        tglAkhir: $('#tglAkhir').val(),
+                        periodegaji: $('#periodegaji').val(),
                         page: page
                     },
                     beforeSend: function() {
@@ -282,7 +322,7 @@
                                 <td>${item.nama_pegawai ?? '-'}</td>
                                 <td>${item.periodegaji ?? '-'}</td>
                                 <td>${item.tanggaltransaksi ?? '-'}</td>
-                                <td>Rp ${parseFloat(item.debit).toLocaleString('id-ID')}</td>
+                                <td>Rp ${parseFloat(item.nominal).toLocaleString('id-ID')}</td>
                                 <td>${item.keterangan ?? '-'}</td>
                             </tr>
                             `;
@@ -301,16 +341,16 @@
             }
 
             function showSuggestions() {
-                $('#suggestionsListobatperiksa').show();
+                $('#suggestionsListKopkar').show();
                 $('#modalBodyBottom').addClass('with-suggestion');
             }
 
             function hideSuggestions() {
-                $('#suggestionsListobatperiksa').hide();
+                $('#suggestionsListKopkar').hide();
                 $('#modalBodyBottom').removeClass('with-suggestion');
             }
 
-            $('#namapegawaiobatperiksa').on('keyup', function() {
+            $('#namapegawaikopkar').on('keyup', function() {
                 let query = $(this).val();
                 if (query.length > 1) { // Start searching after 1 characters
                     $.ajax({
@@ -321,7 +361,7 @@
                         },
                         success: function(response) {
                             // Show the suggestions
-                            let suggestionsList = $('#suggestionsListobatperiksa');
+                            let suggestionsList = $('#suggestionsListKopkar');
                             suggestionsList.empty(); // Clear previous suggestions
                             if (response.length > 0) {
                                 response.forEach(function(item) {
@@ -371,34 +411,35 @@
 
 
             // Select a suggestion
-            $(document).on('click', '#suggestionsListobatperiksa li', function() {
+            $(document).on('click', '#suggestionsListKopkar li', function() {
                 let selectedText = $(this).text();
                 let selectedId = $(this).data('id');
-                $('#namapegawaiobatperiksa').val(selectedText);
-                $('#idpegawaiobatperiksa').val(selectedId);
-                $.ajax({
-                    url: '{{ url('/get-komponen-gaji/pegawai') }}', // Adjust URL if needed
-                    method: 'GET',
-                    data: {
-                        data: selectedId,
-                    },
-                    success: function(response) {
-                        // $('#hargaLayanan').val(response.harga);
-                    }
-                });
+                console.log(selectedId);
+                $('#namapegawaikopkar').val(selectedText);
+                $('#idpegawaikopkar').val(selectedId);
+                // $.ajax({
+                //     url: '{{ url('/get-komponen-gaji/pegawai') }}', // 
+                //     method: 'GET',
+                //     data: {
+                //         data: selectedId,
+                //     },
+                //     success: function(response) {
+                //         // $('#hargaLayanan').val(response.harga);
+                //     }
+                // });
                 hideSuggestions();
             });
 
             //ketika diklik di luar suggestionsList, maka suggestionsList hilang
             $(document).on('click', function(e) {
-                if (!$(e.target).closest('#namapegawaiobatperiksa, #suggestionsListobatperiksa').length) {
+                if (!$(e.target).closest('#namapegawaikopkar, #suggestionsListKopkar').length) {
                     hideSuggestions();
                 }
             });
 
             function saveData(formData) {
                 $.ajax({
-                    url: 'obat-periksa-pegawai/simpan', // Adjust this URL to your save endpoint
+                    url: '{{ url('/potongan/koperasi-pegawai/simpan') }}', // Adjust this URL to your save endpoint
                     method: 'POST',
                     data: formData,
                     dataType: 'json',
@@ -440,7 +481,7 @@
                 });
             }
 
-            $('#form-inputobatperiksa').on('submit', function(e) {
+            $('#form-inputkoperasipegawai').on('submit', function(e) {
                 e.preventDefault(); // Prevent the default form submission
 
                 let formData = $(this).serialize(); // Serialize the form data
@@ -472,7 +513,7 @@
                 }
             });
             //edit komponen gaji pegawai
-            $('#editKomponenGaji').on('click', function() {
+            $('#editKoperasiPegawai').on('click', function() {
                 if (!pegawaiId) {
                     Swal.fire({
                         title: "Error",
@@ -567,6 +608,91 @@
 
                 // reset id pegawai
                 pegawaiId = null;
+            });
+
+            function toNumber(val) {
+                if (val == "") return 0;
+                return parseFloat(val.toString().replace(/,/g, '')) || 0;
+            }
+
+            function hitungSimpanan() {
+                let pokok = toNumber($("#simpananpokok").val());
+                let wajib = toNumber($("#simpananwajib").val());
+                let sukarela = toNumber($("#simpanansukarela").val());
+                let fitri = toNumber($("#simpananidulfitri").val());
+                let adha = toNumber($("#simpananiduladha").val());
+
+                let total = pokok + wajib + sukarela + fitri + adha;
+
+                $("#jumlahsimpanan").val(total);
+
+                hitungTotalSemua();
+            }
+
+            function hitungPinjaman() {
+                let pokok = toNumber($("#angsuranpokok").val());
+                let jasa = toNumber($("#angsuranjasa").val());
+
+                let total = pokok + jasa;
+
+                $("#jumlahangsuran").val(total);
+
+                hitungTotalSemua();
+            }
+
+            function hitungToko() {
+                let voucher = toNumber($("#vouchertoko").val());
+                let bon = toNumber($("#bontoko").val());
+
+                let total = voucher + bon;
+
+                $("#jumlahtoko").val(total);
+
+                hitungTotalSemua();
+            }
+
+            function hitungKredit() {
+                let pokok = toNumber($("#angsurankreditpokok").val());
+                let jasa = toNumber($("#angsurankreditjasa").val());
+
+                let total = pokok + jasa;
+
+                $("#jumlahangsurankredit").val(total);
+
+                hitungTotalSemua();
+            }
+
+            function hitungTotalSemua() {
+                let simpanan = toNumber($("#jumlahsimpanan").val());
+                let pinjaman = toNumber($("#jumlahangsuran").val());
+                let toko = toNumber($("#jumlahtoko").val());
+                let kredit = toNumber($("#jumlahangsurankredit").val());
+
+                let total = simpanan + pinjaman + toko + kredit;
+
+                $("#totalsimpanpinjam").val(total);
+                $("#totalsemuakoperasi").val(total);
+            }
+            // Event Simpanan
+            $("#simpananpokok, #simpananwajib, #simpanansukarela, #simpananidulfitri, #simpananiduladha").on(
+                "keyup change",
+                function() {
+                    hitungSimpanan();
+                });
+
+            // Event Pinjaman
+            $("#angsuranpokok, #angsuranjasa").on("keyup change", function() {
+                hitungPinjaman();
+            });
+
+            // Event Toko
+            $("#vouchertoko, #bontoko").on("keyup change", function() {
+                hitungToko();
+            });
+
+            // Event Kredit Barang
+            $("#angsurankreditpokok, #angsurankreditjasa").on("keyup change", function() {
+                hitungKredit();
             });
         });
     </script>
